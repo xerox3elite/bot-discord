@@ -1,0 +1,39 @@
+{
+  "hunters_data": {
+    "Awakening": {
+      "name": "Awakening",
+      "role": "Unknown",
+      "stats": {
+        "hp": [],
+        "attack": [],
+        "speed": 0
+      },
+      "perks_count": 0,
+      "awaken_1": {
+        "description": "Awaken 1 info not available"
+      },
+      "awaken_2": null,
+      "image_url": "https://more-huntroyale.com/assets/images/hunters/Awakening.png",
+      "last_updated": "2025-08-14T00:17:32.572293",
+      "source": "scraped_basic"
+    },
+    "Range": {
+      "name": "Range",
+      "role": "Unknown",
+      "stats": {
+        "hp": [],
+        "attack": [],
+        "speed": 0
+      },
+      "perks_count": 0,
+      "awaken_1": {
+        "description": "Awaken 1 info not available"
+      },
+      "awaken_2": null,
+      "image_url": "https://more-huntroyale.com/assets/images/hunters/Range.png",
+      "last_updated": "2025-08-14T00:17:33.333292",
+      "source": "scraped_basic"
+    }
+  },
+  "last_update": "2025-08-14T00:17:33.823300"
+}
