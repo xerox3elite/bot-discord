@@ -7,9 +7,9 @@ import random
 import aiohttp
 from datetime import datetime, timezone
 from discord.ext import tasks
-from core.logger import get_logger
+import core.logger
 
-log = get_logger(__name__)
+log = core.logger.log
 
 class ArsenalStatusSystem:
     def __init__(self, bot):
