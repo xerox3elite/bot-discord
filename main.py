@@ -146,6 +146,42 @@ except Exception as e:
     HUNT_INTEGRATION_AVAILABLE = False
     print(f"[WARNING] Hunt Royal Integration non disponible: {e}")
 
+# Server Management System (NOUVEAU V4.3)
+try:
+    import commands.server_management_system as server_management
+    SERVER_MANAGEMENT_AVAILABLE = True
+    print("[OK] Server Management System chargé")
+except Exception as e:
+    SERVER_MANAGEMENT_AVAILABLE = False
+    print(f"[WARNING] Server Management System non disponible: {e}")
+
+# Gaming API System (NOUVEAU V4.3)
+try:
+    import commands.gaming_api_system as gaming_api
+    GAMING_API_AVAILABLE = True
+    print("[OK] Gaming API System chargé")
+except Exception as e:
+    GAMING_API_AVAILABLE = False
+    print(f"[WARNING] Gaming API System non disponible: {e}")
+
+# Social Fun System (NOUVEAU V4.3)
+try:
+    import commands.social_fun_system as social_fun
+    SOCIAL_FUN_AVAILABLE = True
+    print("[OK] Social Fun System chargé")
+except Exception as e:
+    SOCIAL_FUN_AVAILABLE = False
+    print(f"[WARNING] Social Fun System non disponible: {e}")
+
+# Enhanced Music System (NOUVEAU V4.3)
+try:
+    import commands.music_enhanced_system as music_enhanced
+    MUSIC_ENHANCED_AVAILABLE = True
+    print("[OK] Enhanced Music System chargé")
+except Exception as e:
+    MUSIC_ENHANCED_AVAILABLE = False
+    print(f"[WARNING] Enhanced Music System non disponible: {e}")
+
 # Crypto System Integration (NOUVEAU V4.2)
 try:
     from crypto_bot_integration import setup_crypto_integration
@@ -261,6 +297,50 @@ class ArsenalBot(commands.Bot):
                 log.info("[OK] Module Advanced Bot Features chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Advanced Features: {e}")
+        
+        # Charger Server Management System
+        if SERVER_MANAGEMENT_AVAILABLE:
+            try:
+                await self.add_cog(server_management.ServerManagementSystem(self))
+                log.info("[OK] Module Server Management System chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Server Management: {e}")
+        
+        # Charger Gaming API System
+        if GAMING_API_AVAILABLE:
+            try:
+                await self.add_cog(gaming_api.GamingAPISystem(self))
+                log.info("[OK] Module Gaming API System chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Gaming API: {e}")
+        
+        # Charger Social Fun System
+        if SOCIAL_FUN_AVAILABLE:
+            try:
+                await self.add_cog(social_fun.SocialFunSystem(self))
+                log.info("[OK] Module Social Fun System chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Social Fun: {e}")
+        
+        # Charger Enhanced Music System
+        if MUSIC_ENHANCED_AVAILABLE:
+            try:
+                await self.add_cog(music_enhanced.EnhancedMusicSystem(self))
+                log.info("[OK] Module Enhanced Music System chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Enhanced Music: {e}")
+        
+        # Charger Arsenal Economy System (NOUVEAU V4.5)
+        if ARSENAL_ECONOMY_AVAILABLE:
+            try:
+                await self.add_cog(ArsenalEconomySystem(self))
+                await self.add_cog(ArsenalShopAdmin(self))
+                await self.add_cog(ArsenalConfigSystem(self))
+                await self.add_cog(ArsenalCompleteConfig(self))
+                await self.add_cog(ArsenalUpdateNotifier(self))
+                log.info("[OK] Arsenal Economy, Shop, Config, Arsenal Complete & Update Notifier System chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.utcnow()
@@ -322,6 +402,19 @@ if HUNT_PROFILES_AVAILABLE:
 # Reload System Commands (NOUVEAU)
 if RELOADER_AVAILABLE:
     client.tree.add_command(reload_group)
+
+# Arsenal Economy System (NOUVEAU V4.5)
+try:
+    from commands.arsenal_economy_system import ArsenalEconomySystem
+    from commands.arsenal_shop_admin import ArsenalShopAdmin
+    from commands.arsenal_config_system import ArsenalConfigSystem
+    from commands.arsenal_config_complete import ArsenalCompleteConfig
+    from commands.arsenal_update_notifier import ArsenalUpdateNotifier
+    ARSENAL_ECONOMY_AVAILABLE = True
+    print("[OK] Arsenal Economy, Config, Arsenal Complete & Update Notifier System chargé")
+except Exception as e:
+    ARSENAL_ECONOMY_AVAILABLE = False
+    print(f"[WARNING] Arsenal Economy System non disponible: {e}")
 
 # Creator GUI Panel
 def lancer_gui():

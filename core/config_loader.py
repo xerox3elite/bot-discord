@@ -35,4 +35,4 @@ FFMPEG_OPTIONS = {
 
 # 🔁 Rafraîchir token Twitch
 env_path = Path(".env")
-set_key(str(env_path), "TWITCH_ACCESS_TOKEN", TWITCH_ACCESS_TOKEN)
+set_key(str(env_path), "TWITCH_ACCESS_TOKEN", TWITCH_ACCESS_TOKEN or "")
