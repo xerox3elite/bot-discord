@@ -48,6 +48,9 @@ class ArsenalStatusSystem:
             "🎉 Merci pour votre confiance !",
             "🚀 Arsenal Bot - By xerox3elite",
             "💫 L'avenir du Discord français",
+            "🌟 Surveille votre serveur 24/7",
+            "🔍 Surveille l'activité communautaire",
+            "👁️ Surveille la modération automatique",
             "🏆 #1 Bot multifonctionnel FR"
         ]
         
@@ -84,7 +87,7 @@ class ArsenalStatusSystem:
             
             # Change le statut
             import discord
-            activity = discord.Game(name=status_text)
+            activity = discord.Streaming(name=status_text, url="https://arsenal-webpanel.onrender.com")
             await self.bot.change_presence(
                 status=discord.Status.online, 
                 activity=activity
