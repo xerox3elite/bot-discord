@@ -610,6 +610,131 @@ Ce module sera disponible dans une prochaine mise à jour d'Arsenal avec toutes 
         view.add_item(cancel_button)
         
         await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+    
+    # ==================== MÉTHODES MANQUANTES ====================
+    
+    async def config_tempchannels(self, interaction: discord.Interaction, config: dict):
+        """Configuration des salons temporaires"""
+        embed = discord.Embed(
+            title="🎯 Configuration Salons Temporaires",
+            description="""
+**Système de Salons Temporaires Vocaux**
+
+Les salons temporaires permettent aux utilisateurs de créer leurs propres salons vocaux privés automatiquement.
+
+**Fonctionnalités:**
+• 🔧 Salon créateur configurable
+• 👑 Permissions automatiques pour le créateur
+• 🗑️ Suppression automatique quand vide
+• ⚙️ Limites personnalisables
+• 🔒 Contrôles de confidentialité
+            """,
+            color=0x00ff00
+        )
+        
+        # Configuration actuelle (exemple)
+        current_config = config.get("tempchannels", {})
+        creator_channel = current_config.get("creator_channel", "Non configuré")
+        auto_permissions = "✅ Activé" if current_config.get("auto_permissions", True) else "❌ Désactivé"
+        max_channels = current_config.get("max_per_user", 3)
+        
+        embed.add_field(
+            name="📝 Configuration Actuelle",
+            value=f"• **Salon créateur:** {creator_channel}\n• **Permissions auto:** {auto_permissions}\n• **Limite par user:** {max_channels}",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🛠️ Actions Disponibles",
+            value="• Configurer salon créateur\n• Modifier les permissions\n• Ajuster les limites\n• Activer/Désactiver le système",
+            inline=True
+        )
+        
+        await interaction.followup.send(embed=embed, ephemeral=True)
+    
+    async def config_leveling(self, interaction: discord.Interaction, config: dict):
+        """Configuration du système de niveaux"""
+        embed = discord.Embed(
+            title="🌟 Configuration Système de Niveaux",
+            description="""
+**Système de Niveaux et XP**
+
+Récompensez l'activité de vos membres avec un système de progression complet.
+
+**Fonctionnalités:**
+• 📈 XP par message et vocal
+• 🏆 Récompenses par niveau
+• 📊 Tableaux de classement
+• 🎨 Cartes de niveau personnalisées
+• 🔧 Multiplicateurs configurables
+            """,
+            color=0xffd700
+        )
+        
+        # Configuration actuelle (exemple)
+        current_config = config.get("leveling", {})
+        status = "✅ Activé" if current_config.get("enabled", False) else "❌ Désactivé"
+        xp_per_message = current_config.get("xp_per_message", 15)
+        xp_cooldown = current_config.get("cooldown", 60)
+        
+        embed.add_field(
+            name="📝 Configuration Actuelle",
+            value=f"• **Statut:** {status}\n• **XP par message:** {xp_per_message}\n• **Cooldown:** {xp_cooldown}s",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🛠️ Actions Disponibles",
+            value="• Activer/Désactiver le système\n• Configurer gains XP\n• Gérer les récompenses\n• Personnaliser les cartes",
+            inline=True
+        )
+        
+        await interaction.followup.send(embed=embed, ephemeral=True)
+    
+    async def config_crypto(self, interaction: discord.Interaction, config: dict):
+        """Configuration du système crypto"""
+        embed = discord.Embed(
+            title="💰 Configuration Système Crypto",
+            description="""
+**Système de Cryptomonnaies Intégré**
+
+Intégration complète avec les principales cryptomonnaies pour votre serveur.
+
+**Fonctionnalités:**
+• 📊 Suivi des prix en temps réel
+• 💳 Portefeuilles virtuels
+• 🔔 Alertes de prix
+• 📈 Graphiques et analyses
+• 💸 Transactions simulées
+            """,
+            color=0xf7931a
+        )
+        
+        # Configuration actuelle (exemple)
+        current_config = config.get("crypto", {})
+        status = "✅ Activé" if current_config.get("enabled", False) else "❌ Désactivé"
+        tracked_coins = len(current_config.get("tracked_coins", []))
+        alerts_count = len(current_config.get("price_alerts", []))
+        
+        embed.add_field(
+            name="📝 Configuration Actuelle",
+            value=f"• **Statut:** {status}\n• **Coins suivis:** {tracked_coins}\n• **Alertes:** {alerts_count}",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🛠️ Actions Disponibles",
+            value="• Activer/Désactiver le système\n• Ajouter des cryptos\n• Configurer les alertes\n• Gérer les portefeuilles",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="⚠️ Note",
+            value="Système crypto actuellement en développement. Disponible prochainement dans Arsenal V4.6!",
+            inline=False
+        )
+        
+        await interaction.followup.send(embed=embed, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(ArsenalCompleteConfig(bot))

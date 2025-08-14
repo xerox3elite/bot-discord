@@ -23,6 +23,13 @@ try:
 except Exception as e:
     print(f"[ERROR] [DEBUG] Erreur import manager.config_manager: {e}")
     # Fallback config
+
+# Import du système de statut
+try:
+    from core.status_loop import ArsenalStatusLoop
+    print("[OK] [DEBUG] core.status_loop importé")
+except Exception as e:
+    print(f"[ERROR] [DEBUG] Erreur import core.status_loop: {e}")
     config_data = {}
     def load_config(): return {}
     def save_config(data): pass
@@ -92,6 +99,9 @@ from manager.memory_manager import memoire
 
 # Setup audio
 from commands.music import setup_audio
+
+# Arsenal Status System (NOUVEAU)
+from manager.status_manager import initialize_status_system
 
 # Modules de commandes
 import commands.creator_tools as creator
@@ -218,29 +228,20 @@ async def update_bot_status_task():
     """Met à jour le fichier de statut toutes les 30 secondes"""
     update_bot_status()
 
-from discord import Activity, ActivityType, Streaming
-
-async def cycle_status(bot):
-    while not bot.is_ready():
-        await asyncio.sleep(1)
-    while True:
-        stats = [
-            Streaming(name="Arsenal Admin Studio", url="https://twitch.tv/xerox"),
-            Activity(type=ActivityType.streaming, name=f"{sum(bot.command_usage.values())} commandes utilisées", url="https://twitch.tv/xerox"),
-            Activity(type=ActivityType.watching, name=f"{len(os.listdir('.'))} dossiers, {sum(len(files) for _, _, files in os.walk('.'))} fichiers"),
-            Activity(type=ActivityType.watching, name=f"{len(bot.guilds)} serveurs"),
-            Activity(type=ActivityType.playing, name="Developed by XeRoX"),
-        ]
-        for act in stats:
-            await bot.change_presence(activity=act)
-            await asyncio.sleep(15)
-
 class ArsenalBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.status_system = None
+        
     async def setup_hook(self):
-        # Ajoute ici les tâches de fond à lancer au démarrage
+        # Initialise le système de statut Arsenal
+        self.status_system = initialize_status_system(self)
+        print("🔄 [STATUS] Système de statut Arsenal initialisé")
         self.loop.create_task(restore_voice_channels(self))
         self.loop.create_task(start_terminal(self))
-        self.loop.create_task(cycle_status(self))
+        # Démarre les systèmes de statut Arsenal
+        await self.status_system.start_status_rotation()
+        await self.status_system.start_keepalive()
         setup_audio(self)
         
         # Charger le système de rechargement de modules
@@ -348,21 +349,21 @@ client.command_usage = {}
 
 @client.event
 async def on_ready():
-    streaming = discord.Streaming(
-        name="Arsenal Admin Studio",
-        url="https://www.twitch.tv/fakestream"
-    )
-    await client.change_presence(activity=streaming, status=discord.Status.online)
-    print(f"{client.user} est prêt et en streaming !")
     log.info(f"[START] Arsenal Studio lancé comme {client.user.name}")
     try:
         await client.tree.sync()
         log.info(f"[SYNC] Commandes Slash synchronisées.")
-        # Démarre le cycle de status ici
-        if not hasattr(client, "status_task"):
-            client.status_task = asyncio.create_task(cycle_status(client))
+        
+        # Le système de statut Arsenal démarre automatiquement via setup_hook()
+        if hasattr(client, 'status_system') and client.status_system:
+            log.info("[STATUS] Système de statut Arsenal actif")
+        
         # Démarre la mise à jour du statut du bot
-        update_bot_status_task.start()
+        try:
+            update_bot_status_task.start()
+        except:
+            pass  # Task déjà démarrée
+            
     except Exception as e:
         log.error(f"[SYNC ERROR] {e}")
 
