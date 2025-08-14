@@ -1,0 +1,11 @@
+# Arsenal .renderignore for Render deployment
+*.pyc
+__pycache__/
+.git/
+.vscode/
+*.tmp
+*.log
+test_*.py
+check_*.py
+gui/
+logs/

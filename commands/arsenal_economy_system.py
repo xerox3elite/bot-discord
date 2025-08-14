@@ -19,10 +19,7 @@ class ArsenalEconomySystem(commands.Cog):
         self.users_economy_file = "data/users_economy.json"
         self.shop_config_file = "data/shop_config.json"
         
-        # Initialiser les fichiers
-        self.init_files()
-        
-        # Shop prédéfini Arsenal
+        # Shop prédéfini Arsenal (AVANT init_files)
         self.default_arsenal_shop = {
             "premium_status": {
                 "name": "🌟 Statut Premium",
@@ -62,6 +59,9 @@ class ArsenalEconomySystem(commands.Cog):
                 "category": "color"
             }
         }
+
+        # Initialiser les fichiers APRÈS avoir défini default_arsenal_shop
+        self.init_files()
 
     def init_files(self):
         """Initialise les fichiers de données"""

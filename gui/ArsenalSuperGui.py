@@ -1132,7 +1132,7 @@ Network:       ██████░░░░  35%  [Normal]
         """Lancer les outils admin"""
         try:
             self.log_to_console("🔧 Lancement outils admin...")
-            from gui.ArsenalAdminGui import ArsenalAdminPanel
+            # # from gui. - GUI removed for production - GUI removed for productionArsenalAdminGui import ArsenalAdminPanel
             admin_panel = ArsenalAdminPanel("creator", "global", lambda: {})
             admin_panel.mainloop()
         except Exception as e:
@@ -1503,7 +1503,7 @@ if __name__ == "__main__":
     def launch_admin_tools(self):
         """Lancer les outils admin"""
         try:
-            from gui.ArsenalAdminGui import ArsenalAdminPanel
+            # # from gui. - GUI removed for production - GUI removed for productionArsenalAdminGui import ArsenalAdminPanel
             admin_panel = ArsenalAdminPanel("creator", "global", lambda: {})
             admin_panel.mainloop()
         except Exception as e:

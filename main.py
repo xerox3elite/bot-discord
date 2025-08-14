@@ -31,7 +31,7 @@ def update_bot_status():
     """Met à jour le fichier de statut du bot pour l'API"""
     try:
         if hasattr(client, 'user') and client.user and client.is_ready():
-            uptime_seconds = (datetime.datetime.utcnow() - client.startup_time).total_seconds()
+            uptime_seconds = (datetime.datetime.now(datetime.UTC) - client.startup_time).total_seconds()
             hours = int(uptime_seconds // 3600)
             minutes = int((uptime_seconds % 3600) // 60)
             uptime = f"{hours}h {minutes}m"
@@ -44,7 +44,7 @@ def update_bot_status():
                 "users_connected": sum(guild.member_count or 0 for guild in client.guilds),
                 "status": "operational",
                 "last_restart": client.startup_time.strftime("%H:%M:%S"),
-                "last_update": datetime.datetime.utcnow().isoformat()
+                "last_update": datetime.datetime.now(datetime.UTC).isoformat()
             }
         else:
             status_data = {
@@ -55,7 +55,7 @@ def update_bot_status():
                 "users_connected": 0,
                 "status": "offline",
                 "last_restart": "Jamais",
-                "last_update": datetime.datetime.utcnow().isoformat()
+                "last_update": datetime.datetime.now(datetime.UTC).isoformat()
             }
         
         with open('bot_status.json', 'w') as f:
@@ -192,7 +192,7 @@ except Exception as e:
     print(f"[WARNING] Crypto System Integration non disponible: {e}")
 
 # Panneau Creator GUI (Tkinter)
-from gui.ArsenalCreatorStudio import lancer_creator_interface
+# # from gui. - GUI removed for production - GUI removed for productionArsenalCreatorStudio import lancer_creator_interface
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -343,7 +343,7 @@ class ArsenalBot(commands.Bot):
                 log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
-client.startup_time = datetime.datetime.utcnow()
+client.startup_time = datetime.datetime.now(datetime.UTC)
 client.command_usage = {}
 
 @client.event
@@ -426,7 +426,23 @@ def lancer_gui():
 # Lancement
 if __name__ == "__main__":
     import threading
-    threading.Thread(target=lancer_gui, daemon=True).start()
+    
+    # Démarrer serveur Flask health check en parallèle
+    try:
+        from health_server import start_health_server
+        flask_thread = threading.Thread(target=start_health_server, daemon=True)
+        flask_thread.start()
+        log.info("[HEALTH] Serveur Flask démarré pour Render health checks")
+    except Exception as e:
+        log.warning(f"[HEALTH] Impossible de démarrer serveur Flask: {e}")
+    
+    # Démarrer GUI si disponible
+    try:
+        threading.Thread(target=lancer_gui, daemon=True).start()
+    except:
+        log.info("[GUI] Interface GUI désactivée en production")
+    
+    # Démarrer bot Discord
     try:
         client.run(TOKEN)
     except Exception as e:

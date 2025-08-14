@@ -20,7 +20,7 @@ async def admingui(interaction: discord.Interaction):
     except ImportError:
         subprocess.run(["pip", "install", "tk"])
     # Lance le GUI admin en thread pour ne pas bloquer le bot
-    from gui.ArsenalAdminGui import lancer_admin_interface
+    # # from gui. - GUI removed for production - GUI removed for productionArsenalAdminGui import lancer_admin_interface
     def run_gui():
         user_id = interaction.user.id
         server_id = interaction.guild.id

@@ -1,7 +1,7 @@
 import discord
 from discord import app_commands
-import json, random
-from manager.config_manager import config_data
+import json, random, asyncio, math
+from manager.config_manager import config_d
 from manager.economy_manager import balances
 from manager.sanctions_manager import sanctions
 from manager.memory_manager import memoire
@@ -343,7 +343,7 @@ async def membergui(interaction: discord.Interaction):
     except ImportError:
         subprocess.run(["pip", "install", "tk"])
     # Lance le GUI membre en thread pour ne pas bloquer le bot
-    from gui.MemberPanel import lancer_member_interface
+    # # # # from gui. - GUI removed for production - GUI removed for productionMemberPanel import lancer_member_interface - GUI removed for production - GUI removed for production
     def run_gui():
         user_id = interaction.user.id
         server_id = interaction.guild.id
