@@ -95,7 +95,7 @@ from commands.music import setup_audio
 
 # Modules de commandes
 import commands.creator_tools as creator
-import commands.community as community
+# import commands.community as community  # Maintenant géré par le Cog CommunityCommands
 import commands.admin as admin
 import commands.moderateur as moderateur
 import commands.sanction as sanction
@@ -343,7 +343,7 @@ class ArsenalBot(commands.Bot):
                 log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
-client.startup_time = datetime.datetime.now(datetime.UTC)
+client.startup_time = datetime.datetime.now(datetime.timezone.utc)
 client.command_usage = {}
 
 @client.event
@@ -373,19 +373,7 @@ client.tree.add_command(creator.creator_group)
 client.tree.add_command(sanction.sanction_group)
 client.tree.add_command(creator.creator_tools_group)
 
-# Individuelles
-client.tree.add_command(community.info)
-client.tree.add_command(community.avatar)
-client.tree.add_command(community.signaler_bug)
-client.tree.add_command(community.vote)
-client.tree.add_command(community.poll)
-client.tree.add_command(community.magic_8ball)
-client.tree.add_command(community.spin_wheel)
-client.tree.add_command(community.top_vocal)
-client.tree.add_command(community.top_messages)
-client.tree.add_command(community.random_quote)
-client.tree.add_command(community.leaderboard)
-client.tree.add_command(community.version)
+# Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands
 
 # Hunt Royal Auth Commands (NOUVEAU)
 if HUNT_AUTH_AVAILABLE:
