@@ -184,9 +184,9 @@ class ArsenalCompleteConfig(commands.Cog):
         self.config_path = "data/draftbot_config"
         os.makedirs(self.config_path, exist_ok=True)
 
-    @app_commands.command(name="config", description="🔧 Configuration complète d'Arsenal (Style Arsenal Original)")
+    @app_commands.command(name="config-legacy", description="🔧 Configuration complète d'Arsenal (Style Arsenal Original)")
     @app_commands.describe(reset="Réinitialiser toute la configuration")
-    async def config(self, interaction: discord.Interaction, reset: bool = False):
+    async def config_legacy(self, interaction: discord.Interaction, reset: bool = False):
         if not interaction.user.guild_permissions.administrator:
             embed = discord.Embed(
                 title="❌ Permissions Insuffisantes",
