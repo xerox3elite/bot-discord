@@ -194,12 +194,21 @@ except Exception as e:
 
 # Crypto System Integration (NOUVEAU V4.2)
 try:
-    from crypto_bot_integration import setup_crypto_integration
+    from modules.crypto_bot_integration import setup_crypto
     CRYPTO_INTEGRATION_AVAILABLE = True
     print("[OK] Crypto System Integration chargé")
 except Exception as e:
     CRYPTO_INTEGRATION_AVAILABLE = False
     print(f"[WARNING] Crypto System Integration non disponible: {e}")
+
+# SQLite Database Manager (NOUVEAU V4.5)
+try:
+    from modules.sqlite_database import database_manager
+    SQLITE_DATABASE_AVAILABLE = True
+    print("[OK] SQLite Database Manager chargé")
+except Exception as e:
+    SQLITE_DATABASE_AVAILABLE = False
+    print(f"⚠️ Module sqlite_database non trouvé: {e}")
 
 # Panneau Creator GUI (Tkinter)
 # # from gui. - GUI removed for production - GUI removed for productionArsenalCreatorStudio import lancer_creator_interface

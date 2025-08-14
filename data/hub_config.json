@@ -1,1 +1,25 @@
-{}
+{
+  "version": "4.5.0",
+  "tempchannels": {
+    "enabled": true,
+    "auto_cleanup": true,
+    "max_channels_per_user": 5,
+    "default_user_limit": 10,
+    "inactivity_timeout": 300,
+    "cleanup_interval": 60
+  },
+  "hub_channels": {},
+  "user_preferences": {},
+  "channel_statistics": {
+    "total_created": 0,
+    "total_deleted": 0,
+    "active_channels": 0,
+    "peak_concurrent": 0
+  },
+  "advanced_features": {
+    "voice_region_selection": true,
+    "bitrate_customization": true,
+    "private_channels": true,
+    "channel_templates": true
+  }
+}
