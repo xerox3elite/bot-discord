@@ -1,0 +1,62 @@
+[
+  {
+    "id": "change_1753225184_0",
+    "timestamp": 1753225184.5302117,
+    "datetime": "2025-07-23T00:59:44.530211",
+    "session_id": "session_1753225184",
+    "change_type": "feature",
+    "component": "gui",
+    "description": "Création de l'interface suprême Arsenal",
+    "details": {
+      "file": "ArsenalSuperGui.py",
+      "lines": "400+",
+      "features": [
+        "Dashboard moderne",
+        "Menu sidebar",
+        "Actions rapides"
+      ]
+    },
+    "impact": "high",
+    "version": "V4.2.1",
+    "author": "XeRoX Elite",
+    "category": "Frontend"
+  },
+  {
+    "id": "change_1753225184_1",
+    "timestamp": 1753225184.5307117,
+    "datetime": "2025-07-23T00:59:44.530711",
+    "session_id": "session_1753225184",
+    "change_type": "improvement",
+    "component": "webpanel",
+    "description": "Ajout de nouvelles APIs",
+    "details": {
+      "apis": [
+        "monitoring",
+        "analytics",
+        "security"
+      ],
+      "endpoints": 7
+    },
+    "impact": "normal",
+    "version": "V4.2.1",
+    "author": "XeRoX Elite",
+    "category": "Frontend"
+  },
+  {
+    "id": "change_1753225184_2",
+    "timestamp": 1753225184.5312107,
+    "datetime": "2025-07-23T00:59:44.531210",
+    "session_id": "session_1753225184",
+    "change_type": "bugfix",
+    "component": "webpanel",
+    "description": "Correction sidebar navigation",
+    "details": {
+      "issue": "Navigation entre pages cassée",
+      "solution": "Réparation fonction showPage()"
+    },
+    "impact": "normal",
+    "version": "V4.2.1",
+    "author": "XeRoX Elite",
+    "category": "Frontend"
+  }
+]
