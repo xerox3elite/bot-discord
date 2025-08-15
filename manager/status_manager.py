@@ -87,11 +87,8 @@ class ArsenalStatusSystem:
             
             # Change le statut
             import discord
-            activity = discord.Streaming(name=status_text, url="https://arsenal-webpanel.onrender.com")
-            await self.bot.change_presence(
-                status=discord.Status.online, 
-                activity=activity
-            )
+            activity = discord.Streaming(name=status_text, url="https://twitch.tv/xerox3elite")
+            await self.bot.change_presence(activity=activity)
             
             # Passe au statut suivant
             self.current_status_index = (self.current_status_index + 1) % len(self.status_messages)

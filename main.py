@@ -118,6 +118,15 @@ try:
     print("[OK] WebPanel Integration Commands chargé")
 except Exception as e:
     WEBPANEL_COMMANDS_AVAILABLE = False
+
+# Bot Migration System (RÉVOLUTIONNAIRE)
+try:
+    from commands.bot_migration_system import BotMigrationSystem
+    BOT_MIGRATION_AVAILABLE = True
+    print("🚀 [OK] Bot Migration System chargé - Système révolutionnaire!")
+except Exception as e:
+    BOT_MIGRATION_AVAILABLE = False
+    print(f"❌ [ERREUR] Bot Migration System: {e}")
     print(f"[ERROR] Erreur import WebPanel Commands: {e}")
 
 # Advanced Bot Features (NOUVEAU)
@@ -340,17 +349,60 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Enhanced Music: {e}")
         
-        # Charger Arsenal Economy System (NOUVEAU V4.5)
+        # Charger Arsenal Economy System (NOUVEAU V4.5) avec Configuration Moderne
         if ARSENAL_ECONOMY_AVAILABLE:
             try:
                 await self.add_cog(ArsenalEconomySystem(self))
                 await self.add_cog(ArsenalShopAdmin(self))
-                await self.add_cog(ArsenalConfigSystem(self))
-                await self.add_cog(ArsenalCompleteConfig(self))
+                # NOUVEAU: Configuration moderne avec MODALS au lieu de menus superficiels
+                from commands.config_modal_system import ArsenalConfigSystemModal
+                await self.add_cog(ArsenalConfigSystemModal(self))
                 await self.add_cog(ArsenalUpdateNotifier(self))
-                log.info("[OK] Arsenal Economy, Shop, Config, Arsenal Complete & Update Notifier System chargé")
+                log.info("[OK] Arsenal Economy, Shop, Config Modal Moderne & Update Notifier System chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
+                
+            # Bot Migration System - Révolutionnaire
+            if BOT_MIGRATION_AVAILABLE:
+                try:
+                    await self.add_cog(BotMigrationSystem(self))
+                    log.info("🚀 [OK] Bot Migration System - Système révolutionnaire de récupération de configs d'autres bots!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Bot Migration System: {e}")
+            else:
+                log.warning("[WARNING] Bot Migration System non disponible")
+                
+            # Migration Help System
+            try:
+                from commands.migration_help import MigrationHelp
+                await self.add_cog(MigrationHelp(self))
+                log.info("📚 [OK] Migration Help System - Guide interactif de migration!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Migration Help: {e}")
+                
+            # Arsenal Features System - Affichage complet des fonctionnalités
+            try:
+                from commands.arsenal_features import ArsenalBotFeatures
+                await self.add_cog(ArsenalBotFeatures(self))
+                log.info("🌟 [OK] Arsenal Features System - Toutes les fonctionnalités Discord natives!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Features: {e}")
+                
+            # Arsenal Profile Updater - Mise à jour auto du profil
+            try:
+                from commands.arsenal_profile_updater import ArsenalProfileUpdater
+                await self.add_cog(ArsenalProfileUpdater(self))
+                log.info("🎯 [OK] Arsenal Profile Updater - Profil Discord auto-optimisé!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Profile Updater: {e}")
+                
+            # Arsenal Context Menus - Menus contextuels (clic droit)
+            try:
+                from commands.arsenal_context_menus import ArsenalContextMenus
+                await self.add_cog(ArsenalContextMenus(self))
+                log.info("🖱️ [OK] Arsenal Context Menus - Menus contextuels natifs Discord!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Context Menus: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
@@ -359,6 +411,18 @@ client.command_usage = {}
 @client.event
 async def on_ready():
     log.info(f"[START] Arsenal Studio lancé comme {client.user.name}")
+    
+    # Définir le statut streaming par défaut AVANT tout
+    try:
+        activity = discord.Streaming(
+            name="Arsenal V4.5.1 | /help", 
+            url="https://twitch.tv/xerox3elite"
+        )
+        await client.change_presence(activity=activity)
+        log.info("💜 [STATUS] Statut streaming défini par défaut")
+    except Exception as e:
+        log.error(f"❌ [STATUS] Erreur définition statut: {e}")
+    
     try:
         await client.tree.sync()
         log.info(f"[SYNC] Commandes Slash synchronisées.")

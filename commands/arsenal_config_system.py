@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-⚙️ Arsenal Configuration System
-Système de configuration complet avec menus déroulants comme DraftBot
-Développé par XeRoX - Arsenal Bot V4.5
+🚀 Arsenal V4 - Système de Configuration avec MODALS
+Configuration ultra-moderne avec formulaires interactifs complets
+Remplace l'ancien système de menus déroulants superficiels
 """
 
 import discord
@@ -10,43 +12,604 @@ from discord import app_commands
 import json
 import os
 from typing import Optional, Dict, Any
-import datetime
+import asyncio
 
-# Import de la vue de configuration des salons temporaires
-try:
-    from modules.tempchannels_manager import TempChannelsConfigView
-    from config_views.interactive_config import EconomyConfigView, LevelingConfigView
-except ImportError:
-    # Si les modules ne sont pas encore chargés, créer des classes temporaires
-    class TempChannelsConfigView:
-        def __init__(self, config, guild_id):
-            pass
+class ArsenalConfigSystem(commands.Cog):
+    """Système de configuration Arsenal V4 avec modals - NOUVELLE VERSION"""
     
-    class EconomyConfigView:
-        def __init__(self, config, guild_id):
-            pass
-    
-    class LevelingConfigView:
-        def __init__(self, config, guild_id):
-            pass
+    def __init__(self, bot):
+        self.bot = bot
+        self.config_path = "data/server_configs"
+        os.makedirs(self.config_path, exist_ok=True)
 
-class ConfigurationSelect(discord.ui.Select):
-    def __init__(self):
-        options = [
-            discord.SelectOption(
-                label="💰 Système d'Économie",
-                value="economy",
-                description="Configuration ArsenalCoin, récompenses, shop",
-                emoji="💰"
-            ),
-            discord.SelectOption(
-                label="📊 Système de Logs",
-                value="logs",
-                description="Logs de modération, messages, vocaux",
-                emoji="📊"
-            ),
-            discord.SelectOption(
-                label="🛡️ AutoMod",
+    def load_config(self, guild_id: int) -> Dict:
+        """Charge la configuration d'un serveur"""
+        try:
+            config_file = f"{self.config_path}/{guild_id}.json"
+            if os.path.exists(config_file):
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except:
+            pass
+        return self.get_default_config()
+
+    def save_config(self, guild_id: int, config: Dict):
+        """Sauvegarde la configuration d'un serveur"""
+        try:
+            config_file = f"{self.config_path}/{guild_id}.json"
+            with open(config_file, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"Erreur sauvegarde config: {e}")
+
+    def get_default_config(self) -> Dict:
+        """Configuration par défaut"""
+        return {
+            "automod": {
+                "enabled": False,
+                "anti_spam": {"enabled": False, "max_messages": 5, "time_window": 10},
+                "anti_links": {"enabled": False, "whitelist": []},
+                "anti_invites": {"enabled": False, "action": "delete"},
+                "anti_nsfw": {"enabled": False, "action": "delete"},
+                "filter_words": {"enabled": False, "words": []},
+                "logs_channel": None
+            },
+            "economy": {
+                "enabled": True,
+                "daily_reward": 100,
+                "message_reward": 5,
+                "voice_reward": 10,
+                "shop_enabled": True,
+                "transfer_enabled": True
+            },
+            "levels": {
+                "enabled": True,
+                "message_xp": 15,
+                "voice_xp": 25,
+                "level_up_channel": None,
+                "level_rewards": {}
+            },
+            "temp_channels": {
+                "enabled": False,
+                "category": None,
+                "channel_name": "🎵 {user}'s Channel",
+                "user_limit": 0,
+                "auto_delete": True
+            },
+            "music": {
+                "enabled": True,
+                "max_queue": 50,
+                "max_duration": 7200,
+                "default_volume": 50,
+                "dj_role": None
+            },
+            "logs": {
+                "enabled": False,
+                "message_logs": None,
+                "mod_logs": None,
+                "voice_logs": None,
+                "join_leave": None
+            }
+        }
+
+    @app_commands.command(name="config", description="⚙️ Configuration complète d'Arsenal Bot avec MODALS")
+    async def config_main(self, interaction: discord.Interaction):
+        """Menu principal de configuration avec boutons modals"""
+        
+        if not interaction.user.guild_permissions.manage_guild:
+            await interaction.response.send_message("❌ Permission requise: `Gérer le serveur`", ephemeral=True)
+            return
+
+        embed = discord.Embed(
+            title="⚙️ **ARSENAL CONFIGURATION - SYSTÈME MODAL**",
+            description=f"**Serveur:** {interaction.guild.name}\n\n"
+                       "🎮 **Configuration moderne avec formulaires interactifs**\n"
+                       "✨ **Fini les menus superficiels - place aux VRAIS paramètres !**\n\n"
+                       "Sélectionnez le système à configurer ci-dessous :",
+            color=discord.Color.blue(),
+            timestamp=discord.utils.utcnow()
+        )
+
+        embed.add_field(
+            name="🛡️ **AutoMod & Sécurité**",
+            value="• Anti-spam avancé\n• Filtres de mots personnalisés\n• Protection contre les liens",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="💰 **Économie & Récompenses**", 
+            value="• ArsenalCoins quotidiens\n• Boutique personnalisée\n• Récompenses d'activité",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="📈 **Système de Niveaux**",
+            value="• XP par message/vocal\n• Récompenses de niveau\n• Salon d'annonces",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🎵 **Système Musical**",
+            value="• Configuration audio complète\n• Permissions DJ avancées\n• Limites personnalisées",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🗣️ **Salons Temporaires**",
+            value="• Salons vocaux automatiques\n• Noms personnalisés\n• Limites d'utilisateurs",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="📊 **Système de Logs**",
+            value="• Logs de modération\n• Suivi des messages\n• Activités serveur",
+            inline=True
+        )
+        
+        embed.set_footer(text="Arsenal V4.5.1 - Configuration Moderne | Cliquez sur les boutons pour configurer")
+
+        view = ArsenalConfigMainView(self)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+# ===== MODALS DE CONFIGURATION =====
+
+class AutoModConfigModal(discord.ui.Modal):
+    """Modal de configuration AutoMod"""
+    
+    def __init__(self, config_system, current_config):
+        super().__init__(title="🛡️ Configuration AutoMod Arsenal", timeout=300)
+        self.config_system = config_system
+        self.current_config = current_config
+        
+        # Champs du formulaire
+        self.add_item(discord.ui.TextInput(
+            label="✅ Activé (true/false)",
+            placeholder="true pour activer AutoMod, false pour désactiver",
+            default=str(current_config.get("automod", {}).get("enabled", False)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="📨 Messages max anti-spam",
+            placeholder="Nombre maximum de messages par période (ex: 5)",
+            default=str(current_config.get("automod", {}).get("anti_spam", {}).get("max_messages", 5)),
+            min_length=1,
+            max_length=2
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="⏱️ Fenêtre de temps (secondes)",
+            placeholder="Durée de la fenêtre anti-spam en secondes (ex: 10)",
+            default=str(current_config.get("automod", {}).get("anti_spam", {}).get("time_window", 10)),
+            min_length=1,
+            max_length=3
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🚫 Mots filtrés (séparés par ,)",
+            placeholder="mot1, mot2, mot3, insulte1, insulte2...",
+            default=", ".join(current_config.get("automod", {}).get("filter_words", {}).get("words", [])),
+            required=False,
+            max_length=1000
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🔗 Anti-liens (true/false)",
+            placeholder="Bloquer automatiquement les liens externes",
+            default=str(current_config.get("automod", {}).get("anti_links", {}).get("enabled", False)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            # Récupérer et valider les valeurs
+            enabled = self.children[0].value.lower() == "true"
+            max_messages = int(self.children[1].value)
+            time_window = int(self.children[2].value)
+            filter_words = [word.strip() for word in self.children[3].value.split(",") if word.strip()]
+            anti_links = self.children[4].value.lower() == "true"
+            
+            # Mettre à jour la configuration
+            config = self.config_system.load_config(interaction.guild.id)
+            config["automod"] = {
+                "enabled": enabled,
+                "anti_spam": {"enabled": enabled, "max_messages": max_messages, "time_window": time_window},
+                "anti_links": {"enabled": anti_links, "whitelist": []},
+                "anti_invites": {"enabled": enabled, "action": "delete"},
+                "anti_nsfw": {"enabled": enabled, "action": "delete"},
+                "filter_words": {"enabled": len(filter_words) > 0, "words": filter_words},
+                "logs_channel": config.get("automod", {}).get("logs_channel")
+            }
+            
+            self.config_system.save_config(interaction.guild.id, config)
+            
+            embed = discord.Embed(
+                title="✅ **AutoMod Arsenal Configuré !**",
+                description="🛡️ **Configuration AutoMod sauvegardée avec succès**\n\n"
+                           "Le système de modération automatique Arsenal est maintenant prêt !",
+                color=discord.Color.green()
+            )
+            
+            embed.add_field(name="🛡️ Statut AutoMod", value="✅ Activé" if enabled else "❌ Désactivé", inline=True)
+            embed.add_field(name="📨 Anti-spam", value=f"Max {max_messages} msg/{time_window}s", inline=True)
+            embed.add_field(name="🔗 Anti-liens", value="✅ Activé" if anti_links else "❌ Désactivé", inline=True)
+            embed.add_field(name="🚫 Mots filtrés", value=f"{len(filter_words)} mot(s) configuré(s)", inline=True)
+            embed.add_field(name="🎯 Actions automatiques", value="Delete, Warn, Timeout", inline=True)
+            embed.add_field(name="📊 Logs", value="Activés si salon défini", inline=True)
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ **Erreur de configuration:** {e}", ephemeral=True)
+
+class EconomyConfigModal(discord.ui.Modal):
+    """Modal de configuration Économie Arsenal"""
+    
+    def __init__(self, config_system, current_config):
+        super().__init__(title="💰 Configuration Économie Arsenal", timeout=300)
+        self.config_system = config_system
+        self.current_config = current_config
+        
+        economy_config = current_config.get("economy", {})
+        
+        self.add_item(discord.ui.TextInput(
+            label="💳 Activé (true/false)",
+            placeholder="true pour activer le système ArsenalCoin",
+            default=str(economy_config.get("enabled", True)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🎁 Récompense quotidienne",
+            placeholder="ArsenalCoins reçus quotidiennement (ex: 100)",
+            default=str(economy_config.get("daily_reward", 100)),
+            min_length=1,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="💬 Récompense par message",
+            placeholder="ArsenalCoins par message envoyé (ex: 5)",
+            default=str(economy_config.get("message_reward", 5)),
+            min_length=1,
+            max_length=3
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🎤 Récompense vocal (par minute)",
+            placeholder="ArsenalCoins par minute en vocal (ex: 10)",
+            default=str(economy_config.get("voice_reward", 10)),
+            min_length=1,
+            max_length=3
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🛒 Boutique & Transferts (true/false)",
+            placeholder="Activer la boutique et les transferts /pay",
+            default=str(economy_config.get("shop_enabled", True)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            enabled = self.children[0].value.lower() == "true"
+            daily_reward = int(self.children[1].value)
+            message_reward = int(self.children[2].value)
+            voice_reward = int(self.children[3].value)
+            shop_enabled = self.children[4].value.lower() == "true"
+            
+            config = self.config_system.load_config(interaction.guild.id)
+            config["economy"] = {
+                "enabled": enabled,
+                "daily_reward": daily_reward,
+                "message_reward": message_reward,
+                "voice_reward": voice_reward,
+                "shop_enabled": shop_enabled,
+                "transfer_enabled": shop_enabled
+            }
+            
+            self.config_system.save_config(interaction.guild.id, config)
+            
+            embed = discord.Embed(
+                title="💰 **Économie Arsenal Configurée !**",
+                description="🪙 **Système économique ArsenalCoin mis à jour**\n\n"
+                           "Vos membres peuvent maintenant gagner et dépenser des ArsenalCoins !",
+                color=discord.Color.gold()
+            )
+            
+            embed.add_field(name="💳 Statut Économie", value="✅ Activé" if enabled else "❌ Désactivé", inline=True)
+            embed.add_field(name="🎁 Quotidien", value=f"{daily_reward} AC/jour", inline=True)
+            embed.add_field(name="💬 Par message", value=f"{message_reward} AC", inline=True)
+            embed.add_field(name="🎤 Par minute vocal", value=f"{voice_reward} AC", inline=True)
+            embed.add_field(name="🛒 Boutique", value="✅ Activée" if shop_enabled else "❌ Désactivée", inline=True)
+            embed.add_field(name="💸 Transferts", value="✅ /pay disponible" if shop_enabled else "❌ Désactivés", inline=True)
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ **Erreur de configuration:** {e}", ephemeral=True)
+
+class TempChannelsConfigModal(discord.ui.Modal):
+    """Modal de configuration Salons Temporaires"""
+    
+    def __init__(self, config_system, current_config):
+        super().__init__(title="🗣️ Configuration Salons Temporaires", timeout=300)
+        self.config_system = config_system
+        self.current_config = current_config
+        
+        temp_config = current_config.get("temp_channels", {})
+        
+        self.add_item(discord.ui.TextInput(
+            label="🗣️ Activé (true/false)",
+            placeholder="true pour activer les salons vocaux temporaires",
+            default=str(temp_config.get("enabled", False)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="📁 ID Catégorie (optionnel)",
+            placeholder="ID de la catégorie pour créer les salons temporaires",
+            default=str(temp_config.get("category", "")) if temp_config.get("category") else "",
+            required=False,
+            max_length=20
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🏷️ Format nom salon",
+            placeholder="{user} sera remplacé par le pseudo (ex: 🎵 Salon de {user})",
+            default=temp_config.get("channel_name", "🎵 {user}'s Channel"),
+            max_length=50
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="👥 Limite utilisateurs (0 = illimité)",
+            placeholder="Nombre maximum d'utilisateurs par salon temporaire",
+            default=str(temp_config.get("user_limit", 0)),
+            min_length=1,
+            max_length=2
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🗑️ Suppression auto (true/false)",
+            placeholder="Supprimer automatiquement le salon quand il est vide",
+            default=str(temp_config.get("auto_delete", True)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            enabled = self.children[0].value.lower() == "true"
+            category_id = int(self.children[1].value) if self.children[1].value.strip() else None
+            channel_name = self.children[2].value
+            user_limit = int(self.children[3].value)
+            auto_delete = self.children[4].value.lower() == "true"
+            
+            config = self.config_system.load_config(interaction.guild.id)
+            config["temp_channels"] = {
+                "enabled": enabled,
+                "category": category_id,
+                "channel_name": channel_name,
+                "user_limit": user_limit,
+                "auto_delete": auto_delete
+            }
+            
+            self.config_system.save_config(interaction.guild.id, config)
+            
+            embed = discord.Embed(
+                title="🗣️ **Salons Temporaires Configurés !**",
+                description="🎵 **Configuration des salons vocaux temporaires mise à jour**\n\n"
+                           "Les membres peuvent maintenant créer leurs propres salons !",
+                color=discord.Color.purple()
+            )
+            
+            embed.add_field(name="📢 Statut", value="✅ Activé" if enabled else "❌ Désactivé", inline=True)
+            embed.add_field(name="📁 Catégorie", value=f"<#{category_id}>" if category_id else "🏠 Catégorie par défaut", inline=True)
+            embed.add_field(name="🏷️ Format nom", value=f"`{channel_name}`", inline=True)
+            embed.add_field(name="👥 Limite utilisateurs", value=f"{user_limit} max" if user_limit > 0 else "♾️ Illimité", inline=True)
+            embed.add_field(name="🗑️ Suppression auto", value="✅ Activée" if auto_delete else "❌ Désactivée", inline=True)
+            embed.add_field(name="💡 Comment ça marche", value="Rejoindre un salon 🔗 = créer un salon temporaire", inline=False)
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ **Erreur de configuration:** {e}", ephemeral=True)
+
+class MusicConfigModal(discord.ui.Modal):
+    """Modal de configuration Système Musical Arsenal"""
+    
+    def __init__(self, config_system, current_config):
+        super().__init__(title="🎵 Configuration Système Musical", timeout=300)
+        self.config_system = config_system
+        self.current_config = current_config
+        
+        music_config = current_config.get("music", {})
+        
+        self.add_item(discord.ui.TextInput(
+            label="🎵 Activé (true/false)",
+            placeholder="true pour activer le système musical Arsenal",
+            default=str(music_config.get("enabled", True)).lower(),
+            min_length=4,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="📝 Taille max file d'attente",
+            placeholder="Nombre maximum de musiques en attente (ex: 50)",
+            default=str(music_config.get("max_queue", 50)),
+            min_length=1,
+            max_length=3
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="⏱️ Durée max par musique (secondes)",
+            placeholder="Durée maximale par piste (ex: 7200 = 2 heures)",
+            default=str(music_config.get("max_duration", 7200)),
+            min_length=1,
+            max_length=5
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🔊 Volume par défaut (0-100)",
+            placeholder="Volume de démarrage du bot musical (ex: 50)",
+            default=str(music_config.get("default_volume", 50)),
+            min_length=1,
+            max_length=3
+        ))
+        
+        self.add_item(discord.ui.TextInput(
+            label="🎧 ID Rôle DJ (optionnel)",
+            placeholder="ID du rôle avec permissions DJ avancées",
+            default=str(music_config.get("dj_role", "")) if music_config.get("dj_role") else "",
+            required=False,
+            max_length=20
+        ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            enabled = self.children[0].value.lower() == "true"
+            max_queue = int(self.children[1].value)
+            max_duration = int(self.children[2].value)
+            default_volume = max(0, min(100, int(self.children[3].value)))  # Clamp entre 0-100
+            dj_role = int(self.children[4].value) if self.children[4].value.strip() else None
+            
+            config = self.config_system.load_config(interaction.guild.id)
+            config["music"] = {
+                "enabled": enabled,
+                "max_queue": max_queue,
+                "max_duration": max_duration,
+                "default_volume": default_volume,
+                "dj_role": dj_role
+            }
+            
+            self.config_system.save_config(interaction.guild.id, config)
+            
+            embed = discord.Embed(
+                title="🎵 **Système Musical Arsenal Configuré !**",
+                description="🎶 **Configuration audio Arsenal mise à jour**\n\n"
+                           "Votre serveur est prêt pour la meilleure expérience musicale !",
+                color=discord.Color.red()
+            )
+            
+            embed.add_field(name="🎶 Statut Musical", value="✅ Activé" if enabled else "❌ Désactivé", inline=True)
+            embed.add_field(name="📝 File d'attente max", value=f"{max_queue} musiques", inline=True)
+            embed.add_field(name="⏱️ Durée max", value=f"{max_duration//60} minutes", inline=True)
+            embed.add_field(name="🔊 Volume par défaut", value=f"{default_volume}%", inline=True)
+            embed.add_field(name="🎧 Rôle DJ", value=f"<@&{dj_role}>" if dj_role else "🌍 Tous les membres", inline=True)
+            embed.add_field(name="🎵 Plateformes", value="YouTube, Spotify, SoundCloud", inline=True)
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ **Erreur de configuration:** {e}", ephemeral=True)
+
+# ===== VUE PRINCIPALE ARSENAL =====
+
+class ArsenalConfigMainView(discord.ui.View):
+    """Vue principale Arsenal avec boutons pour chaque système"""
+    
+    def __init__(self, config_system):
+        super().__init__(timeout=300)
+        self.config_system = config_system
+
+    @discord.ui.button(label="🛡️ AutoMod", style=discord.ButtonStyle.red, row=0)
+    async def automod_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        config = self.config_system.load_config(interaction.guild.id)
+        modal = AutoModConfigModal(self.config_system, config)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="💰 Économie", style=discord.ButtonStyle.green, row=0)
+    async def economy_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        config = self.config_system.load_config(interaction.guild.id)
+        modal = EconomyConfigModal(self.config_system, config)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="🗣️ Salons Temp", style=discord.ButtonStyle.blurple, row=0)
+    async def temp_channels_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        config = self.config_system.load_config(interaction.guild.id)
+        modal = TempChannelsConfigModal(self.config_system, config)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="🎵 Musique", style=discord.ButtonStyle.red, row=1)
+    async def music_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        config = self.config_system.load_config(interaction.guild.id)
+        modal = MusicConfigModal(self.config_system, config)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="📊 Voir Config", style=discord.ButtonStyle.gray, row=1)
+    async def view_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        config = self.config_system.load_config(interaction.guild.id)
+        
+        embed = discord.Embed(
+            title="⚙️ **Configuration Actuelle Arsenal**",
+            description=f"**Serveur:** {interaction.guild.name}\n"
+                       "📋 **Récapitulatif de votre configuration**",
+            color=discord.Color.blue()
+        )
+        
+        # AutoMod
+        automod = config.get("automod", {})
+        embed.add_field(
+            name="🛡️ AutoMod Arsenal",
+            value=f"**Statut:** {'✅ Activé' if automod.get('enabled') else '❌ Désactivé'}\n"
+                  f"**Anti-spam:** {automod.get('anti_spam', {}).get('max_messages', 5)} msg/{automod.get('anti_spam', {}).get('time_window', 10)}s\n"
+                  f"**Mots filtrés:** {len(automod.get('filter_words', {}).get('words', []))} configurés",
+            inline=True
+        )
+        
+        # Économie
+        economy = config.get("economy", {})
+        embed.add_field(
+            name="💰 Économie Arsenal",
+            value=f"**Statut:** {'✅ Activé' if economy.get('enabled') else '❌ Désactivé'}\n"
+                  f"**Quotidien:** {economy.get('daily_reward', 100)} AC\n"
+                  f"**Par message:** {economy.get('message_reward', 5)} AC/msg",
+            inline=True
+        )
+        
+        # Musique
+        music = config.get("music", {})
+        embed.add_field(
+            name="🎵 Musique Arsenal",
+            value=f"**Statut:** {'✅ Activé' if music.get('enabled') else '❌ Désactivé'}\n"
+                  f"**File max:** {music.get('max_queue', 50)} musiques\n"
+                  f"**Volume:** {music.get('default_volume', 50)}% par défaut",
+            inline=True
+        )
+        
+        # Salons temporaires
+        temp = config.get("temp_channels", {})
+        embed.add_field(
+            name="🗣️ Salons Temporaires",
+            value=f"**Statut:** {'✅ Activé' if temp.get('enabled') else '❌ Désactivé'}\n"
+                  f"**Format:** `{temp.get('channel_name', 'Non défini')}`\n"
+                  f"**Limite:** {temp.get('user_limit', 0) if temp.get('user_limit', 0) > 0 else '♾️ Illimité'}",
+            inline=True
+        )
+        
+        embed.set_footer(text="Arsenal V4.5.1 - Système de Configuration Moderne")
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    @discord.ui.button(label="🔄 Reset Config", style=discord.ButtonStyle.gray, row=1)
+    async def reset_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        # Reset à la configuration par défaut
+        default_config = self.config_system.get_default_config()
+        self.config_system.save_config(interaction.guild.id, default_config)
+        
+        embed = discord.Embed(
+            title="🔄 **Configuration Réinitialisée**",
+            description="✅ **Configuration remise aux valeurs par défaut**\n\n"
+                       "Tous les paramètres ont été réinitialisés. Vous pouvez maintenant les reconfigurer.",
+            color=discord.Color.orange()
+        )
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
                 value="automod",
                 description="Anti-spam, anti-liens, filtres de mots",
                 emoji="🛡️"
