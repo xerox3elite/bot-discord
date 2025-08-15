@@ -85,13 +85,13 @@ class ArsenalStatusSystem:
                 member_count = sum(guild.member_count or 0 for guild in self.bot.guilds)
                 status_text = status_text.replace("{member_count}", str(member_count))
             
-            # Change le statut - VIOLET sans "streaming"
+            # Change le statut - VIOLET (Do Not Disturb) sans "streaming"
             import discord
             activity = discord.Activity(
-                type=discord.ActivityType.custom, 
-                name=status_text,
-                state=status_text
+                type=discord.ActivityType.playing, 
+                name=status_text
             )
+            # Status violet = Do Not Disturb (dnd)
             await self.bot.change_presence(status=discord.Status.dnd, activity=activity)
             
             # Passe au statut suivant

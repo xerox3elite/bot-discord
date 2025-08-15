@@ -138,6 +138,15 @@ except Exception as e:
     ADVANCED_FEATURES_AVAILABLE = False
     print(f"[ERROR] Erreur import Advanced Features: {e}")
 
+# Arsenal Features System (RÉVOLUTIONNAIRE - 40 fonctionnalités)
+try:
+    from commands.arsenal_features import ArsenalBotFeatures
+    ARSENAL_FEATURES_AVAILABLE = True
+    print("🚀 [OK] Arsenal Features System chargé - 40 fonctionnalités Discord!")
+except Exception as e:
+    ARSENAL_FEATURES_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Features System: {e}")
+
 # Hunt Royal Auth System (NOUVEAU)
 try:
     import commands.hunt_royal_auth as hunt_auth
