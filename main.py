@@ -97,8 +97,13 @@ from manager.voice_manager import restore_voice_channels
 from manager.terminal_manager import start_terminal
 from manager.memory_manager import memoire
 
-# Setup audio
-from commands.music import setup_audio
+# Setup audio - utilise le système avancé maintenant
+try:
+    from commands.music_system_advanced import setup_audio
+except ImportError:
+    print("[WARNING] Module audio avancé non disponible, utilisation du fallback")
+    def setup_audio():
+        pass
 
 # Arsenal Status System (NOUVEAU)
 from manager.status_manager import initialize_status_system
@@ -109,7 +114,14 @@ import commands.creator_tools as creator
 import commands.admin as admin
 import commands.moderateur as moderateur
 import commands.sanction as sanction
-import commands.music as music
+
+# Import music avancé pour éviter l'erreur
+try:
+    import commands.music_system_advanced as music
+    print("[OK] Music System Advanced chargé")
+except ImportError:
+    print("[WARNING] Music System non disponible")
+    music = None
 
 # WebPanel Integration Commands (NOUVEAU)
 try:

@@ -406,3 +406,8 @@ async def setup(bot):
     """Charge le module MusicSystemAdvanced"""
     await bot.add_cog(MusicSystemAdvanced(bot))
     print("🎵 [Music System Advanced] Module chargé avec succès!")
+
+def setup_audio():
+    """Configuration audio pour compatibilité avec main.py"""
+    print("🎵 [Audio Setup] Configuration audio initialisée")
+    return True

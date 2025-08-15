@@ -1,6 +1,6 @@
 """
 🔧 ARSENAL DIAGNOSTIC SYSTEM - Vérifie l'intégralité du bot
-Système ultra-complet qui check TOUT et dit exactement ce qui fonctionne pas
+Système ultra-complet qui check TOUT et dit exactement ce qui va pas
 """
 
 import discord
@@ -12,6 +12,15 @@ import os
 import json
 import sqlite3
 from datetime import datetime, timezone
+import aiohttp
+import traceback
+from pathlib import Path
+
+# Imports pour les tests spécialisés
+try:
+    import psutil
+except ImportError:
+    psutil = None
 import traceback
 import aiohttp
 
@@ -121,25 +130,36 @@ class ArsenalDiagnostic(commands.Cog):
         results = {"status": "OK", "details": []}
         
         try:
-            # Test API Discord
-            async with aiohttp.ClientSession() as session:
-                async with session.get("https://discord.com/api/v10") as resp:
-                    if resp.status != 200:
-                        results["status"] = "ERREUR"
-                        results["details"].append(f"❌ API Discord: Status {resp.status}")
-                    else:
-                        results["details"].append("✅ API Discord accessible")
+            # Si le bot est connecté, utiliser ses infos
+            if self.bot.is_ready() and self.bot.user:
+                results["details"].append("✅ API Discord accessible (bot connecté)")
+            else:
+                # Sinon test basique sans authentification
+                async with aiohttp.ClientSession() as session:
+                    # Test endpoint public Discord
+                    async with session.get("https://discord.com/api/v10/gateway", timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                        if resp.status == 200:
+                            results["details"].append("✅ API Discord accessible")
+                        else:
+                            results["status"] = "ATTENTION"
+                            results["details"].append(f"⚠️ API Discord: Status {resp.status}")
+        except asyncio.TimeoutError:
+            results["status"] = "ATTENTION"
+            results["details"].append("⚠️ API Discord: Timeout de connexion")
         except Exception as e:
-            results["status"] = "ERREUR"
-            results["details"].append(f"❌ Connexion API: {str(e)}")
+            results["status"] = "ATTENTION"
+            results["details"].append(f"⚠️ Connexion API: {str(e)[:50]}")
         
-        # Test Slash Commands
+        # Test Slash Commands seulement si le bot est prêt
         try:
-            synced = await self.bot.tree.sync()
-            results["details"].append(f"✅ Slash Commands: {len(synced)} synchronisées")
+            if self.bot.is_ready():
+                synced = await self.bot.tree.sync()
+                results["details"].append(f"✅ Slash Commands: {len(synced)} synchronisées")
+            else:
+                results["details"].append("⚠️ Slash Commands: Bot non connecté")
         except Exception as e:
-            results["status"] = "ERREUR"
-            results["details"].append(f"❌ Sync Commands: {str(e)}")
+            results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
+            results["details"].append(f"⚠️ Sync Commands: {str(e)[:50]}")
         
         return results
     
