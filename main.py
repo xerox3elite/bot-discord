@@ -279,14 +279,15 @@ class ArsenalBot(commands.Bot):
         self.status_system = None
         
     async def setup_hook(self):
-        # Initialise le système de statut Arsenal
-        self.status_system = initialize_status_system(self)
-        print("🔄 [STATUS] Système de statut Arsenal initialisé")
+        # DÉSACTIVÉ - Système de statut Arsenal (remplacé par Profile Ultimate 2000%)
+        # self.status_system = initialize_status_system(self)
+        # print("🔄 [STATUS] Système de statut Arsenal initialisé")
         self.loop.create_task(restore_voice_channels(self))
         self.loop.create_task(start_terminal(self))
-        # Démarre les systèmes de statut Arsenal
-        await self.status_system.start_status_rotation()
-        await self.status_system.start_keepalive()
+        # DÉSACTIVÉ - Démarrage systèmes de statut Arsenal (conflit avec Profile 2000%)
+        # await self.status_system.start_status_rotation()
+        # await self.status_system.start_keepalive()
+        print("🔄 [STATUS] Systèmes de statut gérés par Arsenal Profile Ultimate 2000%")
         setup_audio(self)
         
         # Charger le système de rechargement de modules
@@ -423,19 +424,19 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config Ultimate: {e}")
                 
-            # Arsenal Profile Ultimate - Profil révolutionnaire
-            try:
-                from commands.arsenal_profile_ultimate import ArsenalProfileUltimate
-                await self.add_cog(ArsenalProfileUltimate(self))
-                log.info("💎 [OK] Arsenal Profile Ultimate - Profil bot révolutionnaire!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate: {e}")
+            # DÉSACTIVÉ - Arsenal Profile Ultimate (ancien, remplacé par 2000%)
+            # try:
+            #     from commands.arsenal_profile_ultimate import ArsenalProfileUltimate
+            #     await self.add_cog(ArsenalProfileUltimate(self))
+            #     log.info("💎 [OK] Arsenal Profile Ultimate - Profil bot révolutionnaire!")
+            # except Exception as e:
+            #     log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate: {e}")
                 
-            # Arsenal Profile Ultimate 2000% - Profil révolutionnaire COMPLET
+            # Arsenal Profile Ultimate 2000% - Profil révolutionnaire COMPLET (SEUL ACTIF)
             try:
                 from commands.arsenal_profile_ultimate_2000 import ArsenalProfileUltimate2000
                 await self.add_cog(ArsenalProfileUltimate2000(self))
-                log.info("🔥 [OK] Arsenal Profile Ultimate 2000% - STREAMING VIOLET + 2000% personnalisation!")
+                log.info("🔥 [OK] Arsenal Profile Ultimate 2000% - STREAMING + 2000% personnalisation!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate 2000%: {e}")
                 
@@ -447,13 +448,13 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config 2000%: {e}")
                 
-            # Arsenal Profile Updater - Mise à jour auto du profil
-            try:
-                from commands.arsenal_profile_updater import ArsenalProfileUpdater
-                await self.add_cog(ArsenalProfileUpdater(self))
-                log.info("🎯 [OK] Arsenal Profile Updater - Profil Discord auto-optimisé!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Profile Updater: {e}")
+            # DÉSACTIVÉ - Arsenal Profile Updater (conflit avec Profile Ultimate 2000%)
+            # try:
+            #     from commands.arsenal_profile_updater import ArsenalProfileUpdater
+            #     await self.add_cog(ArsenalProfileUpdater(self))
+            #     log.info("🎯 [OK] Arsenal Profile Updater - Profil Discord auto-optimisé!")
+            # except Exception as e:
+            #     log.error(f"[ERROR] Erreur chargement Profile Updater: {e}")
                 
             # Arsenal Context Menus - Menus contextuels (clic droit)
             try:

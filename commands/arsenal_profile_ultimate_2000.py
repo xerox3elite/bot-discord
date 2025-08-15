@@ -72,51 +72,77 @@ class ArsenalProfileUltimate2000(commands.Cog):
             "quantum_security": "🔥 Sécurité Quantique"
         }
         
-        # 🎭 STATUTS STREAMING RÉVOLUTIONNAIRES (30+)
+        # 🎭 STATUTS STREAMING COURTS AVEC PLUS D'ÉTAPES (50+ statuts courts)
         self.streaming_statuses_2000 = [
-            # Catégorie 1: Fonctionnalités Discord Natives
-            "✅ 25 Discord Natives | 20 Arsenal Exclusives | STREAMING",
-            "✅ Slash Commands (200+) | AutoMod | Boutons UI | LIVE",
-            "✅ Context Menus | Threads | Forums | Stage | STREAMING",
-            "✅ Webhooks | Embeds | Reactions | Permissions | LIVE",
-            "✅ Voice Advanced | Stickers | Emojis | Templates | STREAMING",
+            # Discord Natives (10 étapes courtes)
+            "✅ Slash Commands (200+)",
+            "✅ AutoMod Natif",
+            "✅ Boutons UI + Modales", 
+            "✅ Context Menus",
+            "✅ Threads & Forums",
+            "✅ Stage Channels",
+            "✅ Webhooks Pro",
+            "✅ Embeds Riches",
+            "✅ Permissions Avancées",
+            "✅ Audit Logs Complets",
             
-            # Catégorie 2: Innovations Arsenal
-            "🔥 IA ChatGPT | Migration System | ArsenalCoins | LIVE",
-            "🔥 Audio HD | Multi-APIs (50+) | Traduction (120+ langues) | STREAMING",
-            "🔥 Gaming Hub | Web Dashboard | Mobile App | LIVE",
-            "🔥 Big Data | Machine Learning | Blockchain | STREAMING",
-            "🔥 Crypto Wallet | NFT | Web3 | DeFi | Smart Contracts | LIVE",
+            # Arsenal Exclusives (15 étapes courtes)
+            "🔥 IA ChatGPT-4",
+            "🔥 Migration System",
+            "🔥 ArsenalCoins Crypto",
+            "🔥 Audio HD Pro",
+            "🔥 Multi-APIs (50+)",
+            "🔥 Traduction (120+ langues)",
+            "🔥 Gaming Hub",
+            "🔥 Web Dashboard",
+            "🔥 Mobile App",
+            "🔥 Big Data Analytics",
+            "🔥 Machine Learning",
+            "🔥 Blockchain Intégré",
+            "🔥 NFT Support",
+            "🔥 Web3 + DeFi",
+            "🔥 Sécurité Quantique",
             
-            # Catégorie 3: Technologies Futuristes
-            "🚀 Metaverse Ready | AR/VR Support | Quantum Security | STREAMING",
-            "🚀 Enterprise Grade | 99.99% Uptime | <30ms Latency | LIVE",
-            "🚀 Multi-Région | Auto-Scale | Load Balancing | STREAMING",
-            "🚀 Real-time Analytics | Predictive AI | Auto-Optimization | LIVE",
+            # Performances (10 étapes courtes)
+            "⚡ Latence <20ms",
+            "⚡ Uptime 99.99%",
+            "⚡ Config 2000%",
+            "⚡ Multi-Région",
+            "⚡ Auto-Scale",
+            "⚡ Cloud Optimisé",
+            "⚡ Load Balancing",
+            "⚡ Enterprise Grade",
+            "⚡ Zero Downtime",
+            "⚡ Performance Ultra",
             
-            # Catégorie 4: Domination Market
-            "💎 Arsenal > DraftBot (50x fonctionnalités) | STREAMING",
-            "💎 Arsenal > Dyno (Interface révolutionnaire) | LIVE", 
-            "💎 Arsenal > Carl-bot (IA native intégrée) | STREAMING",
-            "💎 Arsenal > MEE6 (100% gratuit premium) | LIVE",
-            "💎 Arsenal Ultimate = Futur de Discord | STREAMING",
+            # Domination Market (10 étapes courtes)
+            "� Arsenal > DraftBot",
+            "👑 Arsenal > Dyno",
+            "👑 Arsenal > Carl-bot",
+            "� Arsenal > MEE6",
+            "👑 Leader Discord 2025",
+            "👑 Interface Révolutionnaire",
+            "� 50x Fonctionnalités",
+            "� 100% Gratuit Premium",
+            "� IA Native Intégrée",
+            "👑 Futur de Discord",
             
-            # Catégorie 5: Performances Techniques
-            "⚡ Configuration 2000% | Personnalisation Infinie | LIVE",
-            "⚡ 1000+ Options Config | Interface Révolutionnaire | STREAMING", 
-            "⚡ Zero-Config Setup | Auto-Detection | Smart-Config | LIVE",
-            "⚡ Backup Auto | Migration 1-Click | Cloud Sync | STREAMING",
-            "⚡ Multi-Server | Cross-Platform | Universal Bot | LIVE",
-            
-            # Catégorie 6: Arsenal Ecosystem
-            "🌟 Arsenal Ecosystem | Multi-Bot Network | STREAMING",
-            "🌟 Arsenal Studio | Bot Factory | Template Engine | LIVE",
-            "🌟 Arsenal Cloud | Hosting Premium | CDN Global | STREAMING",
-            "🌟 Arsenal Academy | Formation Discord | Certification | LIVE",
-            "🌟 Arsenal Marketplace | Bot Store | Premium Features | STREAMING",
-            
-            # Catégorie 7: Révolution Complète
-            "🔮 RÉVOLUTION DISCORD 2025 | Arsenal Leading | LIVE"
+            # Technologies Futures (15 étapes courtes)
+            "🚀 Metaverse Ready",
+            "🚀 AR/VR Support",
+            "🚀 Quantum Computing",
+            "🚀 Smart Contracts",
+            "🚀 Blockchain Native",
+            "🚀 Crypto Wallet",
+            "🚀 NFT Marketplace",
+            "🚀 DeFi Protocols",
+            "🚀 Neural Networks",
+            "🚀 Deep Learning",
+            "🚀 Computer Vision",
+            "🚀 NLP Advanced",
+            "🚀 Predictive AI",
+            "🚀 Real-time Analytics",
+            "� Arsenal Ultimate"
         ]
         
         # 🎨 THÈMES DE PERSONNALISATION (50+ options)
@@ -149,24 +175,49 @@ class ArsenalProfileUltimate2000(commands.Cog):
         }
         
     async def cog_load(self):
-        """Démarre le système dès le chargement"""
+        """Démarre le système dès le chargement + Force mise à jour profil Discord"""
         print("🚀 [PROFILE 2000%] Arsenal Profile Ultimate 2000% chargé!")
         
-    @tasks.loop(minutes=1.5)  # Rotation plus rapide toutes les 1.5 minutes
-    async def profile_updates_streaming(self):
-        """Met à jour le profil en STREAMING VIOLET avec rotation ultra-rapide"""
+        # Démarrer immédiatement pour que Discord reconnaisse nos prises en charge
+        await asyncio.sleep(2)  # Attendre que le bot soit prêt
+        await self.force_discord_profile_update()
+        
+    async def force_discord_profile_update(self):
+        """Force Discord à afficher toutes nos prises en charge dans le profil"""
         try:
-            # Choisir un statut révolutionnaire aléatoire
+            # Commencer par un status qui liste TOUTES nos prises en charge
+            comprehensive_status = "Arsenal: ✅25 Discord Natives ✅AutoMod ✅Slash Commands ✅Context Menus ✅Threads ✅Forums ✅Stage ✅Webhooks 🔥IA ChatGPT 🔥Migration 🔥ArsenalCoins 🔥Gaming Hub 🔥Blockchain 🔥Web3"
+            
+            activity = discord.Streaming(
+                name=comprehensive_status[:128],  # Discord limite à 128 caractères
+                url="https://www.twitch.tv/arsenal_ultimate_discord"
+            )
+            
+            await self.bot.change_presence(
+                status=discord.Status.online,  # STREAMING ONLINE
+                activity=activity
+            )
+            
+            print("💎 [DISCORD PROFILE] Profil mis à jour avec TOUTES les prises en charge!")
+            
+        except Exception as e:
+            print(f"❌ [ERREUR PROFIL] {e}")
+        
+    @tasks.loop(minutes=1)  # Rotation RAPIDE toutes les 1 minute pour plus d'étapes
+    async def profile_updates_streaming(self):
+        """Met à jour le profil en STREAMING avec statuts courts"""
+        try:
+            # Choisir un statut court aléatoire
             status_text = random.choice(self.streaming_statuses_2000)
             
-            # 🔴 STREAMING VIOLET PROFESSIONNEL
+            # 🔴 STREAMING PUR (pas DND) avec URL Twitch
             activity = discord.Streaming(
                 name=status_text,
                 url="https://www.twitch.tv/arsenal_ultimate_discord"
             )
             
             await self.bot.change_presence(
-                status=discord.Status.dnd,      # VIOLET STREAMING !!!
+                status=discord.Status.online,      # ONLINE STREAMING (pas DND!)
                 activity=activity
             )
             
