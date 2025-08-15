@@ -147,6 +147,24 @@ except Exception as e:
     ARSENAL_FEATURES_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Features System: {e}")
 
+# Arsenal Config Ultimate (RÉVOLUTIONNAIRE - Configuration la plus avancée)
+try:
+    from commands.arsenal_config_ultimate import ArsenalConfigUltimate
+    ARSENAL_CONFIG_ULTIMATE_AVAILABLE = True
+    print("🔥 [OK] Arsenal Config Ultimate chargé - Configuration révolutionnaire!")
+except Exception as e:
+    ARSENAL_CONFIG_ULTIMATE_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Config Ultimate: {e}")
+
+# Arsenal Profile Ultimate (RÉVOLUTIONNAIRE - Profil bot le plus impressionnant)
+try:
+    from commands.arsenal_profile_ultimate import ArsenalProfileUltimate  
+    ARSENAL_PROFILE_ULTIMATE_AVAILABLE = True
+    print("💎 [OK] Arsenal Profile Ultimate chargé - Profil révolutionnaire!")
+except Exception as e:
+    ARSENAL_PROFILE_ULTIMATE_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Profile Ultimate: {e}")
+
 # Hunt Royal Auth System (NOUVEAU)
 try:
     import commands.hunt_royal_auth as hunt_auth
@@ -396,6 +414,22 @@ class ArsenalBot(commands.Bot):
                 log.info("🌟 [OK] Arsenal Features System - Toutes les fonctionnalités Discord natives!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Features: {e}")
+                
+            # Arsenal Config Ultimate - Configuration révolutionnaire
+            try:
+                from commands.arsenal_config_ultimate import ArsenalConfigUltimate
+                await self.add_cog(ArsenalConfigUltimate(self))
+                log.info("🔥 [OK] Arsenal Config Ultimate - Configuration la plus avancée Discord!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Config Ultimate: {e}")
+                
+            # Arsenal Profile Ultimate - Profil révolutionnaire
+            try:
+                from commands.arsenal_profile_ultimate import ArsenalProfileUltimate
+                await self.add_cog(ArsenalProfileUltimate(self))
+                log.info("💎 [OK] Arsenal Profile Ultimate - Profil bot révolutionnaire!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate: {e}")
                 
             # Arsenal Profile Updater - Mise à jour auto du profil
             try:
