@@ -431,6 +431,22 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate: {e}")
                 
+            # Arsenal Profile Ultimate 2000% - Profil révolutionnaire COMPLET
+            try:
+                from commands.arsenal_profile_ultimate_2000 import ArsenalProfileUltimate2000
+                await self.add_cog(ArsenalProfileUltimate2000(self))
+                log.info("🔥 [OK] Arsenal Profile Ultimate 2000% - STREAMING VIOLET + 2000% personnalisation!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate 2000%: {e}")
+                
+            # Arsenal Config 2000% - Configuration révolutionnaire MAXIMALE
+            try:
+                from commands.arsenal_config_2000 import ArsenalConfig2000System
+                await self.add_cog(ArsenalConfig2000System(self))
+                log.info("🚀 [OK] Arsenal Config 2000% - Configuration la plus avancée Discord!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Config 2000%: {e}")
+                
             # Arsenal Profile Updater - Mise à jour auto du profil
             try:
                 from commands.arsenal_profile_updater import ArsenalProfileUpdater
@@ -446,6 +462,14 @@ class ArsenalBot(commands.Bot):
                 log.info("🖱️ [OK] Arsenal Context Menus - Menus contextuels natifs Discord!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Context Menus: {e}")
+                
+            # Discord Integration Forcer - Force Discord à reconnaître TOUTES nos prises en charge
+            try:
+                from commands.discord_integration_forcer import DiscordIntegrationForcer
+                await self.add_cog(DiscordIntegrationForcer(self))
+                log.info("💎 [OK] Discord Integration Forcer - TOUTES les prises en charge forcées!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Discord Integration Forcer: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)

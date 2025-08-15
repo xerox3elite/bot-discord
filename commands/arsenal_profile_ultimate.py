@@ -1,6 +1,22 @@
 """
 ARSENAL PROFILE ULTIMATE - SYSTÈME DE PROFIL RÉVOLUTIONNAIRE
-Affiche TOUTES les prises en charge Discord natives + innovations Arsenal
+Affiche TOUTES les prises     @tasks.loop(minutes=2)  # Rotation toutes les 2 minutes
+    async def profile_updates(self):
+        """Met à jour le profil pour montrer toutes les prises en charge"""
+        try:
+            # Choisir un statut révolutionnaire
+            status_text = random.choice(self.ultimate_statuses)
+            
+            # STREAMING VIOLET - Discord va montrer toutes nos prises en charge !
+            activity = discord.Streaming(
+                name=status_text,
+                url="https://www.twitch.tv/arsenal_ultimate_bot"
+            )
+            
+            await self.bot.change_presence(
+                status=discord.Status.dnd,      # VIOLET streaming professionnel
+                activity=activity
+            ) natives + innovations Arsenal
 Par xerox3elite - Le profil bot le plus impressionnant de Discord
 """
 
@@ -61,50 +77,34 @@ class ArsenalProfileUltimate(commands.Cog):
             "blockchain_integration": "🔥 Blockchain Intégré"
         }
         
-        # Statuts rotatifs révolutionnaires
+        # Statuts rotatifs révolutionnaires avec BADGES DISCORD
         self.ultimate_statuses = [
-            # Prises en charge Discord
-            "✅ 150+ Commandes Slash | Arsenal Ultimate",
-            "✅ AutoMod Discord Natif | Arsenal Pro",
-            "✅ Boutons & Modales UI | Interface Moderne",
-            "✅ Context Menus | Clic Droit Intelligent",
-            "✅ Threads & Forums | Gestion Complète",
-            "✅ Stage Channels | Conférences Pro",
-            "✅ Events Discord | Programmation Auto",
-            "✅ Webhooks Intégrés | API Complète",
+            # Discord va afficher ces comme PRISES EN CHARGE officielles !
+            "Slash Commands (150+) | Boutons UI | Modales",
+            "AutoMod Natif | IA Modération | Context Menus", 
+            "Threads & Forums | Stage Channels | Events",
+            "Webhooks | Embeds | Reactions Auto",
+            "Role Management | Permissions | Audit Logs",
+            "Voice Channels | Audio HD | Music Pro",
+            "ArsenalCoins Economy | Crypto Integration",
+            "Gaming Hub | Hunt Royal | Steam Connect",
+            "YouTube | Twitch | Spotify | GitHub API",
+            "Translation AI (100+ langues) | Big Data",
+            "Migration System | Dashboard Web | Mobile App",
+            "Machine Learning | Blockchain | Enterprise Security",
             
-            # Innovations Arsenal
-            "🔥 IA Modération | Analyse Contextuelle",
-            "🔥 Migration System | Import Autres Bots", 
-            "🔥 ArsenalCoins | Économie Révolutionnaire",
-            "🔥 Audio HD | Qualité Professionnelle",
-            "🔥 Multi-Intégrations | 10+ Plateformes",
-            "🔥 Traduction IA | 100+ Langues",
-            "🔥 Gaming Hub | Intégration Massive",
-            "🔥 Web Dashboard | Interface Révolutionnaire",
-            "🔥 Big Data | Analytics Avancées",
-            "🔥 Machine Learning | IA Intégrée",
+            # Ces statuts vont apparaître dans le badge Discord !
+            "✅ 20 Discord Natives | 13 Arsenal Exclusives",
+            "✅ Interface Révolutionnaire | Configuration Ultimate", 
+            "✅ Performance <50ms | 99.9% Uptime",
+            "✅ 100% Gratuit | Aucune Limitation",
             
-            # Comparaisons dominantes
-            "💪 Arsenal > DraftBot | 10x Plus de Fonctionnalités",
-            "💪 Arsenal > Dyno | Interface Révolutionnaire", 
-            "💪 Arsenal > Carl-bot | IA Intégrée",
-            "💪 Arsenal > MEE6 | 100% Gratuit",
-            "💪 Arsenal Ultimate | Le Futur de Discord",
-            "💪 Arsenal Pro | Bot Révolutionnaire",
-            
-            # Statistiques impressionnantes
-            f"📊 {len(self.supported_features)} Prises en Charge Natives",
-            "📊 500+ Paramètres Configurables",
-            "📊 1000+ Options Personnalisation",
-            "📊 10+ Systèmes Révolutionnaires",
-            "📊 Performance <50ms | Optimisé Render",
-            
-            # Appels à l'action
-            "🚀 /config_ultimate | Configuration Révolutionnaire",
-            "🚀 /features | Toutes les Fonctionnalités",
-            "🚀 /migrate | Importez Vos Bots Actuels",
-            "🚀 Arsenal Ultimate | Essayez Maintenant !"
+            # Comparaisons qui vont s'afficher dans Discord
+            "Arsenal > DraftBot (10x fonctionnalités)",
+            "Arsenal > Dyno (Interface révolutionnaire)",
+            "Arsenal > Carl-bot (IA intégrée native)", 
+            "Arsenal > MEE6 (Entièrement gratuit)",
+            "Arsenal Ultimate = Futur Discord"
         ]
         
     @tasks.loop(minutes=2)  # Rotation toutes les 2 minutes
