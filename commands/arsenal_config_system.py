@@ -610,34 +610,11 @@ class ArsenalConfigMainView(discord.ui.View):
         )
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
-                value="automod",
-                description="Anti-spam, anti-liens, filtres de mots",
-                emoji="🛡️"
-            ),
-            discord.SelectOption(
-                label="🔊 Salons Temporaires",
-                value="tempchannels",
-                description="Salons vocaux temporaires automatiques",
-                emoji="🔊"
-            ),
-            discord.SelectOption(
-                label="🎵 Système Musical",
-                value="music",
-                description="Configuration du bot musical",
-                emoji="🎵"
-            ),
-            discord.SelectOption(
-                label="🎟️ Système de Tickets",
-                value="tickets",
-                description="Support, réclamations, tickets privés",
-                emoji="🎟️"
-            ),
-            discord.SelectOption(
-                label="📝 Sondages & Annonces",
-                value="polls",
-                description="Configuration des sondages et annonces",
-                emoji="📝"
-            ),
+
+# Configuration Select Menu pour les différents systèmes
+class ArsenalConfigSelect(discord.ui.Select):
+    def __init__(self):
+        options = [
             discord.SelectOption(
                 label="⭐ Rôles de Réaction",
                 value="reaction_roles",
@@ -645,7 +622,7 @@ class ArsenalConfigMainView(discord.ui.View):
                 emoji="⭐"
             ),
             discord.SelectOption(
-                label="👋 Accueil & Départ",
+                label="👋 Accueil & Départ", 
                 value="welcome",
                 description="Messages d'accueil et rôles automatiques",
                 emoji="👋"

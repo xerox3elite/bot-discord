@@ -85,10 +85,14 @@ class ArsenalStatusSystem:
                 member_count = sum(guild.member_count or 0 for guild in self.bot.guilds)
                 status_text = status_text.replace("{member_count}", str(member_count))
             
-            # Change le statut
+            # Change le statut - VIOLET sans "streaming"
             import discord
-            activity = discord.Streaming(name=status_text, url="https://twitch.tv/xerox3elite")
-            await self.bot.change_presence(activity=activity)
+            activity = discord.Activity(
+                type=discord.ActivityType.custom, 
+                name=status_text,
+                state=status_text
+            )
+            await self.bot.change_presence(status=discord.Status.dnd, activity=activity)
             
             # Passe au statut suivant
             self.current_status_index = (self.current_status_index + 1) % len(self.status_messages)
