@@ -644,6 +644,36 @@ class ArsenalConfigSelect(discord.ui.Select):
                 value="crypto",
                 description="Portefeuilles crypto et transactions",
                 emoji="💳"
+            ),
+            discord.SelectOption(
+                label="🔗 Intégrations Externes",
+                value="integrations", 
+                description="YouTube, Twitch, Spotify, GitHub",
+                emoji="🔗"
+            ),
+            discord.SelectOption(
+                label="🤖 IA & AutoMod",
+                value="automod_ai",
+                description="Modération IA + AutoMod Discord natif",
+                emoji="🤖"
+            ),
+            discord.SelectOption(
+                label="🎵 Système Musical HD",
+                value="music_hd",
+                description="Audio haute qualité multi-sources",
+                emoji="🎵"
+            ),
+            discord.SelectOption(
+                label="🌍 Traduction Multi-langues", 
+                value="translation",
+                description="Traduction automatique 50+ langues",
+                emoji="🌍"
+            ),
+            discord.SelectOption(
+                label="🎪 Événements & Stages",
+                value="events_stages",
+                description="Events Discord + Stage Channels",
+                emoji="🎪"
             )
         ]
         super().__init__(
@@ -768,6 +798,42 @@ class ArsenalConfigSystem(commands.Cog):
                 "supported_currencies": ["BTC", "ETH", "BNB"],
                 "alerts_channel": None,
                 "portfolio_tracking": True
+            },
+            "integrations": {
+                "enabled": True,
+                "youtube": {"enabled": False, "api_key": None, "notifications_channel": None},
+                "twitch": {"enabled": False, "client_id": None, "notifications_channel": None, "streamers": []},
+                "spotify": {"enabled": False, "client_id": None, "playlists_sharing": True},
+                "github": {"enabled": False, "token": None, "repos_tracking": [], "notifications_channel": None}
+            },
+            "automod_ai": {
+                "enabled": True,
+                "discord_automod": {"enabled": True, "keyword_filter": True, "spam_filter": True},
+                "ai_moderation": {"enabled": True, "toxicity_threshold": 0.7, "context_analysis": True},
+                "quarantine": {"enabled": True, "auto_quarantine": True, "quarantine_role": None}
+            },
+            "music_hd": {
+                "enabled": True,
+                "quality": "high",
+                "sources": ["youtube", "spotify", "soundcloud"],
+                "volume_limit": 100,
+                "queue_limit": 200,
+                "dj_role": None,
+                "24_7_mode": False
+            },
+            "translation": {
+                "enabled": True,
+                "auto_translate": False,
+                "supported_languages": ["fr", "en", "es", "de", "it", "pt", "ru", "ja", "ko"],
+                "reaction_translate": True,
+                "translation_channel": None
+            },
+            "events_stages": {
+                "enabled": True,
+                "auto_create_events": True,
+                "stage_channels": {"enabled": True, "auto_speakers": []},
+                "events_notifications": {"enabled": True, "channel": None},
+                "rsvp_tracking": True
             }
         }
         return defaults.get(system, {})
