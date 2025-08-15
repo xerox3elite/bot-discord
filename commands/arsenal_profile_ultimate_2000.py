@@ -185,11 +185,12 @@ class ArsenalProfileUltimate2000(commands.Cog):
     async def force_discord_profile_update(self):
         """Force Discord à afficher toutes nos prises en charge dans le profil"""
         try:
-            # Commencer par un status qui liste TOUTES nos prises en charge
-            comprehensive_status = "Arsenal: ✅25 Discord Natives ✅AutoMod ✅Slash Commands ✅Context Menus ✅Threads ✅Forums ✅Stage ✅Webhooks 🔥IA ChatGPT 🔥Migration 🔥ArsenalCoins 🔥Gaming Hub 🔥Blockchain 🔥Web3"
+            # 💎 CAPACITÉ PRINCIPALE à afficher à droite du nom (première rotation)
+            startup_capability = "AutoMod • Anti-Raid • Sécurité"
+            startup_status = "� Arsenal Ultimate ACTIF"
             
             activity = discord.Streaming(
-                name=comprehensive_status[:128],  # Discord limite à 128 caractères
+                name=f"{startup_status} | {startup_capability}",  # Status + Capacité visible
                 url="https://www.twitch.tv/arsenal_ultimate_discord"
             )
             
@@ -198,11 +199,15 @@ class ArsenalProfileUltimate2000(commands.Cog):
                 activity=activity
             )
             
-            print("💎 [DISCORD PROFILE] Profil mis à jour avec TOUTES les prises en charge!")
+            print(f"💎 [DISCORD PROFILE] Démarrage: {startup_status} | {startup_capability}")
             
         except Exception as e:
             print(f"❌ [ERREUR PROFIL] {e}")
         
+        # Démarrer la rotation après la configuration initiale
+        if not self.profile_updates_streaming.is_running():
+            self.profile_updates_streaming.start()
+    
     @tasks.loop(minutes=1)  # Rotation RAPIDE toutes les 1 minute pour plus d'étapes
     async def profile_updates_streaming(self):
         """Met à jour le profil en STREAMING avec statuts courts"""
@@ -210,9 +215,26 @@ class ArsenalProfileUltimate2000(commands.Cog):
             # Choisir un statut court aléatoire
             status_text = random.choice(self.streaming_statuses_2000)
             
-            # 🔴 STREAMING PUR (pas DND) avec URL Twitch
+            # � CAPACITÉS ROTATIVES à afficher à droite du nom
+            capabilities = [
+                "AutoMod | Anti-Raid | Modération",
+                "ArsenalCoins | Économie | Casino", 
+                "Gaming | Steam | Riot Games",
+                "IA ChatGPT | Machine Learning",
+                "Music | Spotify | YouTube",
+                "Tickets | Support | Logs",
+                "Crypto | NFT | Blockchain",
+                "Analytics | Stats | Monitoring",
+                "Webhooks | APIs | Integration",
+                "Security | Backup | Protection"
+            ]
+            
+            # Choisir une capacité aléatoire pour l'afficher à droite
+            current_capability = random.choice(capabilities)
+            
+            # �🔴 STREAMING PUR (pas DND) avec URL Twitch
             activity = discord.Streaming(
-                name=status_text,
+                name=f"{status_text} | {current_capability}",  # Status + Capacité visible
                 url="https://www.twitch.tv/arsenal_ultimate_discord"
             )
             
@@ -221,7 +243,7 @@ class ArsenalProfileUltimate2000(commands.Cog):
                 activity=activity
             )
             
-            print(f"🔴 [STREAMING] Status mis à jour: {status_text}")
+            print(f"🔴 [STREAMING] Status: {status_text} | Capacité: {current_capability}")
             
         except Exception as e:
             print(f"❌ [ERREUR STREAMING] {e}")
@@ -230,6 +252,83 @@ class ArsenalProfileUltimate2000(commands.Cog):
     async def before_profile_updates(self):
         await self.bot.wait_until_ready()
     
+    @commands.hybrid_command(name="help", description="📚 Guide complet Arsenal - Toutes les commandes et fonctionnalités")
+    async def arsenal_help(self, ctx):
+        """Commande help complète et bien espacée"""
+        
+        embed = discord.Embed(
+            title="📚 **ARSENAL ULTIMATE - GUIDE COMPLET**",
+            description=f"**🚀 Le bot Discord le plus avancé au monde**\n\n" + 
+                       f"**{len(self.mega_features)} fonctionnalités** • **2000% personnalisation**\n\n" +
+                       f"───────────────────────────────────────\n\n" +
+                       f"**Utilise les commandes ci-dessous pour explorer Arsenal** ⬇️",
+            color=0x00ff00,
+            timestamp=datetime.now(timezone.utc)
+        )
+        
+        # Commandes principales (avec plus d'espace)
+        embed.add_field(
+            name="🚀 **COMMANDES PRINCIPALES**",
+            value=(
+                "`/profile_ultimate_2000` - Profil révolutionnaire\n\n"
+                "`/config_2000` - Configuration 2000%\n\n" 
+                "`/themes_2000` - Thèmes personnalisation\n\n"
+                "`/status_streaming` - Statuts streaming\n\n"
+                "`/features` - Toutes les fonctionnalités\n\n"
+                "`/migration` - Migrer d'autres bots\n\n"
+            ),
+            inline=False
+        )
+        
+        # Systèmes révolutionnaires
+        embed.add_field(
+            name="💎 **SYSTÈMES RÉVOLUTIONNAIRES**",
+            value=(
+                "🔥 **IA ChatGPT-4** - Intelligence artificielle intégrée\n\n"
+                "🤖 **Bot Migration** - Import configs DraftBot/Dyno/Carl/MEE6\n\n"
+                "💰 **ArsenalCoins** - Économie crypto blockchain\n\n"
+                "🎮 **Gaming Hub** - 30+ APIs (Steam, Riot, Xbox)\n\n"
+                "🌐 **Web Dashboard** - Interface révolutionnaire\n\n"
+                "📱 **Mobile App** - Application native\n\n"
+            ),
+            inline=False
+        )
+        
+        # Discord Natives
+        embed.add_field(
+            name="✅ **DISCORD NATIVES (25+)**",
+            value=(
+                "**Slash Commands (200+)** - Toutes les commandes\n\n"
+                "**AutoMod Natif** - Modération automatique Discord\n\n"
+                "**Boutons & Modales** - Interface interactive\n\n"
+                "**Context Menus** - Clic droit natif\n\n"
+                "**Threads & Forums** - Gestion complète\n\n"
+                "**Stage Channels** - Événements Discord\n\n"
+            ),
+            inline=False
+        )
+        
+        # Support et liens
+        embed.add_field(
+            name="🔗 **SUPPORT & LIENS**",
+            value=(
+                "🌐 **Site Web** : [arsenal-bot.com](https://arsenal-bot.com)\n\n"
+                "📺 **Streaming** : [Twitch Arsenal](https://twitch.tv/arsenal_ultimate_discord)\n\n"
+                "💬 **Support** : `/report` pour signaler\n\n"
+                "📊 **Stats** : `/info` pour informations\n\n"
+                "🔄 **Version** : `/version` actuelle\n\n"
+            ),
+            inline=False
+        )
+        
+        # Footer avec plus d'infos
+        embed.set_footer(
+            text="Arsenal Ultimate 2000% • Révolutionne Discord depuis Mars 2025 • By xerox3elite • Version 4.5.0+"
+        )
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
+        
+        await ctx.send(embed=embed)  # PUBLIC pour que tout le monde voit
+        
     @commands.hybrid_command(name="profile_ultimate_2000", description="🚀 Affiche le profil Arsenal Ultimate avec 2000% de personnalisation")
     async def show_profile_2000(self, ctx, theme: str = "cyberpunk"):
         """Affiche le profil ultimate avec thème personnalisable"""
@@ -241,86 +340,92 @@ class ArsenalProfileUltimate2000(commands.Cog):
             title=f"{selected_theme['emoji']} **ARSENAL ULTIMATE 2000% - {selected_theme['style'].upper()}**",
             description=(
                 f"🔴 **STREAMING LIVE** | {len(self.mega_features)} fonctionnalités\n\n"
-                f"**🚀 LE BOT DISCORD LE PLUS AVANCÉ AU MONDE**\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                f"**🚀 LE BOT DISCORD LE PLUS AVANCÉ AU MONDE**\n\n"
                 f"Configuration 2000% • Personnalisation infinie • Technologies futures\n\n"
-                f"🎯 **Arsenal domine complètement le marché Discord**"
+                f"🎯 **Arsenal domine complètement le marché Discord**\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
             ),
             color=selected_theme['color'],
             timestamp=datetime.now(timezone.utc)
         )
         
-        # Section Discord Natives (25+)
+        # Section Discord Natives (25+) - Plus d'espace
         discord_natives = [v for k, v in self.mega_features.items() if v.startswith("✅")]
-        natives_display = "\n".join(discord_natives[:12])  # Plus de fonctionnalités affichées
-        if len(discord_natives) > 12:
-            natives_display += f"\n... **et {len(discord_natives)-12} autres natives !**"
+        natives_display = "\n\n".join(discord_natives[:8])  # Espacement double entre lignes
+        if len(discord_natives) > 8:
+            natives_display += f"\n\n... **et {len(discord_natives)-8} autres natives !**"
             
         embed.add_field(
             name="✅ **DISCORD NATIVES COMPLÈTES (25+)**",
-            value=natives_display,
+            value=natives_display + "\n\n━━━━━━━━━━━━━━━━━━━",
             inline=True
         )
         
-        # Section Arsenal Exclusives (20+) 
+        # Section Arsenal Exclusives (20+) - Plus d'espace
         exclusives = [v for k, v in self.mega_features.items() if v.startswith("🔥")]
-        exclusives_display = "\n".join(exclusives[:10])
-        if len(exclusives) > 10:
-            exclusives_display += f"\n... **et {len(exclusives)-10} exclusivités !**"
+        exclusives_display = "\n\n".join(exclusives[:8])  # Espacement double
+        if len(exclusives) > 8:
+            exclusives_display += f"\n\n... **et {len(exclusives)-8} exclusivités !**"
             
         embed.add_field(
             name="🔥 **ARSENAL EXCLUSIVES RÉVOLUTIONNAIRES (20+)**",
-            value=exclusives_display,
+            value=exclusives_display + "\n\n━━━━━━━━━━━━━━━━━━━",
             inline=True
         )
         
-        # Domination Market
+        # Domination Market - Plus aéré
         embed.add_field(
             name="👑 **DOMINATION MARKET**",
             value=(
-                "**Arsenal > DraftBot** (50x fonctionnalités)\n"
-                "**Arsenal > Dyno** (Interface révolutionnaire)\n"  
-                "**Arsenal > Carl-bot** (IA native intégrée)\n"
-                "**Arsenal > MEE6** (100% gratuit premium)\n"
-                "**Arsenal = Futur Discord** 🚀"
+                "**Arsenal > DraftBot** (50x fonctionnalités)\n\n"
+                "**Arsenal > Dyno** (Interface révolutionnaire)\n\n"  
+                "**Arsenal > Carl-bot** (IA native intégrée)\n\n"
+                "**Arsenal > MEE6** (100% gratuit premium)\n\n"
+                "**Arsenal = Futur Discord** 🚀\n\n"
+                "━━━━━━━━━━━━━━━━━━━"
             ),
             inline=True
         )
         
-        # Performances 2000%
+        # Performances 2000% - Plus d'espacement
         embed.add_field(
             name="⚡ **PERFORMANCES 2000%**",
             value=(
-                f"🎨 **Thèmes**: {len(self.customization_themes)} options\n"
-                f"🔧 **Config**: 1000+ paramètres\n"
-                f"🚀 **Latence**: <20ms (optimisé)\n"
-                f"💎 **Uptime**: 99.99% disponibilité\n"
-                f"🌍 **Global**: Multi-région support"
+                f"🎨 **Thèmes**: {len(self.customization_themes)} options\n\n"
+                f"🔧 **Config**: 1000+ paramètres\n\n"
+                f"🚀 **Latence**: <20ms (optimisé)\n\n"
+                f"💎 **Uptime**: 99.99% disponibilité\n\n"
+                f"🌍 **Global**: Multi-région support\n\n"
+                f"━━━━━━━━━━━━━━━━━━━"
             ),
             inline=True
         )
         
-        # Technologies Futures
+        # Technologies Futures - Plus aéré
         embed.add_field(
             name="🔮 **TECHNOLOGIES FUTURES**",
             value=(
-                "🤖 **IA ChatGPT**: Intégrée nativement\n"
-                "🔗 **Blockchain**: ArsenalCoins & NFT\n"
-                "🌐 **Web3**: DeFi & Smart Contracts\n"
-                "🥽 **Metaverse**: AR/VR Ready\n"
-                "🔐 **Quantum**: Sécurité quantique"
+                "🤖 **IA ChatGPT**: Intégrée nativement\n\n"
+                "🔗 **Blockchain**: ArsenalCoins & NFT\n\n"
+                "🌐 **Web3**: DeFi & Smart Contracts\n\n"
+                "🥽 **Metaverse**: AR/VR Ready\n\n"
+                "🔐 **Quantum**: Sécurité quantique\n\n"
+                "━━━━━━━━━━━━━━━━━━━"
             ),
             inline=True
         )
         
-        # Personnalisation 2000%
+        # Personnalisation 2000% - Plus d'espacement
         embed.add_field(
             name="🎨 **PERSONNALISATION 2000%**",
             value=(
-                f"**Thème actuel**: {selected_theme['style']} {selected_theme['emoji']}\n"
-                f"**Thèmes disponibles**: {len(self.customization_themes)}\n"
-                f"**Config options**: 1000+\n"
-                f"**Interface modes**: 25\n" 
-                f"**Customisation**: ∞ (infinie)"
+                f"**Thème actuel**: {selected_theme['style']} {selected_theme['emoji']}\n\n"
+                f"**Thèmes disponibles**: {len(self.customization_themes)}\n\n"
+                f"**Config options**: 1000+\n\n"
+                f"**Interface modes**: 25\n\n" 
+                f"**Customisation**: ∞ (infinie)\n\n"
+                f"━━━━━━━━━━━━━━━━━━━"
             ),
             inline=True
         )
@@ -338,27 +443,44 @@ class ArsenalProfileUltimate2000(commands.Cog):
         
         embed = discord.Embed(
             title="🎨 **THÈMES DE PERSONNALISATION 2000%**",
-            description=f"**{len(self.customization_themes)} thèmes révolutionnaires disponibles**\n\nUtilise: `/profile_ultimate_2000 <theme>`",
+            description=(
+                f"**{len(self.customization_themes)} thèmes révolutionnaires disponibles**\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                f"Utilise: `/profile_ultimate_2000 <theme>`\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            ),
             color=0x00ffff,
             timestamp=datetime.now(timezone.utc)
         )
         
-        # Grouper les thèmes par catégorie
+        # Grouper les thèmes par catégorie avec plus d'espacement
         visual_themes = {k: v for k, v in list(self.customization_themes.items())[:10]}
         gaming_themes = {k: v for k, v in list(self.customization_themes.items())[10:15]}
         pro_themes = {k: v for k, v in list(self.customization_themes.items())[15:]}
         
-        # Thèmes Visuels
-        visual_text = "\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in visual_themes.items()])
-        embed.add_field(name="🌈 **THÈMES VISUELS**", value=visual_text, inline=True)
+        # Thèmes Visuels avec espacement
+        visual_text = "\n\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in visual_themes.items()])
+        embed.add_field(
+            name="🌈 **THÈMES VISUELS**", 
+            value=visual_text + "\n\n━━━━━━━━━━━━━━━━━━━", 
+            inline=True
+        )
         
-        # Thèmes Gaming
-        gaming_text = "\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in gaming_themes.items()])
-        embed.add_field(name="🎮 **THÈMES GAMING**", value=gaming_text, inline=True) 
+        # Thèmes Gaming avec espacement
+        gaming_text = "\n\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in gaming_themes.items()])
+        embed.add_field(
+            name="🎮 **THÈMES GAMING**", 
+            value=gaming_text + "\n\n━━━━━━━━━━━━━━━━━━━", 
+            inline=True
+        ) 
         
-        # Thèmes Professionnels
-        pro_text = "\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in pro_themes.items()])
-        embed.add_field(name="💼 **THÈMES PROFESSIONNELS**", value=pro_text, inline=True)
+        # Thèmes Professionnels avec espacement
+        pro_text = "\n\n".join([f"{v['emoji']} **{k}** - {v['style']}" for k, v in pro_themes.items()])
+        embed.add_field(
+            name="💼 **THÈMES PROFESSIONNELS**", 
+            value=pro_text + "\n\n━━━━━━━━━━━━━━━━━━━", 
+            inline=True
+        )
         
         embed.set_footer(text="Arsenal Ultimate 2000% - Personnalisation infinie | By xerox3elite")
         
@@ -370,31 +492,38 @@ class ArsenalProfileUltimate2000(commands.Cog):
         
         embed = discord.Embed(
             title="🔴 **STREAMING STATUS RÉVOLUTIONNAIRES**", 
-            description=f"**{len(self.streaming_statuses_2000)} statuts** qui tournent toutes les 1.5 minutes",
+            description=(
+                f"**{len(self.streaming_statuses_2000)} statuts** qui tournent toutes les 1 minute\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                f"Chaque statut montre une capacité spécifique d'Arsenal\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            ),
             color=0xff0000,
             timestamp=datetime.now(timezone.utc)
         )
         
-        # Échantillon des statuts
-        sample_statuses = self.streaming_statuses_2000[:15]
-        status_text = "\n".join([f"🔴 {status}" for status in sample_statuses])
-        status_text += f"\n\n... **et {len(self.streaming_statuses_2000)-15} autres statuts !**"
+        # Échantillon des statuts avec plus d'espacement
+        sample_statuses = self.streaming_statuses_2000[:12]  # Moins de statuts mais plus lisibles
+        status_text = "\n\n".join([f"🔴 {status}" for status in sample_statuses])
+        status_text += f"\n\n━━━━━━━━━━━━━━━━━━━\n\n... **et {len(self.streaming_statuses_2000)-12} autres statuts !**"
         
         embed.add_field(
             name="📡 **STATUTS EN ROTATION**",
             value=status_text,
-            inline=False
+            inline=False  # Full width pour plus d'espace
         )
         
         embed.add_field(
-            name="⚙️ **CONFIGURATION**",
+            name="⚙️ **CONFIGURATION STREAMING**",
             value=(
-                "🔄 **Rotation**: Toutes les 1.5 minutes\n"
-                "🔴 **Type**: Streaming Discord\n"
-                "💜 **Status**: Violet (DND)\n"
-                "🎯 **Objectif**: Montrer toutes les prises en charge"
+                "🔄 **Rotation**: Toutes les 1 minute\n\n"
+                "🔴 **Type**: Streaming Discord natif\n\n"
+                "💜 **Status**: Online (pas DND)\n\n"
+                "🎯 **Objectif**: Montrer toutes les prises en charge\n\n"
+                "📺 **URL**: Twitch Arsenal Ultimate\n\n"
+                "━━━━━━━━━━━━━━━━━━━"
             ),
-            inline=True
+            inline=False  # Full width
         )
         
         embed.set_footer(text="Arsenal Ultimate 2000% - Streaming professionnel | By xerox3elite")

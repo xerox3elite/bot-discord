@@ -128,26 +128,26 @@ class ArsenalConfig2000Modal(ui.Modal):
         # Embed de confirmation révolutionnaire
         embed = discord.Embed(
             title="🚀 **ARSENAL CONFIG 2000% - SAUVEGARDÉ**",
-            description=f"Configuration **{self.system_name}** mise à jour avec succès !",
+            description=f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nConfiguration **{self.system_name}** mise à jour avec succès !\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=0x00ff00,
             timestamp=datetime.now()
         )
         
         embed.add_field(
             name="📊 **Configuration Appliquée**",
-            value=f"**Système**: {self.system_name}\n**Type**: {self.config_type}\n**Options**: {len(config_data['settings'])} paramètres",
+            value=f"**Système**: {self.system_name}\n\n**Type**: {self.config_type}\n\n**Options**: {len(config_data['settings'])} paramètres",
             inline=True
         )
         
         embed.add_field(
             name="✅ **Status**",
-            value="🟢 **Actif immédiatement**\n🔄 **Sync multi-serveurs**\n☁️ **Backup cloud**",
+            value="🟢 **Actif immédiatement**\n\n🔄 **Sync multi-serveurs**\n\n☁️ **Backup cloud**",
             inline=True
         )
         
         embed.add_field(
             name="🎯 **Performance**",
-            value="⚡ Optimisé auto\n🚀 Latence <10ms\n💎 Mode premium",
+            value="⚡ Optimisé auto\n\n🚀 Latence <10ms\n\n💎 Mode premium",
             inline=True
         )
         
@@ -423,11 +423,12 @@ class ArsenalConfig2000System(commands.Cog):
         embed.add_field(
             name="🏆 **COMPARAISON MARCHÉ**",
             value=(
-                "**Arsenal**: 200+ systèmes ✅\n"
-                "**DraftBot**: ~15 systèmes ❌\n"
-                "**Dyno**: ~20 systèmes ❌\n"
-                "**Carl-bot**: ~18 systèmes ❌\n"
+                "**Arsenal**: 200+ systèmes ✅\n\n"
+                "**DraftBot**: ~15 systèmes ❌\n\n"
+                "**Dyno**: ~20 systèmes ❌\n\n"
+                "**Carl-bot**: ~18 systèmes ❌\n\n"
                 "**MEE6**: ~12 systèmes ❌\n\n"
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
                 "🚀 **Arsenal = 10-15x plus complet !**"
             ),
             inline=True
@@ -437,11 +438,11 @@ class ArsenalConfig2000System(commands.Cog):
         embed.add_field(
             name="💻 **TECHNOLOGIES 2000%**",
             value=(
-                "🤖 **IA**: ChatGPT-4, Claude, Custom\n"
-                "⛓️ **Blockchain**: Ethereum, Polygon\n"
-                "☁️ **Cloud**: AWS, Azure, Google\n"
-                "📊 **Big Data**: Real-time analytics\n"
-                "🔐 **Sécurité**: Quantum encryption\n"
+                "🤖 **IA**: ChatGPT-4, Claude, Custom\n\n"
+                "⛓️ **Blockchain**: Ethereum, Polygon\n\n"
+                "☁️ **Cloud**: AWS, Azure, Google\n\n"
+                "📊 **Big Data**: Real-time analytics\n\n"
+                "🔐 **Sécurité**: Quantum encryption\n\n"
                 "🌐 **APIs**: 50+ intégrations"
             ),
             inline=True

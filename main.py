@@ -165,6 +165,15 @@ except Exception as e:
     ARSENAL_PROFILE_ULTIMATE_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Profile Ultimate: {e}")
 
+# Discord Badges System (NOUVEAU - Pour afficher les capacités à droite du nom)
+try:
+    from core.discord_badges import DiscordBadges
+    DISCORD_BADGES_AVAILABLE = True
+    print("🏆 [OK] Discord Badges System chargé - Badges natifs Discord!")
+except Exception as e:
+    DISCORD_BADGES_AVAILABLE = False
+    print(f"❌ [ERREUR] Discord Badges System: {e}")
+
 # Hunt Royal Auth System (NOUVEAU)
 try:
     import commands.hunt_royal_auth as hunt_auth
@@ -447,6 +456,14 @@ class ArsenalBot(commands.Bot):
                 log.info("🚀 [OK] Arsenal Config 2000% - Configuration la plus avancée Discord!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config 2000%: {e}")
+                
+            # Discord Badges System - Pour afficher les capacités à droite du nom
+            if DISCORD_BADGES_AVAILABLE:
+                try:
+                    await self.add_cog(DiscordBadges(self))
+                    log.info("🏆 [OK] Discord Badges System - Badges natifs Discord activés!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Discord Badges System: {e}")
                 
             # DÉSACTIVÉ - Arsenal Profile Updater (conflit avec Profile Ultimate 2000%)
             # try:
