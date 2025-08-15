@@ -195,8 +195,7 @@ class ArsenalProfileUltimate2000(commands.Cog):
             )
             
             await self.bot.change_presence(
-                status=discord.Status.online,  # STREAMING ONLINE
-                activity=activity
+                activity=activity  # STREAMING VIOLET - Pas de status pour garder le violet streaming
             )
             
             print(f"💎 [DISCORD PROFILE] Démarrage: {startup_status} | {startup_capability}")
@@ -239,8 +238,7 @@ class ArsenalProfileUltimate2000(commands.Cog):
             )
             
             await self.bot.change_presence(
-                status=discord.Status.online,      # ONLINE STREAMING (pas DND!)
-                activity=activity
+                activity=activity  # STREAMING VIOLET H24 - Jamais d'autre couleur !
             )
             
             print(f"🔴 [STREAMING] Status: {status_text} | Capacité: {current_capability}")
@@ -252,7 +250,7 @@ class ArsenalProfileUltimate2000(commands.Cog):
     async def before_profile_updates(self):
         await self.bot.wait_until_ready()
     
-    @commands.hybrid_command(name="help", description="📚 Guide complet Arsenal - Toutes les commandes et fonctionnalités")
+    @commands.hybrid_command(name="arsenal_help", description="📚 Guide complet Arsenal - Toutes les commandes et fonctionnalités")
     async def arsenal_help(self, ctx):
         """Commande help complète et bien espacée"""
         

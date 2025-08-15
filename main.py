@@ -174,6 +174,15 @@ except Exception as e:
     DISCORD_BADGES_AVAILABLE = False
     print(f"❌ [ERREUR] Discord Badges System: {e}")
 
+# Arsenal Diagnostic System (NOUVEAU - Vérification complète du bot)
+try:
+    from commands.arsenal_diagnostic import ArsenalDiagnostic
+    ARSENAL_DIAGNOSTIC_AVAILABLE = True
+    print("🔧 [OK] Arsenal Diagnostic System chargé - Vérification complète!")
+except Exception as e:
+    ARSENAL_DIAGNOSTIC_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Diagnostic System: {e}")
+
 # Hunt Royal Auth System (NOUVEAU)
 try:
     import commands.hunt_royal_auth as hunt_auth
@@ -464,6 +473,14 @@ class ArsenalBot(commands.Bot):
                     log.info("🏆 [OK] Discord Badges System - Badges natifs Discord activés!")
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Discord Badges System: {e}")
+                    
+            # Arsenal Diagnostic System - Vérification complète du bot
+            if ARSENAL_DIAGNOSTIC_AVAILABLE:
+                try:
+                    await self.add_cog(ArsenalDiagnostic(self))
+                    log.info("🔧 [OK] Arsenal Diagnostic System - Vérification complète activée!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Arsenal Diagnostic System: {e}")
                 
             # DÉSACTIVÉ - Arsenal Profile Updater (conflit avec Profile Ultimate 2000%)
             # try:

@@ -221,15 +221,12 @@ class ArsenalContextMenus(commands.Cog):
         )
         
         # Info du message
-        # Compter les lignes sans \n dans la f-string
-        line_count = len(message.content.split('\n')) if message.content else 0
-        
         embed.add_field(
             name="📝 Contenu",
             value=(
                 f"**Longueur**: {len(message.content)} caractères\n"
                 f"**Mots**: {len(message.content.split()) if message.content else 0}\n"
-                f"**Lignes**: {line_count}\n"
+                f"**Lignes**: {len(message.content.split('\n')) if message.content else 0}\n"
                 f"**Type**: {'Embed' if message.embeds else 'Texte'}"
             ),
             inline=True
