@@ -11,7 +11,7 @@ import sys
 import os
 import json
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 import traceback
 import aiohttp
 
@@ -85,12 +85,15 @@ class ArsenalDiagnostic(commands.Cog):
             results["details"].append(f"✅ Connecté comme {self.bot.user.name}")
         
         # Latence
-        latency = round(self.bot.latency * 1000)
-        if latency > 300:
-            results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
-            results["details"].append(f"⚠️ Latence élevée: {latency}ms")
-        else:
-            results["details"].append(f"✅ Latence: {latency}ms")
+        try:
+            latency_ms = round(self.bot.latency * 1000)
+            if latency_ms > 300:
+                results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
+                results["details"].append(f"⚠️ Latence élevée: {latency_ms}ms")
+            else:
+                results["details"].append(f"✅ Latence: {latency_ms}ms")
+        except (ValueError, TypeError):
+            results["details"].append("⚠️ Latence: Non disponible (bot hors ligne)")
         
         # Serveurs
         guild_count = len(self.bot.guilds)
@@ -98,8 +101,18 @@ class ArsenalDiagnostic(commands.Cog):
         
         # Uptime
         if hasattr(self.bot, 'startup_time'):
-            uptime = datetime.now() - self.bot.startup_time
+            # S'assurer que les deux datetimes ont le même timezone
+            current_time = datetime.now(timezone.utc)
+            startup_time = self.bot.startup_time
+            
+            # Si startup_time n'a pas de timezone, on assume UTC
+            if startup_time.tzinfo is None:
+                startup_time = startup_time.replace(tzinfo=timezone.utc)
+            
+            uptime = current_time - startup_time
             results["details"].append(f"✅ Uptime: {str(uptime).split('.')[0]}")
+        else:
+            results["details"].append("⚠️ Temps de démarrage non disponible")
         
         return results
     
@@ -289,9 +302,11 @@ class ArsenalDiagnostic(commands.Cog):
         """Vérifie les systèmes de modération"""
         results = {"status": "OK", "details": []}
         
-        # Vérifier les permissions de modération dans le serveur actuel
-        if ctx.guild:
-            bot_member = ctx.guild.me
+        # Vérifier les permissions de modération dans les serveurs connectés
+        if self.bot.guilds:
+            # Prendre le premier serveur pour le test
+            guild = self.bot.guilds[0] 
+            bot_member = guild.me
             perms = bot_member.guild_permissions
             
             mod_perms = [
@@ -378,8 +393,10 @@ class ArsenalDiagnostic(commands.Cog):
         """Vérifie les permissions du bot"""
         results = {"status": "OK", "details": []}
         
-        if hasattr(ctx, 'guild') and ctx.guild:
-            bot_member = ctx.guild.me
+        if self.bot.guilds:
+            # Prendre le premier serveur pour le test
+            guild = self.bot.guilds[0]
+            bot_member = guild.me
             perms = bot_member.guild_permissions
             
             # Permissions critiques
@@ -398,6 +415,9 @@ class ArsenalDiagnostic(commands.Cog):
                 else:
                     results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
                     results["details"].append(f"⚠️ {perm_display}: Manquant")
+        else:
+            results["status"] = "ATTENTION"
+            results["details"].append("⚠️ Pas de serveur pour tester les permissions")
         
         return results
     
