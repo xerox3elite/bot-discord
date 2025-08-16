@@ -260,7 +260,7 @@ except Exception as e:
 
 # Crypto System Integration (NOUVEAU V4.2)
 try:
-    from modules.crypto_bot_integration import setup_crypto
+    from modules.crypto_bot_integration import setup
     CRYPTO_INTEGRATION_AVAILABLE = True
     print("[OK] Crypto System Integration chargé")
 except Exception as e:
@@ -354,7 +354,7 @@ class ArsenalBot(commands.Bot):
         # Charger Crypto System Integration
         if CRYPTO_INTEGRATION_AVAILABLE:
             try:
-                self.crypto_integration = setup_crypto_integration(self)
+                self.crypto_integration = setup(self)
                 log.info("[OK] Module Crypto System Integration chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Crypto System Integration: {e}")
@@ -595,7 +595,8 @@ except Exception as e:
 # Creator GUI Panel
 def lancer_gui():
     try:
-        lancer_creator_interface(client)
+        # lancer_creator_interface(client) - GUI désactivé pour la production
+        log.info("[INFO] GUI Arsenal Creator désactivé pour la production")
     except Exception as e:
         log.warning(f"[GUI ERROR] {e}")
 
