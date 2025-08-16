@@ -35,7 +35,7 @@ except Exception as e:
     def save_config(data): pass
 
 def update_bot_status():
-    """Met à jour le fichier de statut du bot pour l'API"""
+    """Met à jour le fichier de statut du bot pour l'API - Version sécurisée"""
     try:
         if hasattr(client, 'user') and client.user and client.is_ready():
             uptime_seconds = (datetime.datetime.now(datetime.UTC) - client.startup_time).total_seconds()
@@ -48,28 +48,53 @@ def update_bot_status():
                 "uptime": uptime,
                 "latency": round(client.latency * 1000) if client.latency else 0,
                 "servers_connected": len(client.guilds),
-                "users_connected": sum(guild.member_count or 0 for guild in client.guilds),
-                "status": "operational",
-                "last_restart": client.startup_time.strftime("%H:%M:%S"),
-                "last_update": datetime.datetime.now(datetime.UTC).isoformat()
+                "users_total": sum(guild.member_count for guild in client.guilds if guild.member_count),
+                "last_update": datetime.datetime.now(datetime.UTC).isoformat(),
+                "bot_name": str(client.user) if client.user else "Arsenal Bot",
+                "commands_loaded": len(client.cogs) if hasattr(client, 'cogs') else 0
             }
+            
+            # Sauvegarde sécurisée
+            try:
+                os.makedirs("data", exist_ok=True)
+                with open("data/bot_status.json", "w", encoding="utf-8") as f:
+                    json.dump(status_data, f, indent=2, ensure_ascii=False)
+            except Exception as write_error:
+                print(f"⚠️ [STATUS] Erreur écriture fichier: {write_error}")
         else:
-            status_data = {
+            # Bot pas prêt
+            offline_status = {
                 "online": False,
                 "uptime": "0h 0m",
                 "latency": 0,
                 "servers_connected": 0,
-                "users_connected": 0,
-                "status": "offline",
-                "last_restart": "Jamais",
+                "users_total": 0,
+                "last_update": datetime.datetime.now(datetime.UTC).isoformat(),
+                "bot_name": "Arsenal Bot",
+                "commands_loaded": 0
+            }
+            
+            try:
+                os.makedirs("data", exist_ok=True)
+                with open("data/bot_status.json", "w", encoding="utf-8") as f:
+                    json.dump(offline_status, f, indent=2, ensure_ascii=False)
+            except Exception as write_error:
+                print(f"⚠️ [STATUS] Erreur écriture offline: {write_error}")
+                
+    except Exception as e:
+        print(f"❌ [STATUS] Erreur générale update_bot_status: {e}")
+        # En cas d'erreur, on crée un statut d'urgence
+        try:
+            emergency_status = {
+                "online": False,
+                "error": str(e),
                 "last_update": datetime.datetime.now(datetime.UTC).isoformat()
             }
-        
-        with open('bot_status.json', 'w') as f:
-            json.dump(status_data, f, indent=2)
-        
-    except Exception as e:
-        print(f"[ERROR] Erreur update_bot_status: {e}")
+            os.makedirs("data", exist_ok=True)
+            with open("data/bot_status.json", "w", encoding="utf-8") as f:
+                json.dump(emergency_status, f, indent=2)
+        except:
+            pass  # Si même ça échoue, on abandonne silencieusement
 
 # Système de rechargement de modules (NOUVEAU)
 try:
@@ -109,7 +134,6 @@ except ImportError:
 from manager.status_manager import initialize_status_system
 
 # Modules de commandes
-import commands.creator_tools as creator
 # import commands.community as community  # Maintenant géré par le Cog CommunityCommands
 import commands.admin as admin
 import commands.moderateur as moderateur
@@ -240,6 +264,16 @@ except Exception as e:
     GAMING_API_AVAILABLE = False
     print(f"[WARNING] Gaming API System non disponible: {e}")
 
+# Absence Ticket System (NOUVEAU V4.5.2)
+try:
+    from commands.absence_tickets import AbsenceTicketSystem
+    from commands.absence_config import setup_absence_config_db
+    ABSENCE_SYSTEM_AVAILABLE = True
+    print("🎫 [OK] Absence Ticket System chargé - Gestion tickets d'absence!")
+except Exception as e:
+    ABSENCE_SYSTEM_AVAILABLE = False
+    print(f"❌ [ERREUR] Absence Ticket System: {e}")
+
 # Social Fun System (NOUVEAU V4.3)
 try:
     import commands.social_fun_system as social_fun
@@ -276,9 +310,7 @@ except Exception as e:
     SQLITE_DATABASE_AVAILABLE = False
     print(f"⚠️ Module sqlite_database non trouvé: {e}")
 
-# Panneau Creator GUI (Tkinter)
-# # from gui. - GUI removed for production - GUI removed for productionArsenalCreatorStudio import lancer_creator_interface
-
+# Configuration
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 CREATOR_ID = int(os.getenv("CREATOR_ID", 431359112039890945))
@@ -297,11 +329,14 @@ if not TOKEN:
 
 intents = discord.Intents.all()
 
-# Tâche de mise à jour du statut bot
-@tasks.loop(seconds=30)
+# Tâche de mise à jour du statut bot - Optimisée pour stabilité
+@tasks.loop(minutes=2)  # Réduire à 2 minutes au lieu de 30 secondes
 async def update_bot_status_task():
-    """Met à jour le fichier de statut toutes les 30 secondes"""
-    update_bot_status()
+    """Met à jour le fichier de statut - Version stable"""
+    try:
+        update_bot_status()
+    except Exception as e:
+        print(f"⚠️ [STATUS] Erreur mise à jour statut: {e}")
 
 class ArsenalBot(commands.Bot):
     def __init__(self, *args, **kwargs):
@@ -412,11 +447,11 @@ class ArsenalBot(commands.Bot):
             try:
                 await self.add_cog(ArsenalEconomySystem(self))
                 await self.add_cog(ArsenalShopAdmin(self))
-                # NOUVEAU: Configuration moderne avec MODALS au lieu de menus superficiels
-                from commands.config_modal_system import ArsenalConfigSystemModal
-                await self.add_cog(ArsenalConfigSystemModal(self))
+                # Config unifié maintenant dans commands/config.py
+                # from commands.config_modal_system import ArsenalConfigSystemModal
+                # await self.add_cog(ArsenalConfigSystemModal(self))
                 await self.add_cog(ArsenalUpdateNotifier(self))
-                log.info("[OK] Arsenal Economy, Shop, Config Modal Moderne & Update Notifier System chargé")
+                log.info("[OK] Arsenal Economy, Shop & Update Notifier System chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
                 
@@ -453,6 +488,22 @@ class ArsenalBot(commands.Bot):
                 log.info("🔥 [OK] Arsenal Config Ultimate - Configuration la plus avancée Discord!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config Ultimate: {e}")
+            
+            # Règlement Intelligent - Système ultra-complet avec interface moderne
+            try:
+                from commands.reglement import ReglementSystem
+                await self.add_cog(ReglementSystem(self))
+                log.info("📜 [OK] Règlement Intelligent - Interface ultra-complète avec toutes les fonctionnalités !")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Règlement: {e}")
+                
+            # Hub Vocal - Salons temporaires avec panel de contrôle
+            try:
+                from commands.hub_vocal import HubVocal
+                await self.add_cog(HubVocal(self))
+                log.info("🎤 [OK] Hub Vocal - Système complet de salons temporaires avec contrôle !")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Hub Vocal: {e}")
                 
             # DÉSACTIVÉ - Arsenal Profile Ultimate (ancien, remplacé par 2000%)
             # try:
@@ -517,6 +568,16 @@ class ArsenalBot(commands.Bot):
                 log.info("💎 [OK] Discord Integration Forcer - TOUTES les prises en charge forcées!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Discord Integration Forcer: {e}")
+                
+            # Absence Ticket System - Gestion des tickets d'absence
+            if ABSENCE_SYSTEM_AVAILABLE:
+                try:
+                    # Initialiser la base de données
+                    await setup_absence_config_db()
+                    await self.add_cog(AbsenceTicketSystem(self))
+                    log.info("🎫 [OK] Absence Ticket System - Tickets d'absence avec auto-expiry!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Absence Ticket System: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
@@ -557,9 +618,7 @@ async def on_ready():
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)
 client.tree.add_command(admin.admin_group)
-client.tree.add_command(creator.creator_group)
 client.tree.add_command(sanction.sanction_group)
-client.tree.add_command(creator.creator_tools_group)
 
 # Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands
 
@@ -592,14 +651,6 @@ except Exception as e:
     ARSENAL_ECONOMY_AVAILABLE = False
     print(f"[WARNING] Arsenal Economy System non disponible: {e}")
 
-# Creator GUI Panel
-def lancer_gui():
-    try:
-        # lancer_creator_interface(client) - GUI désactivé pour la production
-        log.info("[INFO] GUI Arsenal Creator désactivé pour la production")
-    except Exception as e:
-        log.warning(f"[GUI ERROR] {e}")
-
 # Lancement
 if __name__ == "__main__":
     import threading
@@ -612,12 +663,6 @@ if __name__ == "__main__":
         log.info("[HEALTH] Serveur Flask démarré pour Render health checks")
     except Exception as e:
         log.warning(f"[HEALTH] Impossible de démarrer serveur Flask: {e}")
-    
-    # Démarrer GUI si disponible
-    try:
-        threading.Thread(target=lancer_gui, daemon=True).start()
-    except:
-        log.info("[GUI] Interface GUI désactivée en production")
     
     # Démarrer bot Discord
     try:

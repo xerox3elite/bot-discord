@@ -192,11 +192,36 @@ class KeepAliveSystem(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
 
-    @tasks.loop()
+    @tasks.loop(minutes=1)  # Réduire à 1 minute pour plus de stabilité
     async def keepalive_task(self):
-        """Tâche principale de KeepAlive"""
+        """Tâche principale de KeepAlive - Version optimisée"""
         if not self.config.get("enabled", True):
             return
+        
+        try:
+            self.last_ping = datetime.now()
+            self.ping_count += 1
+            
+            # Simple ping interne au lieu de requête HTTP externe
+            latency = self.bot.latency * 1000  # Latency Discord en ms
+            
+            if latency < 1000:  # Si la latence est correcte
+                self.stats["successful_pings"] = self.stats.get("successful_pings", 0) + 1
+                print(f"🔄 [KeepAlive] Ping #{self.ping_count} - Latence: {latency:.0f}ms ✅")
+            else:
+                self.stats["failed_pings"] = self.stats.get("failed_pings", 0) + 1
+                print(f"⚠️ [KeepAlive] Ping #{self.ping_count} - Latence élevée: {latency:.0f}ms")
+            
+            self.stats["total_pings"] = self.stats.get("total_pings", 0) + 1
+            self.stats["average_response_time"] = latency
+            
+            # Sauvegarde légère toutes les 10 pings
+            if self.ping_count % 10 == 0:
+                self.save_stats()
+                
+        except Exception as e:
+            print(f"❌ [KeepAlive] Erreur dans keepalive_task: {e}")
+            self.stats["failed_pings"] = self.stats.get("failed_pings", 0) + 1
         
         try:
             ping_url = self.config.get("ping_url")
@@ -207,7 +232,7 @@ class KeepAliveSystem(commands.Cog):
             
             async with aiohttp.ClientSession() as session:
                 try:
-                    async with session.get(ping_url, timeout=10) as response:
+                    async with session.get(ping_url, timeout=5) as response:  # Réduire timeout
                         response_time = (time.time() - start_time) * 1000
                         
                         if response.status == 200:
@@ -224,54 +249,57 @@ class KeepAliveSystem(commands.Cog):
                             
                 except asyncio.TimeoutError:
                     self.stats["failed_pings"] += 1
+                except Exception as e:
+                    print(f"Erreur ping: {e}")
+                    self.stats["failed_pings"] += 1
                 
                 self.stats["total_pings"] += 1
                 
         except Exception as e:
             print(f"Erreur KeepAlive: {e}")
             self.stats["failed_pings"] += 1
-        
-        # Programmer le prochain ping
-        await asyncio.sleep(self.config.get("ping_interval", 300))
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=10)  # Réduire fréquence pour stabilité
     async def health_monitor(self):
-        """Surveille la santé du système"""
+        """Surveille la santé du système - Version simplifiée"""
         try:
-            # Vérifications système
-            memory_percent = psutil.virtual_memory().percent
-            cpu_percent = psutil.cpu_percent()
+            # Vérifications simplifiées sans psutil qui peut planter
+            latency = self.bot.latency * 1000
             
-            # Calcul score de santé
+            # Calcul score de santé basé sur la latence Discord
             health_score = 100
             
-            if memory_percent > self.config.get("health_checks", {}).get("memory_threshold", 80):
+            if latency > 1000:  # > 1 seconde
                 health_score -= 30
+            elif latency > 500:  # > 500ms
+                health_score -= 15
                 
-            if cpu_percent > 90:
-                health_score -= 20
-                
-            # Vérifier temps de réponse
-            avg_response = self.stats.get("average_response_time", 0)
-            if avg_response > self.config.get("health_checks", {}).get("response_time_threshold", 5000):
-                health_score -= 25
+            # Vérifier si le bot répond
+            if not self.bot.is_ready():
+                health_score -= 50
                 
             self.stats["health_score"] = max(0, health_score)
             
-            # Auto-restart si critique
-            if health_score < 30 and self.config.get("auto_restart", False):
-                await self.emergency_restart()
+            print(f"🏥 [Health] Score: {health_score}/100 - Latence: {latency:.0f}ms")
                 
         except Exception as e:
-            print(f"Erreur health monitor: {e}")
+            print(f"❌ [Health] Erreur health monitor: {e}")
+            self.stats["health_score"] = 50  # Score neutre en cas d'erreur
 
-    @tasks.loop(minutes=15)
+    @tasks.loop(minutes=30)  # Réduire fréquence pour éviter les erreurs
     async def stats_updater(self):
-        """Met à jour les statistiques régulièrement"""
+        """Met à jour les statistiques - Version simplifiée"""
         try:
+            # Mise à jour simple sans calculs complexes
             current_uptime = (datetime.now() - self.start_time).total_seconds() / 3600
-            self.stats["total_uptime"] = self.stats.get("total_uptime", 0) + 0.25  # 15 minutes
+            self.stats["total_uptime"] = current_uptime
+            
+            # Sauvegarde toutes les 30 minutes au lieu de 15
             self.save_stats()
+            print(f"💾 [Stats] Uptime: {current_uptime:.1f}h - Pings: {self.ping_count}")
+            
+        except Exception as e:
+            print(f"❌ [Stats] Erreur stats_updater: {e}")
             
         except Exception as e:
             print(f"Erreur stats updater: {e}")
