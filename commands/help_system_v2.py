@@ -23,21 +23,6 @@ class HelpMainView(discord.ui.View):
     def __init__(self, bot):
         super().__init__(timeout=300)
         self.bot = bot
-        
-        # Ajouter les boutons de lien externe
-        website_btn = discord.ui.Button(
-            label="🌐 Site Web", 
-            style=discord.ButtonStyle.link, 
-            url="https://arsenal-bot.com"
-        )
-        discord_btn = discord.ui.Button(
-            label="💬 Discord Support", 
-            style=discord.ButtonStyle.link, 
-            url="https://discord.gg/arsenal"
-        )
-        
-        self.add_item(website_btn)
-        self.add_item(discord_btn)
     
     @discord.ui.button(label="📋 Toutes les Commandes", style=discord.ButtonStyle.primary, emoji="📋")
     async def all_commands_button(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -336,21 +321,6 @@ class SupportView(discord.ui.View):
     def __init__(self, bot):
         super().__init__(timeout=300)
         self.bot = bot
-        
-        # Boutons de contact direct
-        discord_btn = discord.ui.Button(
-            label="💬 Discord Support", 
-            style=discord.ButtonStyle.link, 
-            url="https://discord.gg/arsenal-support"
-        )
-        website_btn = discord.ui.Button(
-            label="📖 Documentation", 
-            style=discord.ButtonStyle.link, 
-            url="https://docs.arsenal-bot.com"
-        )
-        
-        self.add_item(discord_btn)
-        self.add_item(website_btn)
     
     @discord.ui.button(label="🎫 Créer Ticket", style=discord.ButtonStyle.success, emoji="🎫")
     async def create_ticket_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
