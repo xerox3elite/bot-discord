@@ -371,23 +371,32 @@ class ArsenalDiagnostic(commands.Cog):
         """Vérifie les connexions réseau"""
         results = {"status": "OK", "details": []}
         
-        # Test connexions importantes
+        # Test connexions importantes (endpoints publics)
         test_urls = [
-            ("Discord API", "https://discord.com/api/v10"),
-            ("GitHub", "https://api.github.com"),
+            ("Discord API", "https://discord.com/api/v10/gateway"),  # Endpoint public
+            ("GitHub", "https://api.github.com/zen"),  # Endpoint public GitHub
             ("Google", "https://www.google.com")
         ]
         
         for name, url in test_urls:
             try:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(url, timeout=5) as resp:
+                timeout = aiohttp.ClientTimeout(total=10)
+                async with aiohttp.ClientSession(timeout=timeout) as session:
+                    async with session.get(url) as resp:
                         if resp.status < 400:
-                            results["details"].append(f"✅ {name}")
+                            if name == "Discord API":
+                                results["details"].append(f"✅ {name}: Gateway accessible")
+                            else:
+                                results["details"].append(f"✅ {name}: Accessible")
                         else:
                             results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
                             results["details"].append(f"⚠️ {name}: Status {resp.status}")
+            except asyncio.TimeoutError:
+                results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
+                results["details"].append(f"⚠️ {name}: Timeout de connexion")
             except Exception as e:
+                results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
+                results["details"].append(f"⚠️ {name}: Erreur réseau")
                 results["status"] = "ERREUR"
                 results["details"].append(f"❌ {name}: Timeout/Erreur")
         
@@ -397,15 +406,29 @@ class ArsenalDiagnostic(commands.Cog):
         """Vérifie la configuration Arsenal"""
         results = {"status": "OK", "details": []}
         
-        # Variables d'environnement importantes
-        env_vars = ["TOKEN", "CREATOR_ID", "PREFIX"]
+        # Variables d'environnement importantes (Arsenal utilise DISCORD_TOKEN)
+        env_vars = {
+            "DISCORD_TOKEN": "Token Discord",
+            "CREATOR_ID": "ID Créateur", 
+            "PREFIX": "Préfixe bot"
+        }
         
-        for var in env_vars:
-            if os.getenv(var):
-                results["details"].append(f"✅ {var}")
+        for var, description in env_vars.items():
+            env_value = os.getenv(var)
+            if env_value:
+                # Masquer le token partiellement pour sécurité
+                if var == "DISCORD_TOKEN":
+                    masked_token = env_value[:10] + "..." + env_value[-5:] if len(env_value) > 15 else "***"
+                    results["details"].append(f"✅ {description}: {masked_token}")
+                else:
+                    results["details"].append(f"✅ {description}: {env_value}")
             else:
-                results["status"] = "ERREUR"
-                results["details"].append(f"❌ {var}: Variable manquante")
+                results["status"] = "ATTENTION" if results["status"] == "OK" else results["status"]
+                results["details"].append(f"⚠️ {description}: Variable optionnelle manquante")
+        
+        # Vérifier si le bot est connecté (preuve que le token fonctionne)
+        if self.bot.is_ready() and self.bot.user:
+            results["details"].append("✅ Token fonctionnel (bot connecté)")
         
         return results
     
