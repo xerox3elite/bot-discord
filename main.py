@@ -328,6 +328,24 @@ except Exception as e:
     SQLITE_DATABASE_AVAILABLE = False
     print(f"⚠️ Module sqlite_database non trouvé: {e}")
 
+# Sanctions System (NOUVEAU V4.5.2)
+try:
+    from commands.sanctions_system import SanctionsSystem
+    SANCTIONS_SYSTEM_AVAILABLE = True
+    print("⚖️ [OK] Sanctions System chargé - Casier permanent & AutoMod!")
+except Exception as e:
+    SANCTIONS_SYSTEM_AVAILABLE = False
+    print(f"❌ [ERREUR] Sanctions System: {e}")
+
+# Help System V2 (NOUVEAU V4.5.2)
+try:
+    from commands.help_system_v2 import HelpSystemV2
+    HELP_SYSTEM_V2_AVAILABLE = True
+    print("📚 [OK] Help System V2 chargé - Interface révolutionnaire!")
+except Exception as e:
+    HELP_SYSTEM_V2_AVAILABLE = False
+    print(f"❌ [ERREUR] Help System V2: {e}")
+
 # Configuration
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -596,6 +614,22 @@ class ArsenalBot(commands.Bot):
                     log.info("🎫 [OK] Absence Ticket System - Tickets d'absence avec auto-expiry!")
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Absence Ticket System: {e}")
+                    
+            # Sanctions System - Casier judiciaire permanent
+            if SANCTIONS_SYSTEM_AVAILABLE:
+                try:
+                    await self.add_cog(SanctionsSystem(self))
+                    log.info("⚖️ [OK] Sanctions System - Casier permanent & Modération avancée!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
+                    
+            # Help System V2 - Interface d'aide révolutionnaire
+            if HELP_SYSTEM_V2_AVAILABLE:
+                try:
+                    await self.add_cog(HelpSystemV2(self))
+                    log.info("📚 [OK] Help System V2 - Interface moderne chargée!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Help System V2: {e}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
