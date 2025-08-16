@@ -1,11 +1,29 @@
 import discord
 from discord.ext import commands, tasks
-import asyncio, os, sys, json, datetime, threading
+import asyncio, os, sys, json, datetime, threading, traceback
 from dotenv import load_dotenv
 
 print(f"[DEBUG] Python path: {sys.path}")
 print(f"[DEBUG] Working directory: {os.getcwd()}")
 print(f"[DEBUG] Files in current dir: {os.listdir('.')[:10]}")
+
+# Gestionnaire d'erreurs global pour éviter les crashes
+async def handle_error(error, context="Unknown"):
+    """Gestionnaire d'erreurs global"""
+    try:
+        error_msg = f"❌ [ERROR] {context}: {str(error)}"
+        print(error_msg)
+        traceback.print_exc()
+        
+        # Écrire dans les logs si possible
+        try:
+            with open("logs/error.log", "a", encoding="utf-8") as f:
+                f.write(f"{datetime.datetime.now()}: {error_msg}\n{traceback.format_exc()}\n\n")
+        except:
+            pass
+            
+    except Exception as e:
+        print(f"❌ [CRITICAL] Erreur dans le gestionnaire d'erreurs: {e}")
 
 # Core config & logs
 try:
@@ -183,14 +201,14 @@ except Exception as e:
     ARSENAL_FEATURES_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Features System: {e}")
 
-# Arsenal Config Ultimate (RÉVOLUTIONNAIRE - Configuration la plus avancée)
-try:
-    from commands.arsenal_config_ultimate import ArsenalConfigUltimate
-    ARSENAL_CONFIG_ULTIMATE_AVAILABLE = True
-    print("🔥 [OK] Arsenal Config Ultimate chargé - Configuration révolutionnaire!")
-except Exception as e:
-    ARSENAL_CONFIG_ULTIMATE_AVAILABLE = False
-    print(f"❌ [ERREUR] Arsenal Config Ultimate: {e}")
+# Arsenal Config Ultimate (UNIFIÉ DANS /config)
+# try:
+#     from commands.arsenal_config_ultimate import ArsenalConfigUltimate
+#     ARSENAL_CONFIG_ULTIMATE_AVAILABLE = True
+#     print("🔥 [OK] Arsenal Config Ultimate chargé - Configuration révolutionnaire!")
+# except Exception as e:
+ARSENAL_CONFIG_ULTIMATE_AVAILABLE = False
+print("ℹ️ [INFO] Arsenal Config Ultimate unifié dans /config")
 
 # Arsenal Profile Ultimate (RÉVOLUTIONNAIRE - Profil bot le plus impressionnant)
 try:
@@ -521,13 +539,13 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate 2000%: {e}")
                 
-            # Arsenal Config 2000% - Configuration révolutionnaire MAXIMALE
-            try:
-                from commands.arsenal_config_2000 import ArsenalConfig2000System
-                await self.add_cog(ArsenalConfig2000System(self))
-                log.info("🚀 [OK] Arsenal Config 2000% - Configuration la plus avancée Discord!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Config 2000%: {e}")
+            # Arsenal Config 2000% (UNIFIÉ DANS /config)
+            # try:
+            #     from commands.arsenal_config_2000 import ArsenalConfig2000System
+            #     await self.add_cog(ArsenalConfig2000System(self))
+            #     log.info("🚀 [OK] Arsenal Config 2000% - Configuration la plus avancée Discord!")
+            # except Exception as e:
+            log.info("ℹ️ [INFO] Arsenal Config 2000% unifié dans /config")
                 
             # Discord Badges System - Pour afficher les capacités à droite du nom
             if DISCORD_BADGES_AVAILABLE:
@@ -614,6 +632,34 @@ async def on_ready():
             
     except Exception as e:
         log.error(f"[SYNC ERROR] {e}")
+
+@client.event
+async def on_error(event, *args, **kwargs):
+    """Gestionnaire d'erreurs global pour éviter les crashes"""
+    import traceback
+    error_info = traceback.format_exc()
+    await handle_error(f"Event {event} failed", f"Événement Discord: {event}")
+    print(f"❌ [EVENT ERROR] {event}: {error_info}")
+
+@client.event  
+async def on_command_error(ctx, error):
+    """Gestionnaire d'erreurs pour les commandes"""
+    await handle_error(error, f"Commande: {ctx.command}")
+    
+    # Envoyer une réponse utilisateur conviviale
+    try:
+        if isinstance(error, commands.CommandNotFound):
+            return  # Ignorer les commandes introuvables
+        elif isinstance(error, commands.MissingPermissions):
+            await ctx.send("❌ Vous n'avez pas les permissions nécessaires.")
+        elif isinstance(error, commands.BotMissingPermissions):
+            await ctx.send("❌ Le bot n'a pas les permissions nécessaires.")
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(f"⏰ Commande en cooldown. Réessayez dans {error.retry_after:.1f}s.")
+        else:
+            await ctx.send(f"❌ Une erreur est survenue: {str(error)[:100]}")
+    except:
+        pass  # Ne pas crasher si l'envoi du message échoue
 
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)

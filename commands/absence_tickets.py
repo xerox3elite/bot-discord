@@ -56,6 +56,18 @@ class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence")
         await interaction.response.defer()
         
         try:
+            # Vérifier si l'utilisateur a déjà un ticket ouvert
+            existing_ticket = await self.check_existing_ticket(interaction.user.id, interaction.guild.id)
+            if existing_ticket:
+                embed = discord.Embed(
+                    title="❌ Ticket déjà ouvert",
+                    description=f"**Vous avez déjà un ticket d'absence ouvert !**\n\n🎫 **ID Ticket:** #{existing_ticket['ticket_id']}\n📅 **Fin:** {existing_ticket['end_date']}\n\n⚠️ Vous ne pouvez avoir qu'un seul ticket d'absence à la fois.",
+                    color=0xff0000,
+                    timestamp=datetime.now(timezone.utc)
+                )
+                await interaction.edit_original_response(embed=embed)
+                return
+            
             # Calculer les dates
             start_date = await self.parse_date(self.date_debut.value or "aujourd'hui")
             duration_days = await self.parse_duration(self.duree.value)
@@ -94,6 +106,39 @@ class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence")
         except Exception as e:
             print(f"❌ [ABSENCE] Erreur création ticket: {e}")
             await interaction.edit_original_response(content=f"❌ Erreur: {str(e)}")
+    
+    async def save_channel_config(self, guild_id: int, config: Dict[str, Any]):
+        """Sauvegarder la configuration du canal"""
+        try:
+            async with aiosqlite.connect("data/absence_config.db") as db:
+                await db.execute("""
+                    INSERT OR REPLACE INTO absence_config (guild_id, config)
+                    VALUES (?, ?)
+                """, (guild_id, json.dumps(config)))
+                await db.commit()
+        except Exception as e:
+            print(f"❌ [ABSENCE] Erreur sauvegarde config: {e}")
+
+    async def check_existing_ticket(self, user_id: int, guild_id: int) -> Optional[Dict[str, Any]]:
+        """Vérifie si l'utilisateur a déjà un ticket ouvert"""
+        try:
+            db_path = "data/absence_tickets.db"
+            async with aiosqlite.connect(db_path) as db:
+                cursor = await db.execute("""
+                    SELECT ticket_id, end_date FROM absence_tickets 
+                    WHERE user_id = ? AND guild_id = ? AND status = 'active'
+                """, (user_id, guild_id))
+                result = await cursor.fetchone()
+                
+                if result:
+                    return {
+                        'ticket_id': result[0],
+                        'end_date': result[1]
+                    }
+                return None
+        except Exception as e:
+            print(f"❌ [ABSENCE] Erreur vérification ticket existant: {e}")
+            return None
     
     async def parse_date(self, date_str: str) -> datetime:
         """Parse une date en français"""
@@ -141,7 +186,7 @@ class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence")
             else:
                 days = 1
         
-        return min(days, 365)  # Maximum 1 an
+        return days  # Suppression de la limite d'1 an
     
     async def create_absence_ticket(self, interaction: discord.Interaction, start_date: datetime, end_date: datetime) -> int:
         """Crée le ticket d'absence complet"""
@@ -149,10 +194,28 @@ class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence")
             guild = interaction.guild
             user = interaction.user
             
-            # Créer le salon de ticket
+            # Créer ou récupérer la catégorie
             category = None
             if self.channel_config.get("ticket_category_id"):
                 category = guild.get_channel(self.channel_config["ticket_category_id"])
+            
+            # Si pas de catégorie configurée ou si elle n'existe plus, la créer
+            if not category:
+                try:
+                    category = await guild.create_category(
+                        name="🎫 Tickets d'Absence",
+                        overwrites={
+                            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                            guild.me: discord.PermissionOverwrite(read_messages=True, send_messages=True, manage_messages=True)
+                        }
+                    )
+                    # Sauvegarder l'ID de la catégorie pour la prochaine fois
+                    self.channel_config["ticket_category_id"] = category.id
+                    await self.save_channel_config(guild.id, self.channel_config)
+                    print(f"✅ [ABSENCE] Catégorie créée automatiquement: {category.name}")
+                except Exception as e:
+                    print(f"❌ [ABSENCE] Erreur création catégorie: {e}")
+                    # Continuer sans catégorie si impossible de la créer
             
             # Permissions du salon de ticket
             overwrites = {
@@ -626,7 +689,7 @@ class AbsenceTicketSystem(commands.Cog):
         
         embed.add_field(
             name="⚠️ **Important**",
-            value="• Soyez précis dans votre demande\n• Indiquez la durée exacte\n• Les absences sont limitées à 1 an maximum\n• Le rôle sera retiré automatiquement à la fin",
+            value="• Soyez précis dans votre demande\n• Indiquez la durée exacte\n• Vous ne pouvez avoir qu'un seul ticket ouvert à la fois\n• Le rôle sera retiré automatiquement à la fin",
             inline=False
         )
         
