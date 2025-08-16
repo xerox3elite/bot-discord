@@ -125,14 +125,10 @@ class TranslationSystem:
     
     @staticmethod
     async def detect_language(text: str) -> str:
-        """Détection automatique de la langue avec bypass pour tests"""
+        """Détection automatique de la langue"""
         try:
-            # Bypass pour environnement de test/dev sans réseau
-            if len(text) < 10:
-                return "fr"  # Défaut français pour textes courts
-            
             # API de détection de langue (utilise MyMemory comme fallback)
-            async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=5)) as session:
+            async with aiohttp.ClientSession() as session:
                 url = f"https://api.mymemory.translated.net/get"
                 params = {
                     "q": text[:500],  # Limite pour la détection
@@ -150,42 +146,17 @@ class TranslationSystem:
                                 return detected
                         
         except Exception as e:
-            log.warning(f"[TRANSLATE] Erreur détection langue (normal en dev): {e}")
-        
-        # Fallback intelligent selon le contenu
-        if any(char in text.lower() for char in ['é', 'è', 'à', 'ç', 'ù']):
-            return "fr"
-        elif any(char in text.lower() for char in ['the', 'and', 'or', 'but']):
-            return "en"
+            log.error(f"[TRANSLATE] Erreur détection langue: {e}")
         
         return "auto"
     
     @staticmethod
     async def translate_text(text: str, target_lang: str, source_lang: str = "auto") -> dict:
-        """Traduction avec multiple APIs en fallback + mode démo"""
-        
-        # Mode démo pour tests (sans connexion réseau)
-        if len(text) > 100 or not hasattr(aiohttp, 'ClientSession'):
-            # Traduction factice pour démonstration
-            demo_translations = {
-                "fr": "Ceci est une traduction de démonstration en français.",
-                "en": "This is a demo translation in English.",
-                "es": "Esta es una traducción de demostración en español.",
-                "de": "Dies ist eine Demo-Übersetzung auf Deutsch."
-            }
-            
-            return {
-                "success": True,
-                "translated_text": demo_translations.get(target_lang, f"[DEMO] {text} → {target_lang}"),
-                "source_language": source_lang,
-                "target_language": target_lang,
-                "confidence": 0.85,
-                "service": "Demo Mode"
-            }
+        """Traduction avec multiple APIs en fallback"""
         
         # 1. Essayer MyMemory (gratuit, fiable)
         try:
-            async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=10)) as session:
+            async with aiohttp.ClientSession() as session:
                 url = "https://api.mymemory.translated.net/get"
                 params = {
                     "q": text,
@@ -211,11 +182,11 @@ class TranslationSystem:
                                 "service": "MyMemory"
                             }
         except Exception as e:
-            log.warning(f"[TRANSLATE] MyMemory failed (normal en dev): {e}")
+            log.warning(f"[TRANSLATE] MyMemory failed: {e}")
         
         # 2. Fallback sur LibreTranslate (si disponible)
         try:
-            async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=8)) as session:
+            async with aiohttp.ClientSession() as session:
                 url = "https://libretranslate.de/translate"
                 data = {
                     "q": text,

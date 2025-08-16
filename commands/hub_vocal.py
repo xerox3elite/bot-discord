@@ -2,99 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 🎵 Arsenal V4 - Hub Vocal Temporaire
-Système complet de salons vocaux temporaires avec panel de contrôle
-Développé par XeRoX - Arsenal Bot V4.5.2
-"""
-
-import discord
-from discord.ext import commands, tasks
-from discord import app_commands
-import aiosqlite
-import json
-import asyncio
-from datetime import datetime, timedelta
-import os
-from typing import Optional, Dict, List
-import logging
-
-class HubVocal(commands.Cog):
-    """Hub vocal temporaire complet style DraftBot"""
-    
-    def __init__(self, bot):
-        self.bot = bot
-        self.db_path = "data/hub_vocal.db"
-        self.config_file = "hub_config.json"  # Fichier de config JSON
-        
-        # Configuration par défaut
-        self.default_config = {
-            "enabled": False,
-            "hub_channel": None,  # Salon principal du hub
-            "vocal_role": None,   # Rôle vocal automatique
-            "category": None,     # Catégorie pour les salons temporaires
-            "auto_create_role": True,  # Créer automatiquement le rôle vocal
-            "role_name": "🎤 En Vocal",
-            "temp_channels": {}   # Salons temporaires actifs
-        }
-        
-        # États des salons temporaires
-        self.temp_channels_data = {}
-        
-        asyncio.create_task(self.setup_database())
-        
-        # Charger la configuration au démarrage
-        asyncio.create_task(self.load_config())
-        
-        # Démarrer les tâches de nettoyage et auto-save
-        if not hasattr(self, '_tasks_started'):
-            self.cleanup_empty_channels.start()
-            self.auto_save_config.start()  # Auto-save toutes les 5min
-            self._tasks_started = True
-    
-    async def setup_database(self):
-        """Base de données pour le hub vocal"""
-        try:
-            os.makedirs("data", exist_ok=True)
-            
-            async with aiosqlite.connect(self.db_path) as db:
-                # Configuration serveur
-                await db.execute("""
-                    CREATE TABLE IF NOT EXISTS server_config (
-                        guild_id INTEGER PRIMARY KEY,
-                        config TEXT NOT NULL,
-                        updated_at TEXT NOT NULL
-                    )
-                """)
-                
-                # Salons temporaires
-                await db.execute("""
-                    CREATE TABLE IF NOT EXISTS temp_channels (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        guild_id INTEGER NOT NULL,
-                        channel_id INTEGER NOT NULL,
-                        owner_id INTEGER NOT NULL,
-                        created_at TEXT NOT NULL,
-                        settings TEXT NOT NULL,
-                        active BOOLEAN DEFAULT 1
-                    )
-                """)
-                
-                # Historique des utilisations
-                await db.execute("""
-                    CREATE TABLE IF NOT EXISTS usage_stats (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        guild_id INTEGER NOT NULL,
-                        user_id INTEGER NOT NULL,
-                        action TEXT NOT NULL,
-                        channel_id INTEGER NOT NULL,
-                        timestamp TEXT NOT NULL
-                    )
-                """)
-                
-                await db.commit()
-                
-        except Exception as e:
-            logging.error(f"Erreur setup database hub vocal: {e}")
-    
+Systè    
     async def load_config(self):
         """Charge la configuration depuis le fichier JSON au démarrage"""
         try:
@@ -119,11 +27,6 @@ class HubVocal(commands.Cog):
     async def check_existing_channels(self, guild_id: int, config: dict):
         """Vérifie les salons existants après redémarrage et nettoie si vides"""
         try:
-            # Bypass pour les tests - vérifier si le bot est connecté
-            if not hasattr(self.bot, 'user') or not self.bot.user:
-                logging.warning("🧠 Bot non connecté - bypass check_existing_channels")
-                return
-                
             guild = self.bot.get_guild(guild_id)
             if not guild:
                 return
