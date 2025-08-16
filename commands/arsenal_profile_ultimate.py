@@ -1,31 +1,13 @@
 """
 ARSENAL PROFILE ULTIMATE - SYSTÈME DE PROFIL RÉVOLUTIONNAIRE
-Affiche TOUTES les prises     @tasks.loop(minutes=2)  # Rotation toutes les 2 minutes
-    async def profile_updates(self):
-        """Met à jour le profil pour montrer toutes les prises en charge"""
-        try:
-            # Choisir un statut révolutionnaire
-            status_text = random.choice(self.ultimate_statuses)
-            
-            # STREAMING VIOLET - Discord va montrer toutes nos prises en charge !
-            activity = discord.Streaming(
-                name=status_text,
-                url="https://www.twitch.tv/arsenal_ultimate_bot"
-            )
-            
-            await self.bot.change_presence(
-                status=discord.Status.dnd,      # VIOLET streaming professionnel
-                activity=activity
-            ) natives + innovations Arsenal
-Par xerox3elite - Le profil bot le plus impressionnant de Discord
+Affiche TOUTES les prises en charge Discord avec streaming violet
 """
 
 import discord
 from discord.ext import commands, tasks
+import random
 import asyncio
 from datetime import datetime, timezone
-import json
-import random
 
 class ArsenalProfileUltimate(commands.Cog):
     """
@@ -35,77 +17,33 @@ class ArsenalProfileUltimate(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        self.profile_updates.start()
         
-        # TOUTES LES PRISES EN CHARGE À AFFICHER
-        self.supported_features = {
-            # Discord Natives Officielles
-            "slash_commands": "✅ Commandes Slash (150+)",
-            "automod_native": "✅ AutoMod Discord Natif",
-            "buttons_ui": "✅ Boutons Interactifs",
-            "select_menus": "✅ Menus Déroulants", 
-            "modals_forms": "✅ Modales & Formulaires",
-            "context_menus": "✅ Menus Contextuels",
-            "threads_management": "✅ Gestion Threads",
-            "forum_channels": "✅ Canaux Forum",
-            "stage_channels": "✅ Stage Channels",
-            "scheduled_events": "✅ Événements Programmés",
-            "voice_channels": "✅ Salons Vocaux",
-            "webhooks": "✅ Webhooks Intégrés",
-            "embeds_rich": "✅ Embeds Riches",
-            "reactions_auto": "✅ Réactions Automatiques",
-            "role_management": "✅ Gestion Rôles Avancée",
-            "permissions_control": "✅ Contrôle Permissions",
-            "audit_logs": "✅ Logs Audit Complets",
-            "message_flags": "✅ Message Flags",
-            "interaction_responses": "✅ Réponses Interactions",
-            "file_attachments": "✅ Pièces Jointes",
-            
-            # Innovations Arsenal Exclusives
-            "ai_moderation": "🔥 IA Modération Contextuelle",
-            "bot_migration": "🔥 Migration Autres Bots",
-            "arsenalcoin_economy": "🔥 Économie ArsenalCoins",
-            "hd_audio": "🔥 Audio HD Professionnel",
-            "multi_integrations": "🔥 Intégrations Multiples",
-            "real_time_translation": "🔥 Traduction Temps Réel",
-            "gaming_integration": "🔥 Gaming Intégration",
-            "web_dashboard": "🔥 Dashboard Web",
-            "mobile_app": "🔥 Application Mobile",
-            "enterprise_security": "🔥 Sécurité Entreprise",
-            "big_data_analytics": "🔥 Big Data Analytics",
-            "machine_learning": "🔥 Machine Learning",
-            "blockchain_integration": "🔥 Blockchain Intégré"
-        }
-        
-        # Statuts rotatifs révolutionnaires avec BADGES DISCORD
+        # Status révolutionnaires avec TOUTES les prises en charge Discord
         self.ultimate_statuses = [
-            # Discord va afficher ces comme PRISES EN CHARGE officielles !
-            "Slash Commands (150+) | Boutons UI | Modales",
-            "AutoMod Natif | IA Modération | Context Menus", 
-            "Threads & Forums | Stage Channels | Events",
-            "Webhooks | Embeds | Reactions Auto",
-            "Role Management | Permissions | Audit Logs",
-            "Voice Channels | Audio HD | Music Pro",
-            "ArsenalCoins Economy | Crypto Integration",
-            "Gaming Hub | Hunt Royal | Steam Connect",
-            "YouTube | Twitch | Spotify | GitHub API",
-            "Translation AI (100+ langues) | Big Data",
-            "Migration System | Dashboard Web | Mobile App",
-            "Machine Learning | Blockchain | Enterprise Security",
-            
-            # Ces statuts vont apparaître dans le badge Discord !
-            "✅ 20 Discord Natives | 13 Arsenal Exclusives",
-            "✅ Interface Révolutionnaire | Configuration Ultimate", 
-            "✅ Performance <50ms | 99.9% Uptime",
-            "✅ 100% Gratuit | Aucune Limitation",
-            
-            # Comparaisons qui vont s'afficher dans Discord
-            "Arsenal > DraftBot (10x fonctionnalités)",
-            "Arsenal > Dyno (Interface révolutionnaire)",
-            "Arsenal > Carl-bot (IA intégrée native)", 
-            "Arsenal > MEE6 (Entièrement gratuit)",
-            "Arsenal Ultimate = Futur Discord"
+            "🔥 Arsenal V4.5.0 - 150+ Commandes Actives",
+            "🎮 Gaming Hub • Music • Economy • Modération",
+            "🏆 Bot #1 Discord avec TOUTES les fonctionnalités",
+            "💎 ArsenalCoin • Hunt Royal • WebPanel • API",
+            "🚀 Slash Commands • Context Menu • Boutons • Modals",
+            "🎵 Music Streaming • Voice Manager • Auto-DJ",
+            "🛡️ Auto-Mod • Server Manager • Backup System",
+            "📊 Analytics • Logs • Notifications • Webhooks",
+            "🔐 Security • Authentication • Permissions",
+            "⚡ Real-time Updates • Background Tasks",
+            "🌐 Multi-language • Database • Cache System",
+            "🎨 Custom Embeds • Rich Presence • Status",
+            "🔧 Diagnostic • Health Check • Auto-repair",
+            "💰 Crypto Integration • Coinbase • Wallets",
+            "🎯 Gaming APIs • Stats • Leaderboards",
+            "📱 Mobile Optimized • Cross-platform",
+            "🔄 Auto-updates • Version Control • Git Deploy",
+            "🎪 Fun Commands • Memes • Social Features",
+            "📈 Server Analytics • Growth Tracking",
+            "🌟 Premium Features • VIP System • Badges"
         ]
+        
+        # Démarrer les tâches
+        self.profile_updates.start()
         
     @tasks.loop(minutes=2)  # Rotation toutes les 2 minutes
     async def profile_updates(self):
@@ -114,126 +52,113 @@ class ArsenalProfileUltimate(commands.Cog):
             # Choisir un statut révolutionnaire
             status_text = random.choice(self.ultimate_statuses)
             
-            # Activité avec statut violet DND
-            activity = discord.Activity(
-                type=discord.ActivityType.playing,
-                name=status_text
+            # STREAMING VIOLET - Discord va montrer toutes nos prises en charge !
+            activity = discord.Streaming(
+                name=status_text,
+                url="https://www.twitch.tv/arsenal_bot_discord",
+                details=f"🎯 {len(self.bot.guilds)} serveurs • {len(self.bot.users)} utilisateurs",
+                state="🔥 Système Arsenal révolutionnaire par xerox3elite"
             )
             
             await self.bot.change_presence(
-                status=discord.Status.dnd,  # Violet professionnel
+                status=discord.Status.online,
                 activity=activity
             )
             
-            # Log pour debug
-            print(f"🔄 [PROFILE] Statut mis à jour: {status_text}")
+            print(f"🔄 [PROFILE] Status mis à jour: {status_text}")
             
         except Exception as e:
-            print(f"❌ [PROFILE] Erreur mise à jour profil: {e}")
+            print(f"❌ [PROFILE ERROR] {e}")
     
     @profile_updates.before_loop
     async def before_profile_updates(self):
         """Attendre que le bot soit prêt"""
         await self.bot.wait_until_ready()
-        # Attendre 10 secondes après le démarrage
-        await asyncio.sleep(10)
+        
+        # Status initial révolutionnaire
+        initial_activity = discord.Streaming(
+            name="🚀 Arsenal V4.5.0 - Bot Discord Révolutionnaire",
+            url="https://www.twitch.tv/arsenal_bot_discord",
+            details="💎 TOUTES les fonctionnalités Discord natives + innovations Arsenal",
+            state="Par xerox3elite - Le profil bot le plus impressionnant de Discord"
+        )
+        
+        await self.bot.change_presence(
+            status=discord.Status.online,
+            activity=initial_activity
+        )
+        
+        print("🏆 [ARSENAL PROFILE] Profil Ultimate 2000% activé!")
+        print("💜 Status STREAMING VIOLET actif - Discord affiche toutes nos prises en charge!")
     
-    @commands.command(name="profile_ultimate")
-    async def show_profile_ultimate(self, ctx):
-        """Affiche le profil Ultimate révolutionnaire d'Arsenal"""
-        
+    @commands.hybrid_command(name="profile_status", description="Affiche le status du profil Arsenal")
+    async def profile_status(self, ctx):
+        """Commande pour voir le status du profil"""
         embed = discord.Embed(
-            title="🚀 ARSENAL BOT ULTIMATE - PROFIL RÉVOLUTIONNAIRE",
-            description=(
-                "**LE BOT DISCORD LE PLUS AVANCÉ AU MONDE**\n\n"
-                f"🎯 **{len(self.supported_features)} PRISES EN CHARGE NATIVES**\n"
-                "💪 **Performance et fonctionnalités inégalées**\n"
-                "🔥 **Révolutionne l'expérience Discord**"
-            ),
-            color=discord.Color.gold(),
-            timestamp=datetime.now(timezone.utc)
+            title="🏆 Arsenal Profile Ultimate 2000%",
+            description="**Système de profil révolutionnaire activé !**",
+            color=0x9146FF  # Violet Twitch
         )
         
-        # Discord Natives (20)
-        discord_natives = [v for k, v in self.supported_features.items() if v.startswith("✅")]
-        natives_text = "\n".join(discord_natives[:10])
-        if len(discord_natives) > 10:
-            natives_text += f"\n... et {len(discord_natives)-10} autres !"
-            
         embed.add_field(
-            name="✅ **DISCORD NATIVES SUPPORTÉES**",
-            value=natives_text,
+            name="🔄 Rotation Status",
+            value=f"Toutes les {self.profile_updates.minutes} minutes",
             inline=True
         )
         
-        # Innovations Arsenal (13)
-        innovations = [v for k, v in self.supported_features.items() if v.startswith("🔥")]
-        innovations_text = "\n".join(innovations[:8])
-        if len(innovations) > 8:
-            innovations_text += f"\n... et {len(innovations)-8} autres !"
-            
         embed.add_field(
-            name="🔥 **INNOVATIONS ARSENAL EXCLUSIVES**",
-            value=innovations_text,
+            name="📊 Status Disponibles",
+            value=f"{len(self.ultimate_statuses)} status uniques",
             inline=True
         )
         
-        # Comparaison avec concurrence
         embed.add_field(
-            name="💪 **ARSENAL VS CONCURRENCE**",
-            value=(
-                f"**Arsenal Ultimate**: {len(self.supported_features)} prises en charge\n"
-                "**DraftBot**: 8 prises en charge\n"
-                "**Dyno**: 6 prises en charge\n" 
-                "**Carl-bot**: 10 prises en charge\n"
-                "**MEE6**: 5 prises en charge\n\n"
-                "🏆 **Arsenal DOMINE le marché !**"
-            ),
+            name="🌐 Portée",
+            value=f"{len(self.bot.guilds)} serveurs • {len(self.bot.users)} utilisateurs",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="💜 Type d'activité",
+            value="**STREAMING** (Violet Discord)",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🎯 Objectif",
+            value="Montrer TOUTES les capacités Arsenal",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🚀 Status actuel",
+            value=f"```{self.bot.activity.name if self.bot.activity else 'En cours...'}```",
             inline=False
         )
         
-        # Statistiques techniques
-        embed.add_field(
-            name="📊 **PERFORMANCES TECHNIQUES**",
-            value=(
-                "⚡ **Latence**: <50ms (optimisé Render)\n"
-                "💾 **Uptime**: 99.9% disponibilité\n"
-                "🔄 **Mises à jour**: Automatiques temps réel\n"
-                "🛡️ **Sécurité**: Enterprise grade\n"
-                "🌍 **Global**: Multi-région support"
-            ),
-            inline=True
-        )
-        
-        # Innovations technologiques
-        embed.add_field(
-            name="🚀 **TECHNOLOGIES RÉVOLUTIONNAIRES**",
-            value=(
-                "🤖 **IA Native**: ChatGPT intégré\n"
-                "📊 **Big Data**: Analytics temps réel\n"
-                "🔗 **Blockchain**: ArsenalCoins natif\n"
-                "🌐 **Web3**: Intégration crypto\n"
-                "📱 **Mobile**: App native iOS/Android"
-            ),
-            inline=True
-        )
-        
         embed.set_footer(
-            text="Arsenal Ultimate - Révolutionne Discord depuis 2025 | By xerox3elite"
+            text="Arsenal Profile Ultimate par xerox3elite",
+            icon_url=self.bot.user.avatar.url if self.bot.user.avatar else None
         )
-        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         
         await ctx.send(embed=embed)
     
-    def get_profile_stats(self):
-        """Retourne les statistiques du profil"""
-        return {
-            "total_features": len(self.supported_features),
-            "discord_natives": len([f for f in self.supported_features.values() if f.startswith("✅")]),
-            "arsenal_innovations": len([f for f in self.supported_features.values() if f.startswith("🔥")]),
-            "status_rotations": len(self.ultimate_statuses),
-            "update_frequency": "2 minutes"
-        }
+    @commands.hybrid_command(name="force_status_update", description="Force une mise à jour du status")
+    @commands.has_permissions(administrator=True)
+    async def force_status_update(self, ctx):
+        """Force une mise à jour immédiate du status"""
+        try:
+            await self.profile_updates()
+            await ctx.send("✅ Status mis à jour avec succès !")
+        except Exception as e:
+            await ctx.send(f"❌ Erreur lors de la mise à jour: {e}")
+    
+    def cog_unload(self):
+        """Arrête les tâches quand le module est déchargé"""
+        self.profile_updates.cancel()
+        print("🔄 [PROFILE] Tâches arrêtées")
 
 async def setup(bot):
+    """Charge le module ArsenalProfileUltimate"""
     await bot.add_cog(ArsenalProfileUltimate(bot))
+    print("🏆 [Arsenal Profile Ultimate] Module chargé - Profil 2000% activé!")
