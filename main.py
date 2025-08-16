@@ -337,6 +337,15 @@ except Exception as e:
     SANCTIONS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Sanctions System: {e}")
 
+# Communication System - Say et Traduction (NOUVEAU V4.5.2)
+try:
+    from commands.communication_system import CommunicationSystem
+    COMMUNICATION_SYSTEM_AVAILABLE = True
+    print("📢 [OK] Communication System chargé - Say & Traduction IA!")
+except Exception as e:
+    COMMUNICATION_SYSTEM_AVAILABLE = False
+    print(f"❌ [ERREUR] Communication System: {e}")
+
 # Help System V2 (NOUVEAU V4.5.2)
 try:
     from commands.help_system_v2 import HelpSystemV2
@@ -345,6 +354,9 @@ try:
 except Exception as e:
     HELP_SYSTEM_V2_AVAILABLE = False
     print(f"❌ [ERREUR] Help System V2: {e}")
+    # Log plus détaillé pour debug
+    import traceback
+    print(f"[DEBUG] Help System V2 Traceback: {traceback.format_exc()}")
 
 # Configuration
 load_dotenv()
@@ -623,6 +635,16 @@ class ArsenalBot(commands.Bot):
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
                     
+            # Communication System - Say & Traduction avancée
+            if COMMUNICATION_SYSTEM_AVAILABLE:
+                try:
+                    await self.add_cog(CommunicationSystem(self))
+                    log.info("📢 [OK] Communication System - Say & Traduction IA chargés!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Communication System: {e}")
+                    import traceback
+                    log.error(f"[DEBUG] Communication System Traceback: {traceback.format_exc()}")
+                    
             # Help System V2 - Interface d'aide révolutionnaire
             if HELP_SYSTEM_V2_AVAILABLE:
                 try:
@@ -630,6 +652,8 @@ class ArsenalBot(commands.Bot):
                     log.info("📚 [OK] Help System V2 - Interface moderne chargée!")
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Help System V2: {e}")
+                    import traceback
+                    log.error(f"[DEBUG] Help System V2 Detailed Error: {traceback.format_exc()}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
@@ -638,17 +662,29 @@ client.command_usage = {}
 @client.event
 async def on_ready():
     log.info(f"[START] Arsenal Studio lancé comme {client.user.name}")
+    log.info(f"[DEBUG] Bot ID: {client.user.id}")
+    log.info(f"[DEBUG] Nombre de serveurs: {len(client.guilds)}")
+    log.info(f"[DEBUG] Nombre d'utilisateurs visibles: {len(client.users)}")
+    
+    # Log des serveurs (limité aux 5 premiers pour éviter spam)
+    for guild in list(client.guilds)[:5]:
+        log.info(f"[GUILD] {guild.name} ({guild.id}) - {guild.member_count} membres")
+    
+    if len(client.guilds) > 5:
+        log.info(f"[GUILD] ... et {len(client.guilds) - 5} autres serveurs")
     
     # Définir le statut streaming par défaut AVANT tout
     try:
         activity = discord.Streaming(
-            name="Arsenal V4.5.1 | /help", 
+            name="🚀 Arsenal V4.5.2 ULTIMATE | /help", 
             url="https://twitch.tv/xerox3elite"
         )
         await client.change_presence(activity=activity)
         log.info("💜 [STATUS] Statut streaming défini par défaut")
     except Exception as e:
         log.error(f"❌ [STATUS] Erreur définition statut: {e}")
+        import traceback
+        log.error(f"[DEBUG] Status Error Traceback: {traceback.format_exc()}")
     
     try:
         await client.tree.sync()

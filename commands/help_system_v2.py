@@ -250,26 +250,57 @@ class HelpCategoryView(discord.ui.View):
         return embed, view
 
 class HelpBackView(discord.ui.View):
-    """Vue pour retourner à la sélection principale"""
+    """Vue pour retourner à la sélection principale avec support"""
     
     def __init__(self, bot):
         super().__init__(timeout=300)
         self.bot = bot
+        
+        # Ajouter les boutons link manuellement avec la bonne méthode
+        website_btn = discord.ui.Button(label="🌐 Site Web", style=discord.ButtonStyle.link, url="https://arsenal-bot.com")
+        twitch_btn = discord.ui.Button(label="📺 Twitch", style=discord.ButtonStyle.link, url="https://twitch.tv/xerox3elite")
+        
+        self.add_item(website_btn)
+        self.add_item(twitch_btn)
     
     @discord.ui.button(label="⬅️ Retour au menu", style=discord.ButtonStyle.secondary)
     async def back_to_menu(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = self.get_main_embed()
+        # Créer un nouvel embed principal et vue
+        embed = discord.Embed(
+            title="📚 Arsenal Help System V2",
+            description="**🚀 Arsenal V4.5.2 ULTIMATE - Le bot Discord le plus avancé**\n\n✨ Interface moderne • 200+ commandes • 2000% personnalisation",
+            color=0x00ff00,
+            timestamp=discord.utils.utcnow()
+        )
+        
+        embed.add_field(
+            name="🎯 **Fonctionnalités Principales**",
+            value="• 🔧 **Configuration Unifiée** - Un seul `/config`\n• ⚖️ **Sanctions Permanentes** - Casier judiciaire\n• 🎤 **Hub Vocal Avancé** - Salons temporaires\n• 💰 **Économie Complète** - ArsenalCoins système",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="🚀 **Technologies Avancées**",
+            value="• 🤖 **IA Integration** - ChatGPT-4 natif\n• 🎮 **Gaming APIs** - Steam/Riot/Xbox\n• 🌐 **Web Dashboard** - Interface web\n• 📱 **Mobile App** - Application native",
+            inline=True
+        )
+        
+        embed.add_field(
+            name="💎 **Arsenal Exclusive**",
+            value="• 🔥 **2000% Personnalisation** - Unique au monde\n• 📺 **Streaming Integration** - Twitch/YouTube\n• 🛡️ **Anti-Crash System** - Stabilité maximale\n• ⚡ **Performance Optimisée** - Render natif",
+            inline=False
+        )
+        
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1234567890/arsenal_logo.png")
+        embed.set_footer(
+            text="Sélectionnez une catégorie ci-dessous pour explorer les commandes ⬇️",
+            icon_url="https://cdn.discordapp.com/attachments/1234567890/arsenal_icon.png"
+        )
+        
         view = HelpCategoryView(self.bot)
         await interaction.response.edit_message(embed=embed, view=view)
     
-    @discord.ui.button(label="🌐 Site Web", style=discord.ButtonStyle.link, url="https://arsenal-bot.com")
-    async def website_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pass  # Lien externe
-    
-    @discord.ui.button(label="📺 Twitch", style=discord.ButtonStyle.link, url="https://twitch.tv/xerox3elite")
-    async def twitch_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pass  # Lien externe
-    
+    # Boutons avec callback (pas de decorateur pour éviter les conflits)
     @discord.ui.button(label="💬 Support", style=discord.ButtonStyle.success, emoji="💬")
     async def support_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
