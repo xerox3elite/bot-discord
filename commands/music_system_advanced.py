@@ -340,16 +340,36 @@ class MusicSystemAdvanced(commands.Cog):
                 for item in results['items'][:20]:  # Limite à 20 tracks
                     track = item['track']
                     search_query = f"{track['name']} {track['artists'][0]['name']}"
-                    yt_tracks = await wavelink.YouTubeTrack.search(search_query)
-                    if yt_tracks:
-                        tracks.append(yt_tracks[0])
+                    try:
+                        # Compatible avec différentes versions de Wavelink
+                        if hasattr(wavelink, 'YouTubeTrack'):
+                            yt_tracks = await wavelink.YouTubeTrack.search(search_query)
+                        elif hasattr(wavelink, 'tracks'):
+                            yt_tracks = await wavelink.tracks.YouTubeTrack.search(search_query)
+                        else:
+                            yt_tracks = []
+                        if yt_tracks:
+                            tracks.append(yt_tracks[0])
+                    except Exception as e:
+                        print(f"[MUSIC] Erreur track search: {e}")
+                        continue
                 return tracks
             else:
                 # Recherche de track individuel
                 track_id = query.split("/")[-1].split("?")[0]
                 track = self.spotify_client.track(track_id)
                 search_query = f"{track['name']} {track['artists'][0]['name']}"
-                return await wavelink.YouTubeTrack.search(search_query)
+                try:
+                    # Compatible avec différentes versions de Wavelink
+                    if hasattr(wavelink, 'YouTubeTrack'):
+                        return await wavelink.YouTubeTrack.search(search_query)
+                    elif hasattr(wavelink, 'tracks'):
+                        return await wavelink.tracks.YouTubeTrack.search(search_query)
+                    else:
+                        return []
+                except Exception as e:
+                    print(f"[MUSIC] Erreur track search individuel: {e}")
+                    return []
         except Exception as e:
             print(f"Erreur Spotify: {e}")
             return []
@@ -357,10 +377,16 @@ class MusicSystemAdvanced(commands.Cog):
     async def _search_youtube(self, query: str):
         """Recherche sur YouTube"""
         try:
-            tracks = await wavelink.YouTubeTrack.search(query)
+            # Compatible avec différentes versions de Wavelink
+            if hasattr(wavelink, 'YouTubeTrack'):
+                tracks = await wavelink.YouTubeTrack.search(query)
+            elif hasattr(wavelink, 'tracks'):
+                tracks = await wavelink.tracks.YouTubeTrack.search(query)
+            else:
+                tracks = []
             return tracks
         except Exception as e:
-            print(f"Erreur YouTube: {e}")
+            print(f"[MUSIC] Erreur YouTube: {e}")
             return []
 
     async def _update_user_stats(self, user_id: int, tracks_count: int):
@@ -394,13 +420,17 @@ class MusicSystemAdvanced(commands.Cog):
         return f"{minutes:02d}:{seconds:02d}"
 
     @commands.Cog.listener()
-    async def on_wavelink_track_end(self, payload: wavelink.TrackEventPayload):
-        """Événement de fin de track"""
-        vc = payload.player
-        
-        if not vc.queue.is_empty:
-            next_track = await vc.queue.get_wait()
-            await vc.play(next_track)
+    async def on_wavelink_track_end(self, payload):
+        """Événement de fin de track - Compatible toutes versions Wavelink"""
+        try:
+            vc = payload.player
+            
+            if hasattr(vc, 'queue') and not vc.queue.is_empty:
+                next_track = await vc.queue.get_wait()
+                await vc.play(next_track)
+        except Exception as e:
+            print(f"[MUSIC] Erreur lecture auto: {e}")
+            # Continuer sans crash
 
 async def setup(bot):
     """Charge le module MusicSystemAdvanced"""
