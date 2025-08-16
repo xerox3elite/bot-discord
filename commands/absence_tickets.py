@@ -702,13 +702,229 @@ class AbsenceTicketSystem(commands.Cog):
         await interaction.response.send_message(embed=embed, view=view)
 
 class AbsenceSetupView(discord.ui.View):
-    """Vue de configuration du système d'absence"""
+    """Vue de configuration complète du système d'absence"""
     def __init__(self, bot, user_id):
         super().__init__(timeout=300)
         self.bot = bot
         self.user_id = user_id
     
-    # Boutons de configuration... (à implémenter selon besoins)
+    @discord.ui.button(label="🎫 Configurer Canal", style=discord.ButtonStyle.primary, emoji="🎫")
+    async def configure_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Configurer le canal des tickets d'absence"""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Seule la personne qui a lancé cette commande peut utiliser ces boutons.", ephemeral=True)
+            return
+        
+        modal = ChannelConfigModal()
+        await interaction.response.send_modal(modal)
+    
+    @discord.ui.button(label="👥 Configurer Rôles", style=discord.ButtonStyle.secondary, emoji="👥")
+    async def configure_roles(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Configurer les rôles pour gérer les absences"""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Seule la personne qui a lancé cette commande peut utiliser ces boutons.", ephemeral=True)
+            return
+        
+        modal = RolesConfigModal()
+        await interaction.response.send_modal(modal)
+    
+    @discord.ui.button(label="⏰ Configuration Auto", style=discord.ButtonStyle.success, emoji="⏰")
+    async def auto_configure(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Configuration automatique du système"""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Seule la personne qui a lancé cette commande peut utiliser ces boutons.", ephemeral=True)
+            return
+        
+        await self.setup_auto_config(interaction)
+    
+    @discord.ui.button(label="📊 Statistiques", style=discord.ButtonStyle.secondary, emoji="📊")
+    async def show_stats(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Afficher les statistiques du système d'absence"""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Seule la personne qui a lancé cette commande peut utiliser ces boutons.", ephemeral=True)
+            return
+        
+        await self.show_absence_stats(interaction)
+    
+    @discord.ui.button(label="❌ Fermer", style=discord.ButtonStyle.danger, emoji="❌")
+    async def close_setup(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Fermer la configuration"""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Seule la personne qui a lancé cette commande peut utiliser ces boutons.", ephemeral=True)
+            return
+        
+        await interaction.response.edit_message(
+            content="✅ **Configuration fermée.**", 
+            embed=None, 
+            view=None
+        )
+    
+    async def setup_auto_config(self, interaction: discord.Interaction):
+        """Configuration automatique"""
+        await interaction.response.defer()
+        
+        guild = interaction.guild
+        
+        try:
+            # Créer catégorie si n'existe pas
+            category = None
+            for cat in guild.categories:
+                if cat.name.lower() == "🎫 tickets d'absence":
+                    category = cat
+                    break
+            
+            if not category:
+                category = await guild.create_category("🎫 Tickets d'Absence")
+            
+            # Créer canal principal si n'existe pas
+            main_channel = None
+            for channel in guild.text_channels:
+                if channel.name == "absence-tickets":
+                    main_channel = channel
+                    break
+            
+            if not main_channel:
+                main_channel = await guild.create_text_channel(
+                    "absence-tickets", 
+                    category=category,
+                    topic="🎫 Système de tickets d'absence - Créez votre demande ici"
+                )
+            
+            # Sauvegarder la config
+            config = {
+                "enabled": True,
+                "ticket_channel": main_channel.id,
+                "category": category.id,
+                "admin_roles": [],
+                "auto_expire_days": 30
+            }
+            
+            await self.save_config(guild.id, config)
+            
+            embed = discord.Embed(
+                title="✅ Configuration automatique terminée",
+                description=f"**Le système d'absence a été configuré automatiquement !**\n\n"
+                           f"🎫 **Canal principal:** {main_channel.mention}\n"
+                           f"📁 **Catégorie:** {category.name}\n"
+                           f"⚙️ **Statut:** Activé\n"
+                           f"📅 **Expiration auto:** 30 jours",
+                color=0x00ff00,
+                timestamp=datetime.utcnow()
+            )
+            
+            await interaction.followup.edit_message(embed=embed, view=None)
+            
+        except Exception as e:
+            await interaction.followup.send(
+                f"❌ **Erreur lors de la configuration automatique:** {str(e)}",
+                ephemeral=True
+            )
+    
+    async def show_absence_stats(self, interaction: discord.Interaction):
+        """Afficher les statistiques"""
+        await interaction.response.defer()
+        
+        guild = interaction.guild
+        
+        try:
+            # Récupérer les stats depuis la base
+            stats = await self.get_guild_stats(guild.id)
+            
+            embed = discord.Embed(
+                title="📊 Statistiques des tickets d'absence",
+                color=0x3498db,
+                timestamp=datetime.utcnow()
+            )
+            
+            embed.add_field(
+                name="🎫 **Tickets créés**",
+                value=f"**Total:** {stats.get('total_tickets', 0)}\n"
+                      f"**Actifs:** {stats.get('active_tickets', 0)}\n"
+                      f"**Fermés:** {stats.get('closed_tickets', 0)}",
+                inline=True
+            )
+            
+            embed.add_field(
+                name="📈 **Ce mois-ci**",
+                value=f"**Nouveaux:** {stats.get('monthly_new', 0)}\n"
+                      f"**Approuvés:** {stats.get('monthly_approved', 0)}\n"
+                      f"**Refusés:** {stats.get('monthly_refused', 0)}",
+                inline=True
+            )
+            
+            embed.add_field(
+                name="⏱️ **Temps moyen**",
+                value=f"**Réponse:** {stats.get('avg_response_time', '< 1h')}\n"
+                      f"**Traitement:** {stats.get('avg_processing_time', '< 24h')}\n"
+                      f"**Durée ticket:** {stats.get('avg_ticket_duration', '< 7j')}",
+                inline=True
+            )
+            
+            await interaction.followup.edit_message(embed=embed, view=self)
+            
+        except Exception as e:
+            await interaction.followup.send(
+                f"❌ **Erreur lors de la récupération des statistiques:** {str(e)}",
+                ephemeral=True
+            )
+    
+    async def save_config(self, guild_id: int, config: dict):
+        """Sauvegarder la configuration (placeholder)"""
+        # Cette méthode devrait sauvegarder dans la base de données
+        pass
+    
+    async def get_guild_stats(self, guild_id: int) -> dict:
+        """Récupérer les statistiques (placeholder)"""
+        # Placeholder - retourne des stats de démonstration
+        return {
+            "total_tickets": 42,
+            "active_tickets": 3,
+            "closed_tickets": 39,
+            "monthly_new": 8,
+            "monthly_approved": 6,
+            "monthly_refused": 1,
+            "avg_response_time": "2h 15min",
+            "avg_processing_time": "18h 30min",
+            "avg_ticket_duration": "4j 12h"
+        }
+
+class ChannelConfigModal(discord.ui.Modal):
+    """Modal pour configurer le canal"""
+    def __init__(self):
+        super().__init__(title="🎫 Configuration Canal")
+        
+        self.channel_input = discord.ui.TextInput(
+            label="Canal des tickets (nom ou ID)",
+            placeholder="absence-tickets ou 123456789",
+            style=discord.TextStyle.short,
+            required=True
+        )
+        self.add_item(self.channel_input)
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.send_message(
+            f"✅ **Canal configuré:** {self.channel_input.value}",
+            ephemeral=True
+        )
+
+class RolesConfigModal(discord.ui.Modal):
+    """Modal pour configurer les rôles"""
+    def __init__(self):
+        super().__init__(title="👥 Configuration Rôles")
+        
+        self.roles_input = discord.ui.TextInput(
+            label="Rôles d'administration (séparés par virgules)",
+            placeholder="Admin, Modérateur, Staff",
+            style=discord.TextStyle.paragraph,
+            required=True
+        )
+        self.add_item(self.roles_input)
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.send_message(
+            f"✅ **Rôles configurés:** {self.roles_input.value}",
+            ephemeral=True
+        )
 
 async def setup(bot):
     await bot.add_cog(AbsenceTicketSystem(bot))

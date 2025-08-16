@@ -337,6 +337,15 @@ except Exception as e:
     SANCTIONS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Sanctions System: {e}")
 
+# Complete Commands System - Liste TOUTES les commandes (NOUVEAU V4.5.2)
+try:
+    from commands.complete_commands_system import CompleteCommandsSystem
+    COMPLETE_COMMANDS_SYSTEM_AVAILABLE = True
+    print("📋 [OK] Complete Commands System chargé - Liste toutes les commandes!")
+except Exception as e:
+    COMPLETE_COMMANDS_SYSTEM_AVAILABLE = False
+    print(f"❌ [ERREUR] Complete Commands System: {e}")
+
 # Communication System - Say et Traduction (NOUVEAU V4.5.2)
 try:
     from commands.communication_system import CommunicationSystem
@@ -634,6 +643,14 @@ class ArsenalBot(commands.Bot):
                     log.info("⚖️ [OK] Sanctions System - Casier permanent & Modération avancée!")
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
+                    
+            # Complete Commands System - Liste toutes les commandes
+            if COMPLETE_COMMANDS_SYSTEM_AVAILABLE:
+                try:
+                    await self.add_cog(CompleteCommandsSystem(self))
+                    log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
                     
             # Communication System - Say & Traduction avancée
             if COMMUNICATION_SYSTEM_AVAILABLE:

@@ -23,6 +23,7 @@ class HubVocal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db_path = "data/hub_vocal.db"
+        self.config_file = "hub_config.json"  # Fichier de config JSON
         
         # Configuration par défaut
         self.default_config = {
@@ -40,9 +41,195 @@ class HubVocal(commands.Cog):
         
         asyncio.create_task(self.setup_database())
         
-        # Démarrer les tâches de nettoyage
+        # Charger la configuration au démarrage
+        asyncio.create_task(self.load_config())
+        
+        # Démarrer les tâches de nettoyage et auto-save
         if not hasattr(self, '_tasks_started'):
             self.cleanup_empty_channels.start()
+            self.auto_save_config.start()  # Auto-save toutes les 5min
+            self._tasks_started = True
+    
+    async def setup_database(self):
+        """Base de données pour le hub vocal"""
+        try:
+            os.makedirs("data", exist_ok=True)
+            
+            async with aiosqlite.connect(self.db_path) as db:
+                # Configuration serveur
+                await db.execute("""
+                    CREATE TABLE IF NOT EXISTS server_config (
+                        guild_id INTEGER PRIMARY KEY,
+                        config TEXT NOT NULL,
+                        updated_at TEXT NOT NULL
+                    )
+                """)
+                
+                # Salons temporaires
+                await db.execute("""
+                    CREATE TABLE IF NOT EXISTS temp_channels (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        guild_id INTEGER NOT NULL,
+                        channel_id INTEGER NOT NULL,
+                        owner_id INTEGER NOT NULL,
+                        created_at TEXT NOT NULL,
+                        settings TEXT NOT NULL,
+                        active BOOLEAN DEFAULT 1
+                    )
+                """)
+                
+                # Historique des utilisations
+                await db.execute("""
+                    CREATE TABLE IF NOT EXISTS usage_stats (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        guild_id INTEGER NOT NULL,
+                        user_id INTEGER NOT NULL,
+                        action TEXT NOT NULL,
+                        channel_id INTEGER NOT NULL,
+                        timestamp TEXT NOT NULL
+                    )
+                """)
+                
+                await db.commit()
+                
+        except Exception as e:
+            logging.error(f"Erreur setup database hub vocal: {e}")
+    
+    async def load_config(self):
+        """Charge la configuration depuis le fichier JSON au démarrage"""
+        try:
+            if os.path.exists(self.config_file):
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    config_data = json.load(f)
+                    
+                # Charger les configs dans la base pour chaque serveur
+                for guild_id_str, config in config_data.items():
+                    guild_id = int(guild_id_str)
+                    await self.save_config(guild_id, config)
+                    
+                    # Vérifier et nettoyer les vocaux après redémarrage
+                    await self.check_existing_channels(guild_id, config)
+                
+                logging.info(f"🧠 Configuration hub_vocal chargée depuis {self.config_file}")
+            else:
+                logging.warning("🧠 Aucun fichier hub_config.json détecté pour restaurer les vocaux.")
+        except Exception as e:
+            logging.error(f"❌ Erreur chargement config hub_vocal: {e}")
+    
+    async def check_existing_channels(self, guild_id: int, config: dict):
+        """Vérifie les salons existants après redémarrage et nettoie si vides"""
+        try:
+            # Bypass pour les tests - vérifier si le bot est connecté
+            if not hasattr(self.bot, 'user') or not self.bot.user:
+                logging.warning("🧠 Bot non connecté - bypass check_existing_channels")
+                return
+                
+            guild = self.bot.get_guild(guild_id)
+            if not guild:
+                return
+                
+            temp_channels = config.get("temp_channels", {})
+            channels_to_remove = []
+            
+            for channel_id_str, channel_data in temp_channels.items():
+                channel_id = int(channel_id_str)
+                channel = guild.get_channel(channel_id)
+                
+                if not channel:
+                    # Salon n'existe plus
+                    channels_to_remove.append(channel_id_str)
+                    continue
+                
+                # Si le salon est vide, le supprimer
+                if len(channel.members) == 0:
+                    try:
+                        await channel.delete(reason="Nettoyage automatique après redémarrage - salon vide")
+                        channels_to_remove.append(channel_id_str)
+                        logging.info(f"🗑️ Salon vocal vide supprimé après restart: {channel.name}")
+                    except:
+                        pass
+                else:
+                    # Le salon a encore des membres, le garder
+                    logging.info(f"🔄 Salon vocal récupéré après restart: {channel.name} ({len(channel.members)} membres)")
+            
+            # Mettre à jour la config si des salons ont été supprimés
+            if channels_to_remove:
+                for channel_id_str in channels_to_remove:
+                    temp_channels.pop(channel_id_str, None)
+                config["temp_channels"] = temp_channels
+                await self.save_config(guild_id, config)
+                
+        except Exception as e:
+            logging.error(f"❌ Erreur check_existing_channels: {e}")
+    
+    @tasks.loop(minutes=5)
+    async def auto_save_config(self):
+        """Sauvegarde automatique de la config toutes les 5 minutes"""
+        try:
+            config_data = {}
+            
+            async with aiosqlite.connect(self.db_path) as db:
+                async with db.execute("SELECT guild_id, config FROM server_config") as cursor:
+                    async for row in cursor:
+                        guild_id, config_str = row
+                        config_data[str(guild_id)] = json.loads(config_str)
+            
+            # Sauvegarder dans le fichier JSON
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(config_data, f, indent=2, ensure_ascii=False)
+            
+            logging.info("💾 Configuration hub_vocal auto-sauvegardée")
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur auto_save_config: {e}")
+
+    @tasks.loop(minutes=1.0)
+    async def cleanup_empty_channels(self): complet de salons vocaux temporaires avec panel de contrôle
+Développé par XeRoX - Arsenal Bot V4.5.2
+"""
+
+import discord
+from discord.ext import commands, tasks
+from discord import app_commands
+import aiosqlite
+import json
+import asyncio
+from datetime import datetime, timedelta
+import os
+from typing import Optional, Dict, List
+import logging
+
+class HubVocal(commands.Cog):
+    """Hub vocal temporaire complet style DraftBot"""
+    
+    def __init__(self, bot):
+        self.bot = bot
+        self.db_path = "data/hub_vocal.db"
+        self.config_file = "hub_config.json"  # Fichier de config JSON
+        
+        # Configuration par défaut
+        self.default_config = {
+            "enabled": False,
+            "hub_channel": None,  # Salon principal du hub
+            "vocal_role": None,   # Rôle vocal automatique
+            "category": None,     # Catégorie pour les salons temporaires
+            "auto_create_role": True,  # Créer automatiquement le rôle vocal
+            "role_name": "🎤 En Vocal",
+            "temp_channels": {}   # Salons temporaires actifs
+        }
+        
+        # États des salons temporaires
+        self.temp_channels_data = {}
+        
+        asyncio.create_task(self.setup_database())
+        
+        # Charger la configuration au démarrage
+        asyncio.create_task(self.load_config())
+        
+        # Démarrer les tâches de nettoyage et auto-save
+        if not hasattr(self, '_tasks_started'):
+            self.cleanup_empty_channels.start()
+            self.auto_save_config.start()  # Auto-save toutes les 5min
             self._tasks_started = True
     
     async def setup_database(self):

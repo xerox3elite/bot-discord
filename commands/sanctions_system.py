@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-⚖️ ARSENAL SANCTIONS SYSTEM - SYSTÈME DE SANCTIONS COMPLET
+"""        if success:
+            embed = discord.Embed(
+                title=f"✅ {self.sanction_type.title()} appliqué",
+                description=message,
+                color=0x00ff00,
+                timestamp=datetime.now(timezone.utc)
+            )
+        else:
+            embed = discord.Embed(
+                title="❌ Erreur",
+                description=message,
+                color=0xff0000,
+                timestamp=datetime.now(timezone.utc)
+            )
+        
+        # Utiliser response.send_message pour les modals, pas edit_original_response
+        try:
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        except discord.errors.InteractionResponded:
+            # Si l'interaction a déjà été répondue, utiliser followup
+            await interaction.followup.send(embed=embed, ephemeral=True)CTIONS SYSTEM - SYSTÈME DE SANCTIONS COMPLET
 Casier judiciaire permanent avec sanctions/contre-sanctions & AutoMod intégré
 Par xerox3elite - Arsenal V4.5.2 ULTIMATE
 """
