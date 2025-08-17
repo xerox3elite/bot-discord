@@ -512,6 +512,14 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Economy UNIFIÉ: {e}")
                 
+        # Arsenal AutoMod V5.0.1 - Système de modération avec 489 mots (NOUVEAU)
+        try:
+            from commands.arsenal_command_groups_final import ArsenalCommandGroupsFinal
+            await self.add_cog(ArsenalCommandGroupsFinal(self))
+            log.info("🛡️ [OK] Arsenal AutoMod V5.0.1 - Système de modération avec 489 mots chargé!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1: {e}")
+                
             # Bot Migration System - Révolutionnaire
             if BOT_MIGRATION_AVAILABLE:
                 try:
