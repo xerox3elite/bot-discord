@@ -550,7 +550,7 @@ class KickSelect(discord.ui.Select):
             
             embed.add_field(
                 name="🔧 Actions disponibles",
-                value="• 🔒 Verrouiller/déverrouiller le salon\n• ✏️ Renommer le salon\n• 👥 Gérer la limite d'utilisateurs\n• ❌ Supprimer le salon",
+                value="• 🔒 Verrouiller/déverrouiller le salon\n• ✏️ Renommer le salon\n• 👥 Gérer la limite d'utilisateurs\n• 👁️ Rendre invisible/visible\n• 📋 Gérer whitelist/blacklist\n• ❌ Supprimer le salon",
                 inline=False
             )
             
@@ -655,6 +655,99 @@ class TempChannelControlView(discord.ui.View):
         # Créer une modal pour la limite
         modal = UserLimitModal(channel)
         await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="👁️", style=discord.ButtonStyle.secondary, custom_id="toggle_invisible")
+    async def toggle_invisible(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Rendre le salon invisible/visible"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée",
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Toggle visibility
+        current_perms = channel.overwrites_for(interaction.guild.default_role)
+        is_visible = current_perms.view_channel is not False
+        
+        await channel.set_permissions(
+            interaction.guild.default_role,
+            view_channel=not is_visible,
+            connect=None if not is_visible else False  # Si invisible, on peut pas se connecter non plus
+        )
+        
+        embed = discord.Embed(
+            title=f"{'👁️ Salon visible' if not is_visible else '🫥 Salon invisible'}",
+            description=f"Le salon **{channel.name}** est maintenant {'visible' if not is_visible else 'invisible'} pour les autres",
+            color=0x00ff00 if not is_visible else 0x666666
+        )
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    @discord.ui.button(label="📋", style=discord.ButtonStyle.blurple, custom_id="manage_access")
+    async def manage_access(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Gérer whitelist/blacklist du salon"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée",
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Créer la vue de gestion d'accès
+        view = AccessManagementView(channel, interaction.user)
+        
+        embed = discord.Embed(
+            title="📋 Gestion des Accès",
+            description=f"Gérez les accès au salon **{channel.name}**",
+            color=0x5865f2
+        )
+        
+        # Afficher les utilisateurs ayant des permissions spéciales
+        whitelist_users = []
+        blacklist_users = []
+        
+        for target, perms in channel.overwrites.items():
+            if isinstance(target, discord.Member):
+                if perms.connect is True:
+                    whitelist_users.append(target.mention)
+                elif perms.connect is False:
+                    blacklist_users.append(target.mention)
+        
+        if whitelist_users:
+            embed.add_field(
+                name="✅ Whitelist",
+                value="\n".join(whitelist_users[:5]) + (f"\n... et {len(whitelist_users)-5} autres" if len(whitelist_users) > 5 else ""),
+                inline=True
+            )
+        
+        if blacklist_users:
+            embed.add_field(
+                name="❌ Blacklist", 
+                value="\n".join(blacklist_users[:5]) + (f"\n... et {len(blacklist_users)-5} autres" if len(blacklist_users) > 5 else ""),
+                inline=True
+            )
+        
+        if not whitelist_users and not blacklist_users:
+            embed.add_field(
+                name="ℹ️ Info",
+                value="Aucune restriction d'accès définie",
+                inline=False
+            )
+        
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
     @discord.ui.button(label="❌", style=discord.ButtonStyle.danger, custom_id="delete")
     async def delete_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -796,6 +889,174 @@ class ConfirmDeleteView(discord.ui.View):
         embed = discord.Embed(
             title="❌ Suppression annulée",
             description="Le salon n'a pas été supprimé",
+            color=0xff9900
+        )
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
+class AccessManagementView(discord.ui.View):
+    """Vue pour gérer les accès (whitelist/blacklist) du salon"""
+    
+    def __init__(self, channel: discord.VoiceChannel, owner: discord.Member):
+        super().__init__(timeout=300)  # 5 minutes
+        self.channel = channel
+        self.owner = owner
+    
+    @discord.ui.button(label="➕ Autoriser un utilisateur", style=discord.ButtonStyle.green)
+    async def add_to_whitelist(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Ajouter un utilisateur à la whitelist"""
+        
+        if interaction.user.id != self.owner.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut gérer les accès", ephemeral=True)
+        
+        modal = UserAccessModal(self.channel, "whitelist", self.owner)
+        await interaction.response.send_modal(modal)
+    
+    @discord.ui.button(label="➖ Interdire un utilisateur", style=discord.ButtonStyle.red)
+    async def add_to_blacklist(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Ajouter un utilisateur à la blacklist"""
+        
+        if interaction.user.id != self.owner.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut gérer les accès", ephemeral=True)
+        
+        modal = UserAccessModal(self.channel, "blacklist", self.owner)
+        await interaction.response.send_modal(modal)
+    
+    @discord.ui.button(label="🧹 Nettoyer les accès", style=discord.ButtonStyle.secondary)
+    async def clear_access(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Supprimer toutes les restrictions d'accès"""
+        
+        if interaction.user.id != self.owner.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut gérer les accès", ephemeral=True)
+        
+        # Confirmation
+        embed = discord.Embed(
+            title="⚠️ Confirmation",
+            description="Voulez-vous supprimer toutes les restrictions d'accès ?",
+            color=0xff9900
+        )
+        
+        view = ConfirmClearAccessView(self.channel, self.owner)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+
+class UserAccessModal(discord.ui.Modal):
+    """Modal pour ajouter/retirer un utilisateur des listes d'accès"""
+    
+    def __init__(self, channel: discord.VoiceChannel, action_type: str, owner: discord.Member):
+        self.channel = channel
+        self.action_type = action_type  # "whitelist" ou "blacklist"
+        self.owner = owner
+        
+        title = f"{'Autoriser' if action_type == 'whitelist' else 'Interdire'} un utilisateur"
+        super().__init__(title=title)
+        
+        self.user_input = discord.ui.TextInput(
+            label="Nom ou ID de l'utilisateur",
+            placeholder="@utilisateur ou 123456789",
+            max_length=100
+        )
+        self.add_item(self.user_input)
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        user_input = self.user_input.value.strip()
+        
+        # Chercher l'utilisateur
+        user = None
+        
+        # Par mention
+        if user_input.startswith('<@') and user_input.endswith('>'):
+            user_id = user_input.strip('<@!>')
+            try:
+                user = interaction.guild.get_member(int(user_id))
+            except ValueError:
+                pass
+        
+        # Par ID
+        elif user_input.isdigit():
+            user = interaction.guild.get_member(int(user_input))
+        
+        # Par nom d'utilisateur
+        else:
+            user = discord.utils.find(
+                lambda m: m.display_name.lower() == user_input.lower() or m.name.lower() == user_input.lower(),
+                interaction.guild.members
+            )
+        
+        if not user:
+            return await interaction.response.send_message("❌ Utilisateur introuvable!", ephemeral=True)
+        
+        if user.id == self.owner.id:
+            return await interaction.response.send_message("❌ Vous ne pouvez pas vous restreindre vous-même!", ephemeral=True)
+        
+        try:
+            if self.action_type == "whitelist":
+                await self.channel.set_permissions(user, connect=True, view_channel=True)
+                action_text = "autorisé à rejoindre"
+                color = 0x00ff00
+                emoji = "✅"
+            else:  # blacklist
+                await self.channel.set_permissions(user, connect=False, view_channel=True)
+                # Expulser l'utilisateur s'il est dans le salon
+                if user in self.channel.members:
+                    await user.move_to(None, reason="Ajouté à la blacklist")
+                action_text = "interdit de rejoindre"
+                color = 0xff0000
+                emoji = "❌"
+            
+            embed = discord.Embed(
+                title=f"{emoji} Accès modifié",
+                description=f"**{user.display_name}** est maintenant {action_text} le salon **{self.channel.name}**",
+                color=color
+            )
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur modification accès: {e}")
+            await interaction.response.send_message("❌ Erreur lors de la modification des permissions", ephemeral=True)
+
+
+class ConfirmClearAccessView(discord.ui.View):
+    """Vue de confirmation pour nettoyer tous les accès"""
+    
+    def __init__(self, channel: discord.VoiceChannel, owner: discord.Member):
+        super().__init__(timeout=30)
+        self.channel = channel
+        self.owner = owner
+    
+    @discord.ui.button(label="✅ Confirmer", style=discord.ButtonStyle.danger)
+    async def confirm_clear(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.owner.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut confirmer", ephemeral=True)
+        
+        try:
+            # Supprimer toutes les permissions spécifiques aux membres
+            for target, perms in list(self.channel.overwrites.items()):
+                if isinstance(target, discord.Member) and target.id != self.owner.id:
+                    await self.channel.set_permissions(target, overwrite=None)
+            
+            embed = discord.Embed(
+                title="🧹 Accès nettoyés",
+                description=f"Toutes les restrictions d'accès ont été supprimées du salon **{self.channel.name}**",
+                color=0x00ff00
+            )
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur nettoyage accès: {e}")
+            await interaction.response.send_message("❌ Erreur lors du nettoyage", ephemeral=True)
+    
+    @discord.ui.button(label="❌ Annuler", style=discord.ButtonStyle.secondary)
+    async def cancel_clear(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.owner.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut annuler", ephemeral=True)
+        
+        embed = discord.Embed(
+            title="❌ Nettoyage annulé",
+            description="Les restrictions d'accès n'ont pas été modifiées",
             color=0xff9900
         )
         
