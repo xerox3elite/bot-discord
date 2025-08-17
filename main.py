@@ -367,6 +367,15 @@ except Exception as e:
     import traceback
     print(f"[DEBUG] Help System V2 Traceback: {traceback.format_exc()}")
 
+# Arsenal System Commands (Commandes système et diagnostic)
+try:
+    from commands.arsenal_system_commands import ArsenalSystemCommands
+    ARSENAL_SYSTEM_COMMANDS_AVAILABLE = True
+    print("🔧 [OK] Arsenal System Commands chargé - Commandes slash système!")
+except Exception as e:
+    ARSENAL_SYSTEM_COMMANDS_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal System Commands: {e}")
+
 # Configuration
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -671,6 +680,16 @@ class ArsenalBot(commands.Bot):
                     log.error(f"[ERROR] Erreur chargement Help System V2: {e}")
                     import traceback
                     log.error(f"[DEBUG] Help System V2 Detailed Error: {traceback.format_exc()}")
+                    
+            # Arsenal System Commands - Commandes slash système et diagnostic
+            if ARSENAL_SYSTEM_COMMANDS_AVAILABLE:
+                try:
+                    await self.add_cog(ArsenalSystemCommands(self))
+                    log.info("🔧 [OK] Arsenal System Commands - Commandes slash système chargées!")
+                except Exception as e:
+                    log.error(f"[ERROR] Erreur chargement Arsenal System Commands: {e}")
+                    import traceback
+                    log.error(f"[DEBUG] Arsenal System Commands Detailed Error: {traceback.format_exc()}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
