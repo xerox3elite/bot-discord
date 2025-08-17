@@ -527,6 +527,14 @@ class ArsenalBot(commands.Bot):
             log.info("🐛 [OK] Arsenal Bug Reporter - Système de signalement chargé!")
         except Exception as e:
             log.error(f"[ERROR] Erreur chargement Arsenal Bug Reporter: {e}")
+            
+        # Arsenal Test Suite - Tests automatiques (NOUVEAU)
+        try:
+            from commands.arsenal_test_suite import ArsenalTestSuite
+            await self.add_cog(ArsenalTestSuite(self))
+            log.info("🧪 [OK] Arsenal Test Suite - Tests automatiques chargé!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Arsenal Test Suite: {e}")
                 
             # Bot Migration System - Révolutionnaire
             if BOT_MIGRATION_AVAILABLE:
