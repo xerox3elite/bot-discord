@@ -62,9 +62,8 @@ class ArsenalDatabaseManager:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS server_config (
                     guild_id INTEGER PRIMARY KEY,
-                    config_data TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    config TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
                 )
             """)
             
