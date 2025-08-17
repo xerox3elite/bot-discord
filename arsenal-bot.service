@@ -1,0 +1,20 @@
+[Unit]
+Description=Arsenal Discord Bot V5.0.1
+After=network.target
+
+[Service]
+Type=simple
+User=arsenal
+WorkingDirectory=/opt/arsenal
+Environment=PATH=/opt/arsenal/venv/bin
+ExecStart=/opt/arsenal/venv/bin/python main.py
+Restart=always
+RestartSec=10
+
+# Logs
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=arsenal-bot
+
+[Install]
+WantedBy=multi-user.target

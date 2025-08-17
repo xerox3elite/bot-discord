@@ -12,7 +12,7 @@ from discord import app_commands
 import aiosqlite
 import json
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import os
 from typing import Optional, Dict, List
 import logging

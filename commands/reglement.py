@@ -12,7 +12,7 @@ from discord import app_commands
 import aiosqlite
 import json
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import os
 from typing import Optional, Dict, List
 import logging
@@ -53,15 +53,10 @@ class ReglementSystem(commands.Cog):
             }
         }
         
-        # La base de données sera initialisée dans cog_load()
-        self._tasks_started = False
-
-    async def cog_load(self):
-        """Initialisation async du cog"""
-        await self.setup_database()
+        asyncio.create_task(self.setup_database())
         
         # Démarrer les tâches
-        if not self._tasks_started:
+        if not hasattr(self, '_tasks_started'):
             self.auto_kick_checker.start()
             self._tasks_started = True
     
@@ -137,7 +132,7 @@ class ReglementSystem(commands.Cog):
                         if not guild:
                             continue
                         
-                        cutoff_time = datetime.now() - timedelta(seconds=config.get("kick_delay", 300))
+                        cutoff_time = datetime.now(timezone.utc) - timedelta(seconds=config.get("kick_delay", 300))
                         
                         for member in guild.members:
                             if member.bot or await self.is_user_accepted(guild_id, member.id):

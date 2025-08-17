@@ -153,18 +153,9 @@ from manager.status_manager import initialize_status_system
 
 # Modules de commandes
 # import commands.community as community  # Maintenant géré par le Cog CommunityCommands
-# import commands.admin as admin  # Legacy - now in arsenal_command_groups_final.py
+import commands.admin as admin
 import commands.moderateur as moderateur
 import commands.sanction as sanction
-
-# Arsenal AutoMod V5.0.1 - NEW SYSTEM
-try:
-    from commands.arsenal_command_groups_final import ArsenalCommandGroupsFinal
-    ARSENAL_AUTOMOD_AVAILABLE = True
-    print("[OK] Arsenal AutoMod V5.0.1 chargé")
-except Exception as e:
-    ARSENAL_AUTOMOD_AVAILABLE = False
-    print(f"[ERROR] Arsenal AutoMod V5.0.1 non disponible: {e}")
 
 # Import music avancé pour éviter l'erreur
 try:
@@ -376,15 +367,6 @@ except Exception as e:
     import traceback
     print(f"[DEBUG] Help System V2 Traceback: {traceback.format_exc()}")
 
-# Arsenal Command Groups - Groupes organisés de commandes
-try:
-    from commands.arsenal_command_groups import ArsenalCommandGroups
-    ARSENAL_COMMAND_GROUPS_AVAILABLE = True
-    print("🔧 [OK] Arsenal Command Groups chargé - Commandes organisées par groupes!")
-except Exception as e:
-    ARSENAL_COMMAND_GROUPS_AVAILABLE = False
-    print(f"❌ [ERREUR] Arsenal Command Groups: {e}")
-
 # Configuration
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -453,14 +435,6 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Suggestions: {e}")
         
-        # Charger Arsenal AutoMod V5.0.1
-        if ARSENAL_AUTOMOD_AVAILABLE:
-            try:
-                await self.add_cog(ArsenalCommandGroupsFinal(self))
-                log.info("[OK] Module Arsenal AutoMod V5.0.1 chargé")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1: {e}")
-        
         # Charger Hunt Royal Integration
         if HUNT_INTEGRATION_AVAILABLE:
             try:
@@ -525,18 +499,18 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Enhanced Music: {e}")
         
-        # Charger Arsenal Economy System (NOUVEAU V4.5) avec Configuration Moderne
+        # Charger Arsenal Economy System UNIFIÉ (NOUVEAU V4.6) avec Configuration Moderne
         if ARSENAL_ECONOMY_AVAILABLE:
             try:
-                await self.add_cog(ArsenalEconomySystem(self))
+                await self.add_cog(ArsenalEconomyUnified(self))
                 await self.add_cog(ArsenalShopAdmin(self))
                 # Config unifié maintenant dans commands/config.py
                 # from commands.config_modal_system import ArsenalConfigSystemModal
                 # await self.add_cog(ArsenalConfigSystemModal(self))
                 await self.add_cog(ArsenalUpdateNotifier(self))
-                log.info("[OK] Arsenal Economy, Shop & Update Notifier System chargé")
+                log.info("[OK] Arsenal Economy UNIFIÉ, Shop & Update Notifier System chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Economy: {e}")
+                log.error(f"[ERROR] Erreur chargement Arsenal Economy UNIFIÉ: {e}")
                 
             # Bot Migration System - Révolutionnaire
             if BOT_MIGRATION_AVAILABLE:
@@ -697,24 +671,6 @@ class ArsenalBot(commands.Bot):
                     log.error(f"[ERROR] Erreur chargement Help System V2: {e}")
                     import traceback
                     log.error(f"[DEBUG] Help System V2 Detailed Error: {traceback.format_exc()}")
-                    
-            # Arsenal Command Groups FINAL - Structure optimisée 100 commandes max
-            try:
-                await self.load_extension("commands.arsenal_command_groups_final")
-                log.info("� [OK] Arsenal Command Groups FINAL - 100 commandes max respecté!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Command Groups FINAL: {e}")
-                import traceback
-                log.error(f"[DEBUG] Arsenal Command Groups FINAL Error: {traceback.format_exc()}")
-                
-            # Hub Vocal System - Salons temporaires avancés
-            try:
-                await self.load_extension("commands.hub_vocal")
-                log.info("🎤 [OK] Hub Vocal System - Salons temporaires avec whitelist/blacklist!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Hub Vocal: {e}")
-                import traceback
-                log.error(f"[DEBUG] Hub Vocal Error: {traceback.format_exc()}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
@@ -794,7 +750,7 @@ async def on_command_error(ctx, error):
 
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)
-# client.tree.add_command(admin.admin_group)  # Legacy - now handled by Arsenal AutoMod V5.0.1
+client.tree.add_command(admin.admin_group)
 client.tree.add_command(sanction.sanction_group)
 
 # Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands
@@ -815,15 +771,15 @@ if HUNT_PROFILES_AVAILABLE:
 if RELOADER_AVAILABLE:
     client.tree.add_command(reload_group)
 
-# Arsenal Economy System (NOUVEAU V4.5)
+# Arsenal Economy System UNIFIÉ (NOUVEAU V4.6)
 try:
-    from commands.arsenal_economy_system import ArsenalEconomySystem
+    from commands.arsenal_economy_unified import ArsenalEconomyUnified
     from commands.arsenal_shop_admin import ArsenalShopAdmin
     from commands.arsenal_config_system import ArsenalConfigSystem
     from commands.arsenal_config_complete import ArsenalCompleteConfig
     from commands.arsenal_update_notifier import ArsenalUpdateNotifier
     ARSENAL_ECONOMY_AVAILABLE = True
-    print("[OK] Arsenal Economy, Config, Arsenal Complete & Update Notifier System chargé")
+    print("[OK] Arsenal Economy UNIFIÉ, Config, Arsenal Complete & Update Notifier System chargé")
 except Exception as e:
     ARSENAL_ECONOMY_AVAILABLE = False
     print(f"[WARNING] Arsenal Economy System non disponible: {e}")
