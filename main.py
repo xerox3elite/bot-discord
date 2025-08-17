@@ -519,6 +519,14 @@ class ArsenalBot(commands.Bot):
             log.info("🛡️ [OK] Arsenal AutoMod V5.0.1 - Système de modération avec 489 mots chargé!")
         except Exception as e:
             log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1: {e}")
+            
+        # Arsenal Bug Reporter - Système de signalement (NOUVEAU)
+        try:
+            from commands.arsenal_bug_reporter import ArsenalBugReporter
+            await self.add_cog(ArsenalBugReporter(self))
+            log.info("🐛 [OK] Arsenal Bug Reporter - Système de signalement chargé!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Arsenal Bug Reporter: {e}")
                 
             # Bot Migration System - Révolutionnaire
             if BOT_MIGRATION_AVAILABLE:
