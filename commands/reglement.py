@@ -53,10 +53,15 @@ class ReglementSystem(commands.Cog):
             }
         }
         
-        asyncio.create_task(self.setup_database())
+        # La base de données sera initialisée dans cog_load()
+        self._tasks_started = False
+
+    async def cog_load(self):
+        """Initialisation async du cog"""
+        await self.setup_database()
         
         # Démarrer les tâches
-        if not hasattr(self, '_tasks_started'):
+        if not self._tasks_started:
             self.auto_kick_checker.start()
             self._tasks_started = True
     

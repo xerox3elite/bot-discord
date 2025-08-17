@@ -21,9 +21,9 @@ class ArsenalSystemCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="diagnostic", description="🔧 Lance un diagnostic complet d'Arsenal")
+    @app_commands.command(name="arsenal_diagnostic", description="🔧 Lance un diagnostic complet d'Arsenal")
     @app_commands.default_permissions(administrator=True)
-    async def diagnostic_slash(self, interaction: discord.Interaction):
+    async def arsenal_diagnostic_slash(self, interaction: discord.Interaction):
         """Lance un diagnostic complet d'Arsenal"""
         
         await interaction.response.send_message("🔍 Diagnostic Arsenal en cours...", ephemeral=True)
@@ -149,9 +149,9 @@ class ArsenalSystemCommands(commands.Cog):
             )
             await interaction.followup.send(embed=error_embed, ephemeral=True)
 
-    @app_commands.command(name="force_recognition", description="🔧 Commande manuelle pour forcer la reconnaissance Discord")
+    @app_commands.command(name="arsenal_force_recognition", description="🔧 Force Discord à reconnaître toutes les intégrations Arsenal")
     @app_commands.default_permissions(administrator=True)
-    async def force_recognition_slash(self, interaction: discord.Interaction):
+    async def arsenal_force_recognition_slash(self, interaction: discord.Interaction):
         """Commande manuelle pour forcer la reconnaissance Discord"""
         
         await interaction.response.send_message("🔧 Forçage de la reconnaissance Discord...", ephemeral=True)
@@ -286,7 +286,7 @@ class ArsenalSystemCommands(commands.Cog):
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
-    @app_commands.command(name="module", description="🔧 Commandes de gestion des modules")
+    @app_commands.command(name="arsenal_module", description="🔧 Commandes de gestion des modules")
     @app_commands.describe(
         action="Action à effectuer sur les modules",
         module_name="Nom du module (optionnel)"
@@ -298,7 +298,7 @@ class ArsenalSystemCommands(commands.Cog):
         app_commands.Choice(name="statut", value="status")
     ])
     @app_commands.default_permissions(administrator=True)
-    async def module_slash(self, interaction: discord.Interaction, action: app_commands.Choice[str], module_name: str = None):
+    async def arsenal_module_slash(self, interaction: discord.Interaction, action: app_commands.Choice[str], module_name: str = None):
         """Gestion des modules Arsenal"""
         
         if action.value == "list":
@@ -358,27 +358,6 @@ class ArsenalSystemCommands(commands.Cog):
             
         else:
             await interaction.response.send_message("⚠️ Action en développement", ephemeral=True)
-
-    # Garder les anciennes commandes prefix pour redirection
-    @commands.command(name="diagnostic", hidden=True)
-    async def diagnostic_old(self, ctx):
-        """Ancienne commande diagnostic - redirige vers slash"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/diagnostic`")
-    
-    @commands.command(name="force_recognition", hidden=True)
-    async def force_recognition_old(self, ctx):
-        """Ancienne commande force_recognition - redirige vers slash"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/force_recognition`")
-    
-    @commands.command(name="arsenal_help", hidden=True)
-    async def arsenal_help_old(self, ctx):
-        """Ancienne commande arsenal_help - redirige vers slash"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/arsenal_help`")
-    
-    @commands.command(name="module", hidden=True)
-    async def module_old(self, ctx):
-        """Ancienne commande module - redirige vers slash"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/module`")
 
 async def setup(bot):
     await bot.add_cog(ArsenalSystemCommands(bot))
