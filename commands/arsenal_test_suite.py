@@ -126,33 +126,33 @@ class ArsenalTestSuite(commands.Cog):
         }
         
         # Test 1: Vérifier le Cog AutoMod
-        test_result = await self.check_cog_loaded("ArsenalCommandGroupsFinal")
+        test_result = await self.check_cog_loaded("ArsenalCommandGroupsFinalFixed")
         results["tests"].append({
             "name": "AutoMod V5.0.1 chargé",
             "status": test_result,
             "details": "489 mots système détecté" if test_result else "AutoMod non trouvé"
         })
         
-        # Test 2: Vérifier la base de 489 mots
+        # Test 2: Vérifier la base de EXACTEMENT 489 mots
         try:
-            cog = self.bot.get_cog("ArsenalCommandGroupsFinal")
+            cog = self.bot.get_cog("ArsenalCommandGroupsFinalFixed")
             if cog and hasattr(cog, 'WORDS_DATABASE'):
                 total_words = sum(len(words) for words in cog.WORDS_DATABASE.values())
                 word_test = total_words == 489
                 results["tests"].append({
-                    "name": "Base de 489 mots",
+                    "name": "Base de 489 mots EXACT",
                     "status": word_test,
                     "details": f"{total_words}/489 mots chargés"
                 })
             else:
                 results["tests"].append({
-                    "name": "Base de 489 mots",
+                    "name": "Base de 489 mots EXACT",
                     "status": False,
                     "details": "Impossible de vérifier"
                 })
         except:
             results["tests"].append({
-                "name": "Base de 489 mots",
+                "name": "Base de 489 mots EXACT",
                 "status": False,
                 "details": "Erreur de vérification"
             })
@@ -240,7 +240,7 @@ class ArsenalTestSuite(commands.Cog):
         # Test des systèmes critiques
         critical_systems = [
             ("ArsenalEconomyUnified", "🏦 Economy System"),
-            ("ArsenalCommandGroupsFinal", "🛡️ AutoMod V5.0.1"),
+            ("ArsenalCommandGroupsFinalFixed", "🛡️ AutoMod V5.0.1"),
             ("ArsenalBugReporter", "🐛 Bug Reporter")
         ]
         

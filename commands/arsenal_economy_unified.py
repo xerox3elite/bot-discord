@@ -26,13 +26,19 @@ class ArsenalEconomyUnified(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        self.db_path = "arsenal_coins_central.db"
+        self.db_path = "data/arsenal_economy_unified.db"
         self.init_database()
     
     def init_database(self):
         """Initialise la base de données unifiée"""
+        # Créer le dossier data s'il n'existe pas
+        import os
+        os.makedirs('data', exist_ok=True)
+        
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
+        
+        print("[Economy Unified] Initialisation de la base de données...")
         
         # Table principale des utilisateurs
         cursor.execute('''
