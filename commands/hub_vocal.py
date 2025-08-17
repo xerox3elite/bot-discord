@@ -458,28 +458,23 @@ class KickSelect(discord.ui.Select):
         except Exception as e:
             logging.error(f"❌ Erreur création canal temporaire: {e}")
 
-    @app_commands.command(name="hub_vocal", description="Configure le système de hub vocal temporaire")
+    # Groupe de commandes hub vocal
+    hub_group = app_commands.Group(name="hub", description="🎤 Système de salons vocaux temporaires")
+
+    @hub_group.command(name="config", description="⚙️ Configurer le système de hub vocal")
     @app_commands.describe(
-        action="Action à effectuer",
         channel="Canal vocal à utiliser comme hub",
         category="Catégorie où créer les canaux temporaires",
         limit="Limite d'utilisateurs par canal (1-99)"
     )
-    @app_commands.choices(action=[
-        app_commands.Choice(name="activer", value="enable"),
-        app_commands.Choice(name="désactiver", value="disable"),
-        app_commands.Choice(name="configurer", value="setup"),
-        app_commands.Choice(name="status", value="status")
-    ])
-    async def hub_vocal(
+    async def hub_config(
         self, 
         interaction: discord.Interaction, 
-        action: app_commands.Choice[str],
-        channel: Optional[discord.VoiceChannel] = None,
+        channel: discord.VoiceChannel,
         category: Optional[discord.CategoryChannel] = None,
         limit: Optional[int] = None
     ):
-        """Commande principale pour configurer le hub vocal"""
+        """Configure le système de hub vocal"""
         
         if not interaction.user.guild_permissions.manage_channels:
             await interaction.response.send_message("❌ Vous devez avoir la permission de gérer les canaux!", ephemeral=True)
@@ -487,45 +482,63 @@ class KickSelect(discord.ui.Select):
         
         config = await self.get_config(interaction.guild.id)
         
-        if action.value == "enable":
-            if not config.get('hub_channel_id'):
-                await interaction.response.send_message("❌ Vous devez d'abord configurer un canal hub avec `/hub_vocal setup`!", ephemeral=True)
-                return
-            
-            config['enabled'] = True
-            await self.save_config(interaction.guild.id, config)
-            await interaction.response.send_message("✅ Hub vocal activé!", ephemeral=True)
-            
-        elif action.value == "disable":
-            config['enabled'] = False
-            await self.save_config(interaction.guild.id, config)
-            await interaction.response.send_message("❌ Hub vocal désactivé!", ephemeral=True)
-            
-        elif action.value == "setup":
-            if not channel:
-                await interaction.response.send_message("❌ Vous devez spécifier un canal vocal pour le hub!", ephemeral=True)
-                return
-            
-            config['hub_channel_id'] = channel.id
-            if category:
-                config['category_id'] = category.id
-            if limit and 1 <= limit <= 99:
-                config['channel_limit'] = limit
-            
-            await self.save_config(interaction.guild.id, config)
-            await interaction.response.send_message(f"✅ Hub vocal configuré avec le canal {channel.mention}!", ephemeral=True)
-            
-        elif action.value == "status":
-            hub_channel = interaction.guild.get_channel(config.get('hub_channel_id')) if config.get('hub_channel_id') else None
-            category = interaction.guild.get_channel(config.get('category_id')) if config.get('category_id') else None
-            
-            embed = discord.Embed(title="🎵 Status Hub Vocal", color=0x00ff00 if config.get('enabled') else 0xff0000)
-            embed.add_field(name="État", value="✅ Activé" if config.get('enabled') else "❌ Désactivé", inline=True)
-            embed.add_field(name="Canal Hub", value=hub_channel.mention if hub_channel else "❌ Non configuré", inline=True)
-            embed.add_field(name="Catégorie", value=category.name if category else "Aucune", inline=True)
-            embed.add_field(name="Limite par canal", value=config.get('channel_limit', 99), inline=True)
-            embed.add_field(name="Canaux temporaires actifs", value=len(config.get('temp_channels', {})), inline=True)
-            embed.add_field(name="Total créés", value=config.get('channel_counter', 0), inline=True)
+        config['hub_channel_id'] = channel.id
+        if category:
+            config['category_id'] = category.id
+        if limit and 1 <= limit <= 99:
+            config['channel_limit'] = limit
+        
+        await self.save_config(interaction.guild.id, config)
+        await interaction.response.send_message(f"✅ Hub vocal configuré avec le canal {channel.mention}!", ephemeral=True)
+
+    @hub_group.command(name="enable", description="✅ Activer le système de hub vocal")
+    async def hub_enable(self, interaction: discord.Interaction):
+        """Activer le hub vocal"""
+        
+        if not interaction.user.guild_permissions.manage_channels:
+            await interaction.response.send_message("❌ Vous devez avoir la permission de gérer les canaux!", ephemeral=True)
+            return
+        
+        config = await self.get_config(interaction.guild.id)
+        
+        if not config.get('hub_channel_id'):
+            await interaction.response.send_message("❌ Vous devez d'abord configurer un canal hub avec `/hub config`!", ephemeral=True)
+            return
+        
+        config['enabled'] = True
+        await self.save_config(interaction.guild.id, config)
+        await interaction.response.send_message("✅ Hub vocal activé!", ephemeral=True)
+
+    @hub_group.command(name="disable", description="❌ Désactiver le système de hub vocal")
+    async def hub_disable(self, interaction: discord.Interaction):
+        """Désactiver le hub vocal"""
+        
+        if not interaction.user.guild_permissions.manage_channels:
+            await interaction.response.send_message("❌ Vous devez avoir la permission de gérer les canaux!", ephemeral=True)
+            return
+        
+        config = await self.get_config(interaction.guild.id)
+        config['enabled'] = False
+        await self.save_config(interaction.guild.id, config)
+        await interaction.response.send_message("❌ Hub vocal désactivé!", ephemeral=True)
+
+    @hub_group.command(name="status", description="📊 Voir le status du hub vocal")
+    async def hub_status(self, interaction: discord.Interaction):
+        """Status du hub vocal"""
+        
+        config = await self.get_config(interaction.guild.id)
+        hub_channel = interaction.guild.get_channel(config.get('hub_channel_id')) if config.get('hub_channel_id') else None
+        category = interaction.guild.get_channel(config.get('category_id')) if config.get('category_id') else None
+        
+        embed = discord.Embed(title="🎵 Status Hub Vocal", color=0x00ff00 if config.get('enabled') else 0xff0000)
+        embed.add_field(name="État", value="✅ Activé" if config.get('enabled') else "❌ Désactivé", inline=True)
+        embed.add_field(name="Canal Hub", value=hub_channel.mention if hub_channel else "❌ Non configuré", inline=True)
+        embed.add_field(name="Catégorie", value=category.name if category else "Aucune", inline=True)
+        embed.add_field(name="Limite par canal", value=config.get('channel_limit', 99), inline=True)
+        embed.add_field(name="Canaux temporaires actifs", value=len(config.get('temp_channels', {})), inline=True)
+        embed.add_field(name="Total créés", value=config.get('channel_counter', 0), inline=True)
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
             
             await interaction.response.send_message(embed=embed, ephemeral=True)
 

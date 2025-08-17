@@ -367,14 +367,14 @@ except Exception as e:
     import traceback
     print(f"[DEBUG] Help System V2 Traceback: {traceback.format_exc()}")
 
-# Arsenal System Commands (Commandes système et diagnostic)
+# Arsenal Command Groups - Groupes organisés de commandes
 try:
-    from commands.arsenal_system_commands import ArsenalSystemCommands
-    ARSENAL_SYSTEM_COMMANDS_AVAILABLE = True
-    print("🔧 [OK] Arsenal System Commands chargé - Commandes slash système!")
+    from commands.arsenal_command_groups import ArsenalCommandGroups
+    ARSENAL_COMMAND_GROUPS_AVAILABLE = True
+    print("🔧 [OK] Arsenal Command Groups chargé - Commandes organisées par groupes!")
 except Exception as e:
-    ARSENAL_SYSTEM_COMMANDS_AVAILABLE = False
-    print(f"❌ [ERREUR] Arsenal System Commands: {e}")
+    ARSENAL_COMMAND_GROUPS_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Command Groups: {e}")
 
 # Configuration
 load_dotenv()
@@ -681,15 +681,23 @@ class ArsenalBot(commands.Bot):
                     import traceback
                     log.error(f"[DEBUG] Help System V2 Detailed Error: {traceback.format_exc()}")
                     
-            # Arsenal System Commands - Commandes slash système et diagnostic
-            if ARSENAL_SYSTEM_COMMANDS_AVAILABLE:
-                try:
-                    await self.add_cog(ArsenalSystemCommands(self))
-                    log.info("🔧 [OK] Arsenal System Commands - Commandes slash système chargées!")
-                except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Arsenal System Commands: {e}")
-                    import traceback
-                    log.error(f"[DEBUG] Arsenal System Commands Detailed Error: {traceback.format_exc()}")
+            # Arsenal Command Groups FINAL - Structure optimisée 100 commandes max
+            try:
+                await self.load_extension("commands.arsenal_command_groups_final")
+                log.info("� [OK] Arsenal Command Groups FINAL - 100 commandes max respecté!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Command Groups FINAL: {e}")
+                import traceback
+                log.error(f"[DEBUG] Arsenal Command Groups FINAL Error: {traceback.format_exc()}")
+                
+            # Hub Vocal System - Salons temporaires avancés
+            try:
+                await self.load_extension("commands.hub_vocal")
+                log.info("🎤 [OK] Hub Vocal System - Salons temporaires avec whitelist/blacklist!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Hub Vocal: {e}")
+                import traceback
+                log.error(f"[DEBUG] Hub Vocal Error: {traceback.format_exc()}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
