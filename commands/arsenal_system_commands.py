@@ -215,8 +215,8 @@ class ArsenalSystemCommands(commands.Cog):
             )
             await interaction.followup.send(embed=error_embed, ephemeral=True)
 
-    @app_commands.command(name="arsenal_help", description="📚 Commande help complète et bien espacée")
-    async def arsenal_help_slash(self, interaction: discord.Interaction):
+    @app_commands.command(name="system_help", description="📚 Guide système Arsenal complet")
+    async def system_help_slash(self, interaction: discord.Interaction):
         """Commande help complète Arsenal avec toutes les catégories"""
         
         embed = discord.Embed(
