@@ -213,11 +213,241 @@ class HubVocal(commands.Cog):
                 user_limit=config.get('channel_limit', 99)
             )
             
+            # Donner les permissions au créateur
+            await temp_channel.set_permissions(
+                member, 
+                manage_channels=True, 
+                manage_permissions=True, 
+                move_members=True
+            )
+            
             # Déplacer l'utilisateur
             await member.move_to(temp_channel)
             
+            # Créer le panneau de configuration
+            await self.send_control_panel(temp_channel, member)
+            
             # Sauvegarder dans la config
             temp_channels = config.get('temp_channels', {})
+            temp_channels[str(temp_channel.id)] = member.id
+            config['temp_channels'] = temp_channels
+            config['channel_counter'] = config.get('channel_counter', 0) + 1
+            await self.save_config(guild.id, config)
+            
+            logging.info(f"🎵 Canal temporaire créé: {channel_name} pour {member.display_name}")
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur création canal temporaire: {e}")
+
+    async def send_control_panel(self, channel, owner):
+        """Envoie le panneau de contrôle dans le salon temporaire"""
+        try:
+            embed = discord.Embed(
+                title="🎵 Panneau de Contrôle - Salon Temporaire",
+                description=f"**Propriétaire:** {owner.mention}\n"
+                           f"**Salon:** {channel.name}\n\n"
+                           "Utilisez les boutons ci-dessous pour gérer votre salon !",
+                color=0x00ff88
+            )
+            embed.add_field(
+                name="🔧 Commandes disponibles",
+                value="• **Renommer** - Changer le nom du salon\n"
+                      "• **Limite** - Modifier la limite d'utilisateurs\n" 
+                      "• **Privé** - Rendre le salon privé\n"
+                      "• **Public** - Rendre le salon public\n"
+                      "• **Expulser** - Expulser un membre\n"
+                      "• **Supprimer** - Supprimer le salon",
+                inline=False
+            )
+            
+            view = VocalControlView(owner.id, channel.id)
+            message = await channel.send(embed=embed, view=view)
+            
+            # Épingler le message
+            await message.pin()
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur envoi panneau contrôle: {e}")
+
+
+class VocalControlView(discord.ui.View):
+    """Vue avec boutons pour contrôler le salon vocal temporaire"""
+    
+    def __init__(self, owner_id: int, channel_id: int):
+        super().__init__(timeout=None)
+        self.owner_id = owner_id
+        self.channel_id = channel_id
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        """Vérifie si l'utilisateur peut utiliser les boutons"""
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Ce salon n'existe plus!", ephemeral=True)
+            return False
+            
+        # Soit le propriétaire, soit un admin peut utiliser
+        if interaction.user.id == self.owner_id or interaction.user.guild_permissions.manage_channels:
+            return True
+        else:
+            await interaction.response.send_message("❌ Seul le propriétaire du salon peut utiliser ces boutons!", ephemeral=True)
+            return False
+
+    @discord.ui.button(label="🏷️ Renommer", style=discord.ButtonStyle.primary)
+    async def rename_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Renommer le salon"""
+        modal = RenameModal(self.channel_id)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="👥 Limite", style=discord.ButtonStyle.primary)
+    async def change_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Changer la limite d'utilisateurs"""
+        modal = LimitModal(self.channel_id)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="🔒 Privé", style=discord.ButtonStyle.secondary)
+    async def make_private(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Rendre le salon privé"""
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Salon introuvable!", ephemeral=True)
+            return
+            
+        await channel.set_permissions(interaction.guild.default_role, connect=False)
+        await interaction.response.send_message("🔒 Salon rendu privé!", ephemeral=True)
+
+    @discord.ui.button(label="🔓 Public", style=discord.ButtonStyle.secondary) 
+    async def make_public(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Rendre le salon public"""
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Salon introuvable!", ephemeral=True)
+            return
+            
+        await channel.set_permissions(interaction.guild.default_role, connect=True)
+        await interaction.response.send_message("🔓 Salon rendu public!", ephemeral=True)
+
+    @discord.ui.button(label="👢 Expulser", style=discord.ButtonStyle.danger)
+    async def kick_user(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Interface pour expulser un utilisateur"""
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel or len(channel.members) <= 1:
+            await interaction.response.send_message("❌ Aucun membre à expulser!", ephemeral=True)
+            return
+            
+        # Créer un select avec les membres
+        options = []
+        for member in channel.members:
+            if member.id != self.owner_id:  # Ne pas inclure le propriétaire
+                options.append(discord.SelectOption(
+                    label=member.display_name,
+                    description=f"Expulser {member.display_name}",
+                    value=str(member.id)
+                ))
+        
+        if not options:
+            await interaction.response.send_message("❌ Aucun membre à expulser!", ephemeral=True)
+            return
+            
+        view = discord.ui.View()
+        select = KickSelect(self.channel_id, options)
+        view.add_item(select)
+        
+        await interaction.response.send_message("👢 Sélectionnez le membre à expulser:", view=view, ephemeral=True)
+
+    @discord.ui.button(label="🗑️ Supprimer", style=discord.ButtonStyle.danger)
+    async def delete_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Supprimer le salon"""
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Salon introuvable!", ephemeral=True)
+            return
+            
+        await interaction.response.send_message("🗑️ Salon supprimé dans 5 secondes...", ephemeral=True)
+        await asyncio.sleep(5)
+        await channel.delete(reason="Suppression demandée par le propriétaire")
+
+
+class RenameModal(discord.ui.Modal, title="🏷️ Renommer le salon"):
+    """Modal pour renommer le salon"""
+    
+    def __init__(self, channel_id: int):
+        super().__init__()
+        self.channel_id = channel_id
+        
+    name = discord.ui.TextInput(
+        label="Nouveau nom du salon",
+        placeholder="Entrez le nouveau nom...",
+        max_length=100
+    )
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Salon introuvable!", ephemeral=True)
+            return
+            
+        try:
+            await channel.edit(name=self.name.value)
+            await interaction.response.send_message(f"✅ Salon renommé en **{self.name.value}**!", ephemeral=True)
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur lors du renommage: {e}", ephemeral=True)
+
+
+class LimitModal(discord.ui.Modal, title="👥 Changer la limite"):
+    """Modal pour changer la limite d'utilisateurs"""
+    
+    def __init__(self, channel_id: int):
+        super().__init__()
+        self.channel_id = channel_id
+        
+    limit = discord.ui.TextInput(
+        label="Nouvelle limite (0-99, 0 = illimitée)",
+        placeholder="Entrez un nombre entre 0 et 99...",
+        max_length=2
+    )
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            await interaction.response.send_message("❌ Salon introuvable!", ephemeral=True)
+            return
+            
+        try:
+            limit_value = int(self.limit.value)
+            if limit_value < 0 or limit_value > 99:
+                await interaction.response.send_message("❌ La limite doit être entre 0 et 99!", ephemeral=True)
+                return
+                
+            await channel.edit(user_limit=limit_value)
+            limit_text = "illimitée" if limit_value == 0 else str(limit_value)
+            await interaction.response.send_message(f"✅ Limite changée à **{limit_text}**!", ephemeral=True)
+        except ValueError:
+            await interaction.response.send_message("❌ Veuillez entrer un nombre valide!", ephemeral=True)
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur lors du changement: {e}", ephemeral=True)
+
+
+class KickSelect(discord.ui.Select):
+    """Select pour choisir qui expulser"""
+    
+    def __init__(self, channel_id: int, options: list):
+        super().__init__(placeholder="Choisir le membre à expulser...", options=options)
+        self.channel_id = channel_id
+    
+    async def callback(self, interaction: discord.Interaction):
+        channel = interaction.guild.get_channel(self.channel_id)
+        member_id = int(self.values[0])
+        member = interaction.guild.get_member(member_id)
+        
+        if not channel or not member:
+            await interaction.response.send_message("❌ Salon ou membre introuvable!", ephemeral=True)
+            return
+            
+        try:
+            await member.move_to(None)
+            await interaction.response.send_message(f"👢 **{member.display_name}** a été expulsé du salon!", ephemeral=True)
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur lors de l'expulsion: {e}", ephemeral=True)
             temp_channels[str(temp_channel.id)] = member.id
             config['temp_channels'] = temp_channels
             config['channel_counter'] = config.get('channel_counter', 0) + 1
@@ -299,10 +529,278 @@ class HubVocal(commands.Cog):
             
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
+    async def send_control_panel(self, temp_channel: discord.VoiceChannel, owner: discord.Member):
+        """Envoie le panneau de contrôle dans le chat du salon temporaire"""
+        try:
+            # Trouver un salon textuel dans la même catégorie ou utiliser le général
+            text_channels = [ch for ch in temp_channel.guild.text_channels if ch.category == temp_channel.category]
+            if not text_channels:
+                text_channels = temp_channel.guild.text_channels
+            
+            if not text_channels:
+                return
+            
+            target_channel = text_channels[0]  # Premier salon textuel disponible
+            
+            embed = discord.Embed(
+                title="🎵 Panneau de Contrôle - Salon Temporaire",
+                description=f"**{temp_channel.name}** créé par {owner.mention}",
+                color=0x00ff00
+            )
+            
+            embed.add_field(
+                name="🔧 Actions disponibles",
+                value="• 🔒 Verrouiller/déverrouiller le salon\n• ✏️ Renommer le salon\n• 👥 Gérer la limite d'utilisateurs\n• ❌ Supprimer le salon",
+                inline=False
+            )
+            
+            embed.add_field(
+                name="ℹ️ Informations",
+                value=f"**Propriétaire:** {owner.mention}\n**Salon:** {temp_channel.mention}\n**Créé:** <t:{int(temp_channel.created_at.timestamp())}:R>",
+                inline=False
+            )
+            
+            view = TempChannelControlView(self, temp_channel.id, owner.id)
+            
+            await target_channel.send(embed=embed, view=view)
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur envoi panneau contrôle: {e}")
+
     def cog_unload(self):
         """Nettoie les tâches à l'arrêt"""
         self.auto_save.cancel()
         self.cleanup_empty_channels.cancel()
+
+
+class TempChannelControlView(discord.ui.View):
+    """Panneau de contrôle pour les salons vocaux temporaires"""
+    
+    def __init__(self, cog, channel_id: int, owner_id: int):
+        super().__init__(timeout=None)
+        self.cog = cog
+        self.channel_id = channel_id
+        self.owner_id = owner_id
+
+    @discord.ui.button(label="🔒", style=discord.ButtonStyle.secondary, custom_id="lock_unlock")
+    async def lock_unlock(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Verrouiller/déverrouiller le salon"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée", 
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Toggle lock
+        current_perms = channel.overwrites_for(interaction.guild.default_role)
+        is_locked = current_perms.connect is False
+        
+        await channel.set_permissions(
+            interaction.guild.default_role,
+            connect=is_locked,  # Inverse the lock
+            view_channel=True
+        )
+        
+        embed = discord.Embed(
+            title=f"{'🔓 Salon déverrouillé' if is_locked else '🔒 Salon verrouillé'}",
+            description=f"Le salon **{channel.name}** a été {'déverrouillé' if is_locked else 'verrouillé'}",
+            color=0x00ff00 if is_locked else 0xff9900
+        )
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    @discord.ui.button(label="✏️", style=discord.ButtonStyle.primary, custom_id="rename")
+    async def rename_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Renommer le salon"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée",
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Créer une modal pour le nom
+        modal = RenameChannelModal(channel)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="👥", style=discord.ButtonStyle.green, custom_id="user_limit")
+    async def change_user_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Changer la limite d'utilisateurs"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée",
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Créer une modal pour la limite
+        modal = UserLimitModal(channel)
+        await interaction.response.send_modal(modal)
+
+    @discord.ui.button(label="❌", style=discord.ButtonStyle.danger, custom_id="delete")
+    async def delete_channel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Supprimer le salon"""
+        
+        if interaction.user.id != self.owner_id:
+            embed = discord.Embed(
+                title="❌ Permission refusée",
+                description="Seul le propriétaire peut contrôler ce salon",
+                color=0xff0000
+            )
+            return await interaction.response.send_message(embed=embed, ephemeral=True)
+        
+        channel = interaction.guild.get_channel(self.channel_id)
+        if not channel:
+            return await interaction.response.send_message("❌ Salon introuvable", ephemeral=True)
+        
+        # Confirmation
+        embed = discord.Embed(
+            title="⚠️ Confirmation",
+            description=f"Voulez-vous vraiment supprimer le salon **{channel.name}** ?",
+            color=0xff9900
+        )
+        
+        view = ConfirmDeleteView(channel, interaction.user)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+
+class RenameChannelModal(discord.ui.Modal):
+    """Modal pour renommer un salon"""
+    
+    def __init__(self, channel: discord.VoiceChannel):
+        self.channel = channel
+        super().__init__(title=f"Renommer {channel.name}")
+        
+        self.name_input = discord.ui.TextInput(
+            label="Nouveau nom du salon",
+            placeholder=channel.name,
+            default=channel.name,
+            max_length=100
+        )
+        self.add_item(self.name_input)
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        new_name = self.name_input.value.strip()
+        
+        if not new_name:
+            return await interaction.response.send_message("❌ Le nom ne peut pas être vide!", ephemeral=True)
+        
+        try:
+            old_name = self.channel.name
+            await self.channel.edit(name=new_name)
+            
+            embed = discord.Embed(
+                title="✅ Salon renommé",
+                description=f"**{old_name}** → **{new_name}**",
+                color=0x00ff00
+            )
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur renommage salon: {e}")
+            await interaction.response.send_message("❌ Erreur lors du renommage", ephemeral=True)
+
+
+class UserLimitModal(discord.ui.Modal):
+    """Modal pour changer la limite d'utilisateurs"""
+    
+    def __init__(self, channel: discord.VoiceChannel):
+        self.channel = channel
+        super().__init__(title=f"Limite - {channel.name}")
+        
+        self.limit_input = discord.ui.TextInput(
+            label="Nouvelle limite d'utilisateurs",
+            placeholder=str(channel.user_limit or 0),
+            default=str(channel.user_limit or 0),
+            max_length=2
+        )
+        self.add_item(self.limit_input)
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            new_limit = int(self.limit_input.value)
+            if new_limit < 0 or new_limit > 99:
+                return await interaction.response.send_message("❌ La limite doit être entre 0 et 99!", ephemeral=True)
+            
+            await self.channel.edit(user_limit=new_limit if new_limit > 0 else None)
+            
+            embed = discord.Embed(
+                title="✅ Limite modifiée",
+                description=f"Nouvelle limite: **{new_limit if new_limit > 0 else 'Aucune'}**",
+                color=0x00ff00
+            )
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except ValueError:
+            await interaction.response.send_message("❌ Veuillez entrer un nombre valide!", ephemeral=True)
+        except Exception as e:
+            logging.error(f"❌ Erreur modification limite: {e}")
+            await interaction.response.send_message("❌ Erreur lors de la modification", ephemeral=True)
+
+
+class ConfirmDeleteView(discord.ui.View):
+    """Vue de confirmation pour supprimer un salon"""
+    
+    def __init__(self, channel: discord.VoiceChannel, user: discord.Member):
+        super().__init__(timeout=30)
+        self.channel = channel
+        self.user = user
+    
+    @discord.ui.button(label="✅ Confirmer", style=discord.ButtonStyle.danger)
+    async def confirm_delete(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.user.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut confirmer", ephemeral=True)
+        
+        try:
+            channel_name = self.channel.name
+            await self.channel.delete(reason=f"Suppression demandée par {self.user}")
+            
+            embed = discord.Embed(
+                title="✅ Salon supprimé",
+                description=f"Le salon **{channel_name}** a été supprimé",
+                color=0x00ff00
+            )
+            
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            logging.error(f"❌ Erreur suppression salon: {e}")
+            await interaction.response.send_message("❌ Erreur lors de la suppression", ephemeral=True)
+    
+    @discord.ui.button(label="❌ Annuler", style=discord.ButtonStyle.secondary)
+    async def cancel_delete(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.user.id:
+            return await interaction.response.send_message("❌ Seul le propriétaire peut annuler", ephemeral=True)
+        
+        embed = discord.Embed(
+            title="❌ Suppression annulée",
+            description="Le salon n'a pas été supprimé",
+            color=0xff9900
+        )
+        
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
 
 async def setup(bot):
     await bot.add_cog(HubVocal(bot))
