@@ -153,7 +153,7 @@ from manager.status_manager import initialize_status_system
 
 # Modules de commandes
 # import commands.community as community  # Maintenant géré par le Cog CommunityCommands
-import commands.admin as admin
+# import commands.admin as admin  # DÉSACTIVÉ - Remplacé par ArsenalCommandGroupsFinal
 import commands.moderateur as moderateur
 import commands.sanction as sanction
 
@@ -758,7 +758,7 @@ async def on_command_error(ctx, error):
 
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)
-client.tree.add_command(admin.admin_group)
+# client.tree.add_command(admin.admin_group)  # DÉSACTIVÉ - Remplacé par ArsenalCommandGroupsFinal
 client.tree.add_command(sanction.sanction_group)
 
 # Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands
