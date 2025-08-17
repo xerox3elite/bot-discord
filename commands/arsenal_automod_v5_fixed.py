@@ -331,9 +331,11 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
     async def automod_command(self, interaction: discord.Interaction, action: str, 
                             channel: discord.TextChannel = None, enabled: bool = None):
         """Système AutoMod V5.0.1 complet"""
+        # Defer pour éviter les timeouts
+        await interaction.response.defer(ephemeral=(action != "stats"))
         
         if not interaction.user.guild_permissions.manage_guild:
-            await interaction.response.send_message("❌ Permissions insuffisantes !", ephemeral=True)
+            await interaction.followup.send("❌ Permissions insuffisantes !", ephemeral=True)
             return
             
         if action == "config":
@@ -389,7 +391,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
             inline=True
         )
         
-        await interaction.response.send_message(embed=embed)
+        await interaction.followup.send(embed=embed)
 
     async def handle_info(self, interaction):
         """Display AutoMod information"""
@@ -421,7 +423,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
             inline=True
         )
         
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.followup.send(embed=embed, ephemeral=True)
 
     async def handle_stats(self, interaction):
         """Display AutoMod statistics"""
@@ -449,7 +451,37 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
         else:
             embed.description = "Aucune sanction enregistrée"
         
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.followup.send(embed=embed, ephemeral=True)
+
+    async def handle_history(self, interaction):
+        """Display AutoMod history"""
+        embed = discord.Embed(
+            title="📝 Historique AutoMod",
+            description="Historique des sanctions récentes",
+            color=0x3498db,
+            timestamp=datetime.datetime.now()
+        )
+        
+        embed.add_field(
+            name="🔍 Information",
+            value="Cette fonctionnalité affiche l'historique des actions AutoMod",
+            inline=False
+        )
+        
+        await interaction.followup.send(embed=embed, ephemeral=True)
+
+    async def log_sanction(self, member, reason, sanction_type):
+        """Log sanction to database"""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                await db.execute('''
+                    INSERT INTO sanctions 
+                    (guild_id, user_id, reason, sanction_type, timestamp)
+                    VALUES (?, ?, ?, ?, ?)
+                ''', (member.guild.id, member.id, reason, sanction_type, datetime.datetime.now().isoformat()))
+                await db.commit()
+        except Exception as e:
+            print(f"[AutoMod] Erreur log sanction: {e}")
 
 async def setup(bot):
     await bot.add_cog(ArsenalCommandGroupsFinalFixed(bot))

@@ -213,6 +213,9 @@ class ArsenalEconomyUnified(commands.Cog):
     @app_commands.describe(user="Utilisateur à vérifier (optionnel)")
     async def balance_command(self, interaction: discord.Interaction, user: Optional[discord.Member] = None):
         """💰 Commande balance unifiée"""
+        # Defer immédiatement pour éviter les timeouts
+        await interaction.response.defer()
+        
         target_user = user or interaction.user
         user_data = self.get_user_data(str(target_user.id))
         
@@ -268,11 +271,14 @@ class ArsenalEconomyUnified(commands.Cog):
         embed.set_thumbnail(url=target_user.display_avatar.url)
         embed.set_footer(text="Arsenal Economy System Unified", icon_url=self.bot.user.display_avatar.url)
         
-        await interaction.response.send_message(embed=embed)
+        await interaction.followup.send(embed=embed)
     
     @app_commands.command(name="daily", description="🎁 Récupérer votre récompense quotidienne")
     async def daily_command(self, interaction: discord.Interaction):
         """🎁 Commande daily unifiée"""
+        # Defer immédiatement pour éviter les timeouts
+        await interaction.response.defer(ephemeral=True)
+        
         user_id = str(interaction.user.id)
         user_data = self.get_user_data(user_id)
         
@@ -298,7 +304,7 @@ class ArsenalEconomyUnified(commands.Cog):
                         value=f"Dans {hours}h {minutes}m",
                         inline=False
                     )
-                    await interaction.response.send_message(embed=embed, ephemeral=True)
+                    await interaction.followup.send(embed=embed, ephemeral=True)
                     return
             except (ValueError, TypeError):
                 pass  # Date invalide, continuer
@@ -354,13 +360,16 @@ class ArsenalEconomyUnified(commands.Cog):
         embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/741090748488835122.png")
         embed.set_footer(text=f"Arsenal Economy • Récompense #{new_streak}")
         
-        await interaction.response.send_message(embed=embed)
+        await interaction.followup.send(embed=embed, ephemeral=True)
     
     @app_commands.command(name="leaderboard", description="🏆 Affiche le classement ArsenalCoin")
     @app_commands.describe(page="Page du classement (défaut: 1)")
     async def leaderboard_command(self, interaction: discord.Interaction, page: Optional[int] = 1):
         """🏆 Classement des plus riches"""
-        page = max(1, page)  # Minimum page 1
+        # Defer immédiatement pour éviter les timeouts
+        await interaction.response.defer()
+        
+        page = max(1, page or 1)  # Minimum page 1, gérer None
         limit = 10
         offset = (page - 1) * limit
         
@@ -427,7 +436,7 @@ class ArsenalEconomyUnified(commands.Cog):
         total_pages = (total_users + limit - 1) // limit
         embed.set_footer(text=f"Page {page}/{total_pages} • {total_users} utilisateurs")
         
-        await interaction.response.send_message(embed=embed)
+        await interaction.followup.send(embed=embed)
     
     # ==================== API WEBPANEL ====================
     
