@@ -153,9 +153,18 @@ from manager.status_manager import initialize_status_system
 
 # Modules de commandes
 # import commands.community as community  # Maintenant géré par le Cog CommunityCommands
-import commands.admin as admin
+# import commands.admin as admin  # Legacy - now in arsenal_command_groups_final.py
 import commands.moderateur as moderateur
 import commands.sanction as sanction
+
+# Arsenal AutoMod V5.0.1 - NEW SYSTEM
+try:
+    from commands.arsenal_command_groups_final import ArsenalCommandGroupsFinal
+    ARSENAL_AUTOMOD_AVAILABLE = True
+    print("[OK] Arsenal AutoMod V5.0.1 chargé")
+except Exception as e:
+    ARSENAL_AUTOMOD_AVAILABLE = False
+    print(f"[ERROR] Arsenal AutoMod V5.0.1 non disponible: {e}")
 
 # Import music avancé pour éviter l'erreur
 try:
@@ -443,6 +452,14 @@ class ArsenalBot(commands.Bot):
                 log.info("[OK] Module Suggestions chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Suggestions: {e}")
+        
+        # Charger Arsenal AutoMod V5.0.1
+        if ARSENAL_AUTOMOD_AVAILABLE:
+            try:
+                await self.add_cog(ArsenalCommandGroupsFinal(self))
+                log.info("[OK] Module Arsenal AutoMod V5.0.1 chargé")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1: {e}")
         
         # Charger Hunt Royal Integration
         if HUNT_INTEGRATION_AVAILABLE:
@@ -777,7 +794,7 @@ async def on_command_error(ctx, error):
 
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)
-client.tree.add_command(admin.admin_group)
+# client.tree.add_command(admin.admin_group)  # Legacy - now handled by Arsenal AutoMod V5.0.1
 client.tree.add_command(sanction.sanction_group)
 
 # Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands

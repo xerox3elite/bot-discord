@@ -539,8 +539,6 @@ class KickSelect(discord.ui.Select):
         embed.add_field(name="Total créés", value=config.get('channel_counter', 0), inline=True)
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
-            
-            await interaction.response.send_message(embed=embed, ephemeral=True)
 
     async def send_control_panel(self, temp_channel: discord.VoiceChannel, owner: discord.Member):
         """Envoie le panneau de contrôle dans le chat du salon temporaire"""
