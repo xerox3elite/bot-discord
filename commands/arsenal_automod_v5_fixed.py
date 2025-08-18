@@ -331,11 +331,11 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
     async def automod_command(self, interaction: discord.Interaction, action: str, 
                             channel: discord.TextChannel = None, enabled: bool = None):
         """Système AutoMod V5.0.1 complet"""
-        # Defer pour éviter les timeouts
-        await interaction.response.defer(ephemeral=(action != "stats"))
+        # Réponse immédiate pour éviter les timeouts
+        await interaction.response.send_message(f"🛡️ Traitement AutoMod ({action})...", ephemeral=True)
         
         if not interaction.user.guild_permissions.manage_guild:
-            await interaction.followup.send("❌ Permissions insuffisantes !", ephemeral=True)
+            await interaction.edit_original_response(content="❌ Permissions insuffisantes !")
             return
             
         if action == "config":
@@ -391,7 +391,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
             inline=True
         )
         
-        await interaction.followup.send(embed=embed)
+        await interaction.edit_original_response(content=None, embed=embed)
 
     async def handle_info(self, interaction):
         """Display AutoMod information"""
@@ -423,7 +423,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
             inline=True
         )
         
-        await interaction.followup.send(embed=embed, ephemeral=True)
+        await interaction.edit_original_response(content=None, embed=embed)
 
     async def handle_stats(self, interaction):
         """Display AutoMod statistics"""
@@ -451,7 +451,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
         else:
             embed.description = "Aucune sanction enregistrée"
         
-        await interaction.followup.send(embed=embed, ephemeral=True)
+        await interaction.edit_original_response(content=None, embed=embed)
 
     async def handle_history(self, interaction):
         """Display AutoMod history"""
@@ -468,7 +468,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
             inline=False
         )
         
-        await interaction.followup.send(embed=embed, ephemeral=True)
+        await interaction.edit_original_response(content=None, embed=embed)
 
     async def log_sanction(self, member, reason, sanction_type):
         """Log sanction to database"""
