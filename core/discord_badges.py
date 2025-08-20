@@ -5,7 +5,6 @@ Permet d'obtenir des badges natifs Discord à droite du nom du bot
 
 import discord
 from discord.ext import commands
-from discord import app_commands
 import asyncio
 
 class DiscordBadgeSystem:
@@ -201,14 +200,14 @@ class DiscordBadges(commands.Cog):
             await asyncio.sleep(5)  # Attendre que tout soit initialisé
             await self.badge_system.auto_activate_badges()
     
-    @app_commands.command(name="badges_setup", description="🔤 Configure tous les badges Discord pour Arsenal")
-    @app_commands.default_permissions(administrator=True)
-    async def setup_badges_slash(self, interaction: discord.Interaction):
+    @commands.command(name="badges_setup", hidden=True)
+    @commands.is_owner()
+    async def setup_badges(self, ctx):
         """Configure tous les badges Discord pour Arsenal"""
-        await interaction.response.send_message("🏆 Configuration des badges Discord en cours...", ephemeral=True)
+        await ctx.send("🏆 Configuration des badges Discord en cours...")
         
         # Activer tous les badges possibles
-        await self.badge_system.activate_all_badges(interaction.guild.id)
+        await self.badge_system.activate_all_badges(ctx.guild.id)
         
         embed = discord.Embed(
             title="🏆 **BADGES DISCORD CONFIGURÉS**",
@@ -234,10 +233,10 @@ class DiscordBadges(commands.Cog):
             inline=False
         )
         
-        await interaction.followup.send(embed=embed, ephemeral=True)
+        await ctx.send(embed=embed)
     
-    @app_commands.command(name="badges_status", description="🔤 Affiche le status des badges Discord")
-    async def badges_status_slash(self, interaction: discord.Interaction):
+    @commands.command(name="badges_status", hidden=True)
+    async def badges_status(self, ctx):
         """Affiche le status des badges Discord"""
         embed = discord.Embed(
             title="🏆 **STATUS BADGES DISCORD**",
@@ -257,19 +256,7 @@ class DiscordBadges(commands.Cog):
             inline=False
         )
         
-        await interaction.response.send_message(embed=embed, ephemeral=True)
-
-    # Garder les anciennes commandes prefix pour compatibilité temporaire
-    @commands.command(name="badges_setup", hidden=True)
-    @commands.is_owner()
-    async def setup_badges(self, ctx):
-        """Configure tous les badges Discord pour Arsenal"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/badges_setup`")
-    
-    @commands.command(name="badges_status", hidden=True)
-    async def badges_status(self, ctx):
-        """Affiche le status des badges Discord"""
-        await ctx.send("⚠️ Cette commande est maintenant en slash: `/badges_status`")
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(DiscordBadges(bot))

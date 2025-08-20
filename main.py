@@ -201,6 +201,15 @@ except Exception as e:
     ARSENAL_FEATURES_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Features System: {e}")
 
+# Arsenal Config Ultimate (RÉVOLUTIONNAIRE V2.0)
+try:
+    from commands.config_revolution import ArsenalConfigRevolution
+    ARSENAL_CONFIG_REVOLUTION_AVAILABLE = True
+    print("🚀 [OK] Arsenal Config Revolution chargé - Configuration révolutionnaire V2.0!")
+except Exception as e:
+    ARSENAL_CONFIG_REVOLUTION_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Config Revolution: {e}")
+
 # Arsenal Config Ultimate (UNIFIÉ DANS /config)
 # try:
 #     from commands.arsenal_config_ultimate import ArsenalConfigUltimate
@@ -490,6 +499,14 @@ class ArsenalBot(commands.Bot):
                 log.info("[OK] Module Social Fun System chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Social Fun: {e}")
+        
+        # Charger Arsenal Config Revolution (SYSTÈME RÉVOLUTIONNAIRE V2.0)
+        if ARSENAL_CONFIG_REVOLUTION_AVAILABLE:
+            try:
+                await self.add_cog(ArsenalConfigRevolution(self))
+                log.info("🚀 [OK] Arsenal Config Revolution chargé - Configuration révolutionnaire V2.0!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Config Revolution: {e}")
         
         # Charger Enhanced Music System
         if MUSIC_ENHANCED_AVAILABLE:

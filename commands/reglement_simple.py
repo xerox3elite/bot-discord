@@ -346,6 +346,21 @@ class ReglementDraftBot(commands.Cog):
         
         await self.save_config(interaction.guild.id, config)
         
+        # Dictionnaires pour l'affichage
+        verification_levels = {
+            'low': '🟢 Faible',
+            'medium': '🟡 Standard', 
+            'high': '🟠 Strict',
+            'extreme': '🔴 Maximum'
+        }
+        
+        templates = {
+            'gaming': '🎮 Gaming',
+            'community': '👥 Community',
+            'basic': '📝 Basic',
+            'custom': '🛠️ Custom'
+        }
+        
         # Créer l'embed de confirmation
         embed = discord.Embed(
             title="✅ **RÈGLEMENT CONFIGURÉ AVEC SUCCÈS !**",
@@ -354,9 +369,9 @@ class ReglementDraftBot(commands.Cog):
                        f"� **Salon bienvenue:** {welcome_channel.mention if welcome_channel else 'Non configuré'}\n"
                        f"📝 **Salon logs:** {log_channel.mention if log_channel else 'Non configuré'}\n"
                        f"👥 **Rôle membre:** {member_role.mention if member_role else 'Non configuré'}\n"
-                       f"🔒 **Niveau vérification:** {{'low': '🟢 Faible', 'medium': '🟡 Standard', 'high': '🟠 Strict', 'extreme': '🔴 Maximum'}[verification_level]}\n"
+                       f"🔒 **Niveau vérification:** {verification_levels[verification_level]}\n"
                        f"⏰ **Délai avant expulsion:** {config['kick_delay']}s\n"
-                       f"📊 **Template:** {{'gaming': '🎮 Gaming', 'community': '👥 Community', 'basic': '📝 Basic', 'custom': '🛠️ Custom'}[template]}",
+                       f"📊 **Template:** {templates[template]}",
             color=discord.Color.green(),
             timestamp=datetime.now()
         )
@@ -400,11 +415,18 @@ class ReglementDraftBot(commands.Cog):
             return
         
         # Construire l'embed ultra complet
+        verification_levels = {
+            'low': '🟢 Standard',
+            'medium': '🟡 Renforcé', 
+            'high': '🟠 Strict',
+            'extreme': '🔴 Maximum'
+        }
+        
         embed = discord.Embed(
             title="📜 **RÈGLEMENT OFFICIEL DU SERVEUR**",
             description=f"**{interaction.guild.name}**\n\n"
                        f"**⚠️ ACCEPTATION OBLIGATOIRE POUR ACCÉDER AU SERVEUR ⚠️**\n\n"
-                       f"🔒 **Niveau de sécurité:** {{'low': '🟢 Standard', 'medium': '🟡 Renforcé', 'high': '🟠 Strict', 'extreme': '🔴 Maximum'}[config.get('verification_level', 'medium')]}\n"
+                       f"🔒 **Niveau de sécurité:** {verification_levels[config.get('verification_level', 'medium')]}\n"
                        f"⏰ **Temps limite:** {config.get('kick_delay', 300)} secondes\n"
                        f"📊 **{len(config['rules'])} règles** à respecter absolument",
             color=config.get("custom_embed_color", 0xff0000),

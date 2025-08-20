@@ -20,24 +20,24 @@ class CommunityCommands(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="report", description="Signaler un membre")
-    @app_commands.describe(member="Membre à signaler", reason="Raison")
+    @app_commands.describe(member="Membre  signaler", reason="Raison")
     async def report(self, interaction: discord.Interaction, member: discord.Member, reason: str):
         await interaction.response.send_message(
-            f" Signalement de {member.mention} reçu: {reason}", 
+            f" Signalement de {member.mention} reu: {reason}", 
             ephemeral=True
         )
 
-    @app_commands.command(name="top_vocal", description="Classement vocal (en développement)")
+    @app_commands.command(name="top_vocal", description="Classement vocal (en dveloppement)")
     async def top_vocal(self, interaction: discord.Interaction):
         await interaction.response.send_message(
-            " Système de classement vocal en cours d'implémentation!", 
+            " Systme de classement vocal en cours d'implmentation!", 
             ephemeral=True
         )
 
-    @app_commands.command(name="top_messages", description="Classement messages (en développement)")
+    @app_commands.command(name="top_messages", description="Classement messages (en dveloppement)")
     async def top_messages(self, interaction: discord.Interaction):
         await interaction.response.send_message(
-            " Système de classement messages en cours d'implémentation!", 
+            " Systme de classement messages en cours d'implmentation!", 
             ephemeral=True
         )
 

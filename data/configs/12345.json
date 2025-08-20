@@ -1,0 +1,138 @@
+{
+  "version": "2.0",
+  "setup_completed": false,
+  "setup_progress": 0,
+  "quick_setup": {
+    "server_type": null,
+    "server_size": null,
+    "preset_applied": null
+  },
+  "moderation": {
+    "enabled": true,
+    "automod": {
+      "enabled": true,
+      "anti_spam": true,
+      "anti_toxicity": true,
+      "anti_raid": true,
+      "auto_ban_threshold": 5,
+      "quarantine_channel": null,
+      "log_channel": null
+    },
+    "sanctions": {
+      "warn_threshold": 3,
+      "mute_duration": 600,
+      "timeout_duration": 3600,
+      "auto_escalation": true
+    }
+  },
+  "economy": {
+    "enabled": true,
+    "arsenalcoin": {
+      "daily_reward": 100,
+      "message_reward": 5,
+      "voice_reward": 10,
+      "boost_multiplier": 2.0
+    },
+    "shop": {
+      "enabled": true,
+      "custom_items": []
+    },
+    "levels": {
+      "enabled": true,
+      "xp_per_message": 15,
+      "xp_per_voice_minute": 20,
+      "role_rewards": {}
+    }
+  },
+  "entertainment": {
+    "hunt_royal": {
+      "enabled": false,
+      "integration_level": "basic"
+    },
+    "games": {
+      "enabled": true,
+      "available_games": [
+        "dice",
+        "8ball",
+        "trivia",
+        "roulette"
+      ]
+    },
+    "events": {
+      "enabled": true,
+      "auto_events": false
+    }
+  },
+  "voice": {
+    "hub_system": {
+      "enabled": true,
+      "auto_create": true,
+      "max_channels": 10,
+      "default_permissions": {}
+    },
+    "music": {
+      "enabled": true,
+      "dj_role": null,
+      "volume_limit": 100,
+      "queue_limit": 20
+    }
+  },
+  "logs": {
+    "enabled": true,
+    "channels": {
+      "moderation": null,
+      "member": null,
+      "server": null,
+      "voice": null,
+      "economy": null
+    },
+    "events": {
+      "message_delete": true,
+      "message_edit": true,
+      "member_join": true,
+      "member_leave": true,
+      "role_changes": true,
+      "channel_changes": true,
+      "voice_activity": true
+    }
+  },
+  "notifications": {
+    "welcome": {
+      "enabled": true,
+      "channel": null,
+      "message": "Bienvenue {user} sur **{server}** ! 🎉",
+      "embed": true
+    },
+    "goodbye": {
+      "enabled": true,
+      "channel": null,
+      "message": "Au revoir {user}... 😢",
+      "embed": true
+    },
+    "level_up": {
+      "enabled": true,
+      "channel": null,
+      "congratulate": true
+    }
+  },
+  "security": {
+    "verification": {
+      "enabled": false,
+      "level": "medium",
+      "role": null
+    },
+    "anti_alt": {
+      "enabled": false,
+      "min_account_age": 7
+    },
+    "backup": {
+      "auto_backup": true,
+      "frequency": "weekly"
+    }
+  },
+  "channels": {
+    "setup_complete": false,
+    "categories": {},
+    "special_channels": {}
+  }
+}
