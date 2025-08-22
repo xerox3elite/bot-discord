@@ -17,11 +17,12 @@ from typing import Dict, Any, List, Optional
 import asyncio
 
 class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence"):
-    def __init__(self, bot, channel_config):
+    def __init__(self, bot, channel_config,self.bot.get_cog):
         super().__init__()
         self.bot = bot
         self.channel_config = channel_config
-    
+        self.db = self.bot.get_cog("Database")
+
     raison = discord.ui.TextInput(
         label="Raison de l'absence",
         placeholder="Ex: Problème familial, maladie, voyage, examens...",
