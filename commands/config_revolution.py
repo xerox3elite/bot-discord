@@ -177,7 +177,6 @@ class ArsenalConfigRevolution(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        self.bot.get_cog('ArsenalConfigRevolution')
         self.config_cache = {}
         self.active_configs = {}  # Configurations en cours
         self.validator = ConfigValidator()
