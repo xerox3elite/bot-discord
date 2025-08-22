@@ -177,12 +177,13 @@ class ArsenalConfigRevolution(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+        self.bot.get_cog('ArsenalConfigRevolution')
         self.config_cache = {}
         self.active_configs = {}  # Configurations en cours
         self.validator = ConfigValidator()
         self.ensure_directories()
         logger.info("🚀 Arsenal Config Revolution V2.0 initialisé")
-    
+
     def ensure_directories(self):
         """Assure que tous les dossiers nécessaires existent"""
         dirs = [
