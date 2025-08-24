@@ -82,3 +82,4 @@ def setup(bot):
     """Setup function pour le chargement du module"""
     log.info("💰 [CRYPTO] Module Crypto Integration chargé (mode désactivé)")
     return crypto_integration
+

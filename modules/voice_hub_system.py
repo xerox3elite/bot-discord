@@ -488,3 +488,4 @@ async def setup(bot):
     bot.tree.add_command(hub_create)
     
     log.info("🎧 Système Voice Hub chargé avec succès")
+

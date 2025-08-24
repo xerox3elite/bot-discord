@@ -162,3 +162,4 @@ async def setup(bot):
     """Charge le module ArsenalProfileUltimate"""
     await bot.add_cog(ArsenalProfileUltimate(bot))
     print("🏆 [Arsenal Profile Ultimate] Module chargé - Profil 2000% activé!")
+

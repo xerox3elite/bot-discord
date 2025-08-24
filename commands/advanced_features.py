@@ -315,3 +315,4 @@ class AdvancedBotFeatures(commands.Cog):
 # Fonction pour ajouter les commandes au bot
 async def setup(bot):
     await bot.add_cog(AdvancedBotFeatures(bot))
+

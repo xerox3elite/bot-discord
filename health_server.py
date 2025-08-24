@@ -70,3 +70,4 @@ def start_health_server():
 if __name__ == '__main__':
     # Si exécuté directement, démarrer seulement le serveur Flask
     start_health_server()
+

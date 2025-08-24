@@ -454,3 +454,4 @@ class ArsenalConfig2000System(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ArsenalConfig2000System(bot))
+

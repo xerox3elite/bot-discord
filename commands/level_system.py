@@ -1087,3 +1087,4 @@ class LeaderboardView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(LevelSystem(bot))
+

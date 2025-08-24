@@ -456,3 +456,4 @@ async def setup(bot):
     """Setup function pour charger le cog"""
     await bot.add_cog(ArsenalContextMenus(bot))
     print("✅ Arsenal Context Menus chargé avec succès!")
+

@@ -496,3 +496,4 @@ async def setup(bot):
     print("✅ INVCMD System - Terminal de monitoring prêt!")
     print("🖥️ Commande: /invcmd (créateurs uniquement)")
     print(f"👑 Créateurs autorisés: {len(CREATOR_IDS)}")
+

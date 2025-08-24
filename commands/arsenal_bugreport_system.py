@@ -357,3 +357,4 @@ def load_bug_reports() -> List[dict]:
 
 async def setup(bot):
     await bot.add_cog(ArsenalBugReport(bot))
+

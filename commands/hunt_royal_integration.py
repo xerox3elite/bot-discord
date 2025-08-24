@@ -295,3 +295,4 @@ async def setup(bot):
 
 # Export pour utilisation directe
 __all__ = ['HuntRoyalIntegration', 'setup']
+

@@ -177,7 +177,11 @@ class ArsenalConfigRevolution(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        self.bot.get_cog('ArsenalConfigRevolution')
+        # Référence au système de config central (si chargé)
+        try:
+            self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
+        except Exception:
+            self.config_system = None
         self.config_cache = {}
         self.active_configs = {}  # Configurations en cours
         self.validator = ConfigValidator()
@@ -1694,7 +1698,7 @@ class ConfigMainView(discord.ui.View):
         self.bot = bot
         self.user_id = user_id
         self.guild_id = guild_id
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
         
     @discord.ui.button(
         label="⚡ Configuration Rapide", 
@@ -1887,7 +1891,7 @@ class QuickSetupStep1(discord.ui.View):
         self.bot = bot
         self.user_id = user_id
         self.guild_id = guild_id
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
     
     @discord.ui.select(
         placeholder="🏷️ Quel type de serveur administrez-vous ?",
@@ -1993,7 +1997,7 @@ class QuickSetupStep2(discord.ui.View):
         self.user_id = user_id
         self.guild_id = guild_id
         self.server_type = server_type
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
     
     @discord.ui.button(label="🔸 Petit (1-100)", style=discord.ButtonStyle.secondary, emoji="🔸")
     async def small_server(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -2162,7 +2166,7 @@ class QuickSetupStep3(discord.ui.View):
         self.user_id = user_id
         self.guild_id = guild_id
         self.preset_config = preset_config
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
     
     @discord.ui.button(label="✅ Continuer (Recommandé)", style=discord.ButtonStyle.success, emoji="✅")
     async def continue_setup(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -2237,7 +2241,7 @@ class QuickSetupStep4(discord.ui.View):
         self.bot = bot
         self.user_id = user_id
         self.guild_id = guild_id
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
     
     @discord.ui.button(label="🏗️ Créer les Salons", style=discord.ButtonStyle.success, emoji="🏗️")
     async def create_channels(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -2406,7 +2410,7 @@ class QuickSetupStep5(discord.ui.View):
         self.bot = bot
         self.user_id = user_id
         self.guild_id = guild_id
-        self.config_system = bot.get_cog('ArsenalConfigRevolution')
+        self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
     
     @discord.ui.button(label="🎉 Finaliser la Configuration", style=discord.ButtonStyle.success, emoji="🎉")
     async def finalize_setup(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -3144,3 +3148,4 @@ async def setup(bot):
     print("✅ Arsenal Config Revolution - Système révolutionnaire prêt!")
     print("🎮 29 modules configurables | 🚀 Setup ultra-rapide | 📊 Analytics temps réel")
     print("💎 Interface moderne Discord UI | 🛡️ Validation avancée | 💾 Backups automatiques")
+

@@ -175,3 +175,4 @@ def initialize_status_system(bot):
     global status_system
     status_system = ArsenalStatusSystem(bot)
     return status_system
+

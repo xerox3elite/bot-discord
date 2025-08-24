@@ -317,3 +317,4 @@ async def test_ai_providers():
 if __name__ == "__main__":
     # Test si lancé directement
     asyncio.run(test_ai_providers())
+

@@ -764,3 +764,4 @@ async def setup(bot):
     """Charge le module GamesSystem"""
     await bot.add_cog(GamesSystem(bot))
     print("🎮 [Games System] Module chargé avec succès!")
+

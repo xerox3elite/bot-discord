@@ -676,3 +676,4 @@ class SanctionsSystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(SanctionsSystem(bot))
     print("⚖️ [OK] Système de sanctions complet chargé - Casier permanent & AutoMod!")
+

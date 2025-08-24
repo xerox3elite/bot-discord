@@ -477,3 +477,4 @@ class ArsenalHelpSystemUltimate(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ArsenalHelpSystemUltimate(bot))
+

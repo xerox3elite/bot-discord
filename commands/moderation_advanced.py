@@ -717,3 +717,4 @@ async def setup(bot):
     """Charge le module ModerationAdvanced"""
     await bot.add_cog(ModerationAdvanced(bot))
     print("🛡️ [Moderation Advanced] Module chargé avec succès!")
+

@@ -868,3 +868,4 @@ async def setup(bot):
     bot.tree.add_command(voice_control_group)
     
     log.info("🎧 Système Voice Hub chargé avec succès")
+

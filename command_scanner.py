@@ -650,3 +650,4 @@ if __name__ == "__main__":
     scanner = CommandScanner()
     results = scanner.run_complete_analysis()
     scanner.print_detailed_report()
+

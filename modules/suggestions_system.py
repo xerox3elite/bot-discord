@@ -724,3 +724,4 @@ def teardown(bot):
 
 if __name__ == "__main__":
     print("💡 Suggestions System - Module autonome initialisé")
+

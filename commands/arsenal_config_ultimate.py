@@ -492,3 +492,4 @@ class SystemConfigModal(discord.ui.Modal):
 
 async def setup(bot):
     await bot.add_cog(ArsenalConfigUltimate(bot))
+

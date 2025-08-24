@@ -386,3 +386,4 @@ class AddWalletModal(discord.ui.Modal, title="💎 Ajouter un Portefeuille Crypt
 # Fonction d'initialisation pour le bot
 async def setup(bot):
     await bot.add_cog(CryptoCommands(bot))
+

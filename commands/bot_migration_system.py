@@ -996,3 +996,4 @@ class ConfirmMigrationView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(BotMigrationSystem(bot))
+

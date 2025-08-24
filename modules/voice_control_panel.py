@@ -624,3 +624,4 @@ class ConfirmDeleteView(discord.ui.View):
 async def setup(bot):
     """Setup du module de contrôle vocal"""
     log.info("🎧 Module Voice Control Panel chargé")
+

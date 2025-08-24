@@ -843,3 +843,4 @@ if __name__ == "__main__":
         client.run(TOKEN)
     except Exception as e:
         log.error(f"[RUN ERROR] {e}")
+

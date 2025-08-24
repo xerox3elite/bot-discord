@@ -571,3 +571,4 @@ async def setup(bot):
     """Charge le module ArsenalLevelSystem"""
     await bot.add_cog(ArsenalLevelSystem(bot))
     print("🏆 [Arsenal Level System] Module chargé - Système de niveaux révolutionnaire!")
+

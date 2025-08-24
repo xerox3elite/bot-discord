@@ -989,3 +989,4 @@ class ManageAccessModal(discord.ui.Modal, title="👥 Gérer les accès"):
 async def setup(bot):
     await bot.add_cog(HubVocal(bot))
     print("🎤 [OK] Hub Vocal - Système complet de salons temporaires avec contrôle !")
+

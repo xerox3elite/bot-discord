@@ -489,3 +489,4 @@ async def setup(bot):
     """Setup du cog"""
     await bot.add_cog(CommunicationSystem(bot))
     log.info("📢 [SETUP] Communication System ajouté au bot")
+

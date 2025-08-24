@@ -633,3 +633,4 @@ async def setup(bot):
     bot.tree.add_command(ticket_group)
     
     log.info("🎫 Système Tickets chargé avec succès")
+

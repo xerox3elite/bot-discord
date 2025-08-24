@@ -620,3 +620,4 @@ async def unlink_hunt_royal(interaction: discord.Interaction):
 
 # Export des commandes
 __all__ = ['link_hunt_royal', 'profile_hunt_royal', 'unlink_hunt_royal', 'profile_db', 'profile_scraper']
+

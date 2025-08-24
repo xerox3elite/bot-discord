@@ -796,3 +796,4 @@ class RemoveLevelRewardSelectDropdown(discord.ui.Select):
 async def setup(bot):
     """Setup function pour le chargement du module"""
     pass
+

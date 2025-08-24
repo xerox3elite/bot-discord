@@ -779,3 +779,4 @@ class HunterSearchModal(discord.ui.Modal):
             embed.description += "\n\n❌ Aucun chasseur trouvé."
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
+

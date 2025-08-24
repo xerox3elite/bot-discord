@@ -530,3 +530,4 @@ class ArsenalEconomySystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(ArsenalEconomySystem(bot))
     print("✅ [Arsenal Economy] Système d'économie et boutique chargé")
+

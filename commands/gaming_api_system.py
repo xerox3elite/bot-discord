@@ -440,3 +440,4 @@ class HunterSelectDropdown(discord.ui.Select):
 async def setup(bot):
     await bot.add_cog(GamingAPISystem(bot))
     print("🎮 [Gaming API System] Module chargé avec succès!")
+

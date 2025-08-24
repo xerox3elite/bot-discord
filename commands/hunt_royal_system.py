@@ -2153,3 +2153,4 @@ async def setup(bot):
     print("✅ Hunt Royal System - Système complet prêt!")
     print("🏹 Calculateurs intégrés | 🔐 Auth sécurisée | 💾 Sauvegarde builds")
     print("🎯 Commandes: /hr register, /hr calculator, /hr profile, /hr help")
+

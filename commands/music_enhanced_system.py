@@ -511,3 +511,4 @@ class EnhancedMusicSystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(EnhancedMusicSystem(bot))
     print("🎵 [Enhanced Music System] Module chargé avec succès!")
+

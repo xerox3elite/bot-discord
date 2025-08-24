@@ -1235,3 +1235,4 @@ async def setup(bot):
     print("✅ Reaction Roles System - Système modulaire prêt!")
     print("🎭 Modes: Normal, Unique, Toggle")
     print("🎯 Commande: /reactionroles [setup|create|manage|list|stats]")
+

@@ -226,3 +226,4 @@ if __name__ == "__main__":
     
     print("✅ Tests terminés !")
     print("🚀 Le système Arsenal Economy est prêt à être utilisé !")
+

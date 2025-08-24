@@ -775,3 +775,4 @@ async def setup(bot):
     """Charge le module CryptoEconomyAdvanced"""
     await bot.add_cog(CryptoEconomyAdvanced(bot))
     print("💰 [Crypto Economy Advanced] Module chargé avec succès!")
+

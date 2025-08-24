@@ -103,3 +103,4 @@ def timeout_protection(loading_message: str = "⏳ Traitement en cours..."):
 
 # Alias pour facilité d'utilisation
 safe_interaction = timeout_protection
+

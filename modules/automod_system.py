@@ -1479,3 +1479,4 @@ async def setup(bot):
     bot.tree.add_command(automod_group)
     
     log.info("🛡️ Système AutoMod chargé avec succès")
+

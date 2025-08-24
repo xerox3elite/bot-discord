@@ -8,3 +8,4 @@ async def start_terminal(client):
     # Toujours désactiver en production
     log.info("[TERMINAL] Terminal désactivé - Mode production")
     return
+

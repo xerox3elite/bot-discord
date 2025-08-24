@@ -568,3 +568,4 @@ class DeleteConfirmView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(TempChannelCommands(bot))
+

@@ -449,3 +449,4 @@ class SocialFunSystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(SocialFunSystem(bot))
     print("🎭 [Social Fun System] Module chargé avec succès!")
+

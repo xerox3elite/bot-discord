@@ -623,3 +623,4 @@ async def setup(bot):
     """Charge le module ReglementSimple"""
     await bot.add_cog(ReglementSimple(bot))
     print("🚀 [OK] ReglementSimple chargé - Interface ultra moderne !")
+

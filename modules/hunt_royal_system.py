@@ -1843,3 +1843,4 @@ if __name__ == "__main__":
     print("📊 Base de données prête")
     print("💡 Système de suggestions actif")
     print("🔄 Hot-reload disponible")
+

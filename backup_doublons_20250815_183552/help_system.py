@@ -613,3 +613,4 @@ async def setup(bot):
     bot.tree.add_command(simple_help)
     
     log.info("🆘 Système d'aide chargé avec succès")
+

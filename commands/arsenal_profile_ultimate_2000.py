@@ -530,3 +530,4 @@ class ArsenalProfileUltimate2000(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ArsenalProfileUltimate2000(bot))
+

@@ -568,3 +568,4 @@ class UtilitiesSystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(UtilitiesSystem(bot))
     print("🔧 [Utilities System] Module chargé avec succès!")
+

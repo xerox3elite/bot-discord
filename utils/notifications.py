@@ -253,3 +253,4 @@ if __name__ == "__main__":
     
     time.sleep(30)  # Laisser tourner 30 secondes
     notification_system.stop()
+

@@ -469,3 +469,4 @@ class CryptoSystem:
 # Fonction d'initialisation pour le bot
 def setup(bot):
     return CryptoSystem(bot)
+

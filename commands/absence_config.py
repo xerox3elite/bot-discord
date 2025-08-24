@@ -507,3 +507,4 @@ async def setup_absence_config_db():
         """)
         await db.commit()
         print("✅ [ABSENCE CONFIG] Base de données initialisée")
+

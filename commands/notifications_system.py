@@ -429,3 +429,4 @@ class NotificationSystem(commands.Cog):
 async def setup(bot):
     await bot.add_cog(NotificationSystem(bot))
     print("📢 [Notification System] Module chargé avec succès!")
+

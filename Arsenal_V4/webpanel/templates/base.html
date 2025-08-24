@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Arsenal WebPanel V4.5.0{% endblock %}</title>
+    
+    <!-- CSS Framework et Icônes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- CSS Personnalisé -->
+    <style>
+        /* Arsenal Dark Theme */
+        :root[data-theme="dark"] {
+            --bg-primary: #0d1421;
+            --bg-secondary: #1a2332;
+            --bg-tertiary: #243447;
+            --text-primary: #ffffff;
+            --text-secondary: #b4c6d4;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--accent-blue);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--accent-blue) !important;
+        }
+
+        /* Cards Arsenal Style */
+        .arsenal-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        .arsenal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--shadow-color);
+            border-color: var(--accent-blue);
+        }
+
+        /* Boutons Arsenal */
+        .btn-arsenal {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-arsenal:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+
+        /* Stats Cards */
+        .stats-card {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .stats-card.danger { border-left-color: var(--accent-red); }
+        .stats-card.warning { border-left-color: var(--accent-orange); }
+        .stats-card.info { border-left-color: var(--accent-blue); }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            border-right: 2px solid var(--border-color);
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 4px 12px;
+        }
+
+        .sidebar-item:hover {
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-item.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+        }
+
+        /* Badges et Status */
+        .status-online { color: var(--accent-green); }
+        .status-offline { color: var(--accent-red); }
+        .status-idle { color: var(--accent-orange); }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                width: 250px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .sidebar.show {
+                left: 0;
+            }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 3px solid var(--bg-tertiary);
+            border-top: 3px solid var(--accent-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-purple);
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-shield-alt"></i> Arsenal WebPanel
+                <span class="badge bg-primary ms-2">V4.5.0</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if session.user_id %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+                <ul class="navbar-nav">
+                    {% if session.user_id %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {% if session.avatar %}
+                            <img src="https://cdn.discordapp.com/avatars/{{ session.user_id }}/{{ session.avatar }}.png" 
+                                 alt="Avatar" class="rounded-circle me-2" width="24" height="24">
+                            {% endif %}
+                            {{ session.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">
+                                <i class="fas fa-home"></i> Dashboard
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn-arsenal px-3" href="{{ url_for('login') }}">
+                            <i class="fab fa-discord"></i> Se connecter
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Contenu Principal -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="mt-5 py-4" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-shield-alt text-primary"></i> Arsenal Bot</h5>
+                    <p class="text-muted">Bot Discord multifonctions avec WebPanel avancé</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted">
+                        Version 4.5.0 • Développé par <strong>XeRoX</strong><br>
+                        <small>© 2025 Arsenal Bot - Tous droits réservés</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <!-- Arsenal WebSocket -->
+    <script>
+        // Connexion WebSocket pour temps réel
+        const socket = io();
+        
+        socket.on('connect', function() {
+            console.log('🔗 Connecté au WebPanel Arsenal');
+        });
+
+        socket.on('live_stats', function(data) {
+            // Mise à jour des stats en temps réel
+            updateLiveStats(data);
+        });
+
+        function updateLiveStats(stats) {
+            // Mise à jour de l'interface avec les nouvelles stats
+            if (document.getElementById('bot-status')) {
+                document.getElementById('bot-status').textContent = stats.status;
+                document.getElementById('bot-status').className = 
+                    'badge ' + (stats.status === 'online' ? 'bg-success' : 'bg-danger');
+            }
+        }
+
+        // Demande des stats toutes les 30 secondes
+        setInterval(() => {
+            socket.emit('get_live_stats');
+        }, 30000);
+
+        // Animations au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.arsenal-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

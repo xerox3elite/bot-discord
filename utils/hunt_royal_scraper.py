@@ -526,3 +526,4 @@ if __name__ == "__main__":
         await scraper.update_database("test_hunt_royal.db")
     
     asyncio.run(test_scraper())
+

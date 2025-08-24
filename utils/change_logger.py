@@ -293,3 +293,4 @@ if __name__ == "__main__":
     # Générer le changelog
     changelog_file = change_logger.export_changelog()
     print(f"\n📄 Changelog généré: {changelog_file}")
+

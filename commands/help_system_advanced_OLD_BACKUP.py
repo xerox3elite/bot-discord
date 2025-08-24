@@ -347,3 +347,4 @@ async def setup(bot):
     """Charge le module HelpSystemAdvanced"""
     await bot.add_cog(HelpSystemAdvanced(bot))
     print("🚀 [Help System Advanced] Module chargé avec succès!")
+

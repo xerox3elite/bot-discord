@@ -1031,3 +1031,4 @@ async def setup(bot):
     bot.tree.add_command(profile_group)
     
     log.info("👤 Système de Profils Utilisateurs chargé avec succès")
+

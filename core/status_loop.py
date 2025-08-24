@@ -142,3 +142,4 @@ class ArsenalStatusLoop:
         """Change l'intervalle de keepalive"""
         self.keepalive_interval = max(10, seconds)  # Minimum 10 secondes
         print(f"[STATUS] Intervalle keepalive changé: {self.keepalive_interval}s")
+

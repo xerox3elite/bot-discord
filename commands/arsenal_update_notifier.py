@@ -476,3 +476,4 @@ Ce salon recevra désormais toutes les notifications de mise à jour Arsenal.
 
 async def setup(bot):
     await bot.add_cog(ArsenalUpdateNotifier(bot))
+

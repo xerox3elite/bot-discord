@@ -382,3 +382,4 @@ class ConfirmResetView(discord.ui.View):
 async def setup(bot):
     await bot.add_cog(ArsenalShopAdmin(bot))
     print("✅ [Arsenal Shop Admin] Système d'administration de boutique chargé")
+

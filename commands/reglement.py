@@ -796,3 +796,4 @@ async def setup(bot):
     """Charge le module ReglementDraftBot"""
     await bot.add_cog(ReglementSystem(bot))
     print("🚀 [OK] ReglementDraftBot chargé - Interface ultra-complète style DraftBot !")
+

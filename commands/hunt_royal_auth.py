@@ -769,3 +769,4 @@ async def hunt_royal_stats(interaction: discord.Interaction):
 
 # Export des fonctions pour utilisation dans d'autres modules
 __all__ = ['register_hunt_royal', 'get_my_token', 'hunt_royal_stats', 'auth_db', 'HuntRoyalAuthDatabase']
+

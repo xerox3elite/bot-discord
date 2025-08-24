@@ -510,3 +510,4 @@ ArsenalConfigRevolution.create_step4_embed = create_step4_embed
 ArsenalConfigRevolution.create_step5_embed = create_step5_embed
 ArsenalConfigRevolution.create_module_selection_embed = create_module_selection_embed
 ArsenalConfigRevolution.create_manual_guide_embed = create_manual_guide_embed
+

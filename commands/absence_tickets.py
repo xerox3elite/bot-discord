@@ -17,11 +17,16 @@ from typing import Dict, Any, List, Optional
 import asyncio
 
 class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence"):
-    def __init__(self, bot, channel_config,self.bot.get_cog):
+    def __init__(self, client, channel_config, get_cog):
         super().__init__()
-        self.bot = bot
+        self.client = client
         self.channel_config = channel_config
-        self.db = self.bot.get_cog("Database")
+        # get_cog is a callable passed from the caller (usually bot.get_cog)
+        self.get_cog = get_cog
+        try:
+            self.db = self.get_cog("Database") if callable(self.get_cog) else None
+        except Exception:
+            self.db = None
 
     raison = discord.ui.TextInput(
         label="Raison de l'absence",
@@ -507,7 +512,7 @@ class AbsenceRequestView(discord.ui.View):
     
     @discord.ui.button(label="🎫 Créer Ticket d'Absence", style=discord.ButtonStyle.primary, emoji="🎫")
     async def create_absence_ticket(self, interaction: discord.Interaction, button: discord.ui.Button):
-        modal = AbsenceTicketModal(self.bot, self.channel_config)
+    modal = AbsenceTicketModal(self.bot, self.channel_config, self.bot.get_cog)
         await interaction.response.send_modal(modal)
 
 class AbsenceTicketSystem(commands.Cog):
@@ -929,3 +934,4 @@ class RolesConfigModal(discord.ui.Modal):
 
 async def setup(bot):
     await bot.add_cog(AbsenceTicketSystem(bot))
+

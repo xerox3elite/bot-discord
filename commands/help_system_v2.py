@@ -468,3 +468,4 @@ async def setup(bot):
     """Setup du cog"""
     await bot.add_cog(HelpSystemV2(bot))
     log.info("📚 [SETUP] Help System V2 ULTIMATE ajouté au bot")
+

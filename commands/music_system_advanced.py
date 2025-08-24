@@ -441,3 +441,4 @@ def setup_audio(bot=None):
     """Configuration audio pour compatibilité avec main.py"""
     print("🎵 [Audio Setup] Configuration audio initialisée")
     return True
+

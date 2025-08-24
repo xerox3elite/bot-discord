@@ -160,3 +160,4 @@ def update_hunt_royal_with_real_data():
 
 if __name__ == "__main__":
     update_hunt_royal_with_real_data()
+

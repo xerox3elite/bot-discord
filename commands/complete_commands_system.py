@@ -366,3 +366,4 @@ async def setup(bot):
     """Setup du cog"""
     await bot.add_cog(CompleteCommandsSystem(bot))
     log.info("📋 [SETUP] Complete Commands System ajouté au bot")
+

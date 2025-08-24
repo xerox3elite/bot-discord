@@ -33,8 +33,10 @@ logger = logging.getLogger(__name__)
 class AnnouncementsDB:
     """Gestionnaire de base de données pour les annonces"""
     
-    def __init__(self, db_path: str = "arsenal_announcements.db"):
+    def __init__(self, get_cog=None, db_path: str = "arsenal_announcements.db"):
         self.db_path = db_path
+        # get_cog peut être une callable (ex: bot.get_cog) ou None
+        self.get_cog = get_cog
         self.init_database()
     
     def init_database(self):
@@ -1299,3 +1301,4 @@ async def setup(bot):
     print("✅ Announcements System - Système modulaire prêt!")
     print("📢 Types: Embed, Text, Mixed")
     print("📋 Commande: /announcements [setup|create|template|config|stats]")
+

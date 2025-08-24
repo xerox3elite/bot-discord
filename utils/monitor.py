@@ -132,3 +132,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         monitor.stop_monitoring()
         print("👋 Monitor arrêté")
+

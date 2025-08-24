@@ -268,3 +268,4 @@ def setup(bot):
     """Setup function pour le chargement du module"""
     log.info("🗄️ [DATABASE] Module SQLite Database Manager chargé")
     return database_manager
+

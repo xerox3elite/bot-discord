@@ -677,3 +677,4 @@ class FeaturesExplorerView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(ArsenalBotFeatures(bot))
+

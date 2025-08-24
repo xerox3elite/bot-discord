@@ -583,3 +583,4 @@ class LogsConfigCog(commands.Cog):
 def setup(bot):
     """Ajouter le cog au bot"""
     bot.add_cog(LogsConfigCog(bot))
+

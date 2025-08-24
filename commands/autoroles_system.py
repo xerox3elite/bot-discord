@@ -995,3 +995,4 @@ async def setup(bot):
     print("✅ AutoRoles System - Système modulaire prêt!")
     print("🎯 Types: Join, Level, Activity, Time, Custom")
     print("🎭 Commande: /autoroles [setup|welcome|bots|rules|stats]")
+

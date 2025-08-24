@@ -444,3 +444,4 @@ async def setup(bot):
     """Charge le module ArsenalHelpSystem"""
     await bot.add_cog(ArsenalHelpSystem(bot))
     print("🚀 [Arsenal Help System] Module chargé - Aide professionnelle activée!")
+

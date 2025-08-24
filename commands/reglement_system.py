@@ -1083,3 +1083,4 @@ async def setup(bot):
     print("✅ Reglement System - Système modulaire prêt!")
     print("📋 Templates: Général, Gaming, Business, Community")
     print("🎯 Commande: /reglement [setup|publish|edit|stats|preview]")
+
