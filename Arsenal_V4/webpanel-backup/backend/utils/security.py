@@ -1,2 +1,0 @@
-# Fonctions de sécurité
-

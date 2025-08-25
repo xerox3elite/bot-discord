@@ -188,6 +188,18 @@ class ArsenalConfigRevolution(commands.Cog):
         self.ensure_directories()
         logger.info("🚀 Arsenal Config Revolution V2.0 initialisé")
 
+    def get_cog(self, name: str):
+        """Proxy method so code that calls self.get_cog(...) on this Cog instance still works.
+
+        Some parts of the code pass Cog instances around and call get_cog on them
+        (incorrectly). Providing this proxy keeps backward compatibility by
+        delegating to the bot's get_cog method.
+        """
+        try:
+            return getattr(self.bot, "get_cog", lambda _name: None)(name)
+        except Exception:
+            return None
+
     def ensure_directories(self):
         """Assure que tous les dossiers nécessaires existent"""
         dirs = [

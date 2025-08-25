@@ -1,1 +1,0 @@
-// Composant Avatar IA

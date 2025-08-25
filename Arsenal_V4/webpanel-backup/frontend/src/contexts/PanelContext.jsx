@@ -1,1 +1,0 @@
-// Contexte global Panel

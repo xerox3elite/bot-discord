@@ -17,7 +17,7 @@ from typing import Dict, Any, List, Optional
 import asyncio
 
 class AbsenceTicketModal(discord.ui.Modal, title="🎫 Créer Ticket d'Absence"):
-    def __init__(self, client, channel_config, get_cog):
+    def __init__(self, channel_config, get_cog):
         super().__init__()
         self.client = client
         self.channel_config = channel_config
