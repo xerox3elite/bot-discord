@@ -177,6 +177,7 @@ class ArsenalConfigRevolution(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+        self.creator_id = getattr(bot, 'creator_id', None)
         # Référence au système de config central (si chargé)
         try:
             self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
@@ -998,10 +999,10 @@ class ArsenalConfigRevolution(commands.Cog):
         """Commande principale de configuration Arsenal"""
         
         # Vérifications de permissions
-        if not interaction.user.guild_permissions.administrator:
+        if not interaction.user.guild_permissions.administrator and interaction.user.id != self.creator_id:
             embed = discord.Embed(
                 title="❌ Permissions Insuffisantes",
-                description="Seuls les **Administrateurs** peuvent utiliser ce système de configuration.",
+                description="Seuls les **Administrateurs** ou le **Créateur du bot** peuvent utiliser ce système de configuration.",
                 color=0xFF0000
             )
             return await interaction.response.send_message(embed=embed, ephemeral=True)
@@ -1388,7 +1389,7 @@ class QuickSetupStep1(discord.ui.View):
         """Retour au menu principal"""
         await interaction.response.defer()
         
-        view = ConfigMainView(self.cog, self.guild_id, self.selected_preset)
+        view = ConfigMainView(self.cog.bot, interaction.user.id, self.guild_id)
         embed = self.cog.create_welcome_embed(interaction.guild)
         
         await interaction.edit_original_response(embed=embed, view=view)

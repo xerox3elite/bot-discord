@@ -173,17 +173,17 @@ try:
 except Exception as e:
     WEBPANEL_COMMANDS_AVAILABLE = False
 
-# Bot Migration System (RÉVOLUTIONNAIRE)
+# Bot Migration System
 try:
     from commands.bot_migration_system import BotMigrationSystem
     BOT_MIGRATION_AVAILABLE = True
-    print("🚀 [OK] Bot Migration System chargé - Système révolutionnaire!")
+    print("🚀 [OK] Bot Migration System chargé")
 except Exception as e:
     BOT_MIGRATION_AVAILABLE = False
     print(f"❌ [ERREUR] Bot Migration System: {e}")
     print(f"[ERROR] Erreur import WebPanel Commands: {e}")
 
-# Advanced Bot Features (NOUVEAU)
+# Advanced Bot Features
 try:
     from commands.advanced_features import AdvancedBotFeatures
     ADVANCED_FEATURES_AVAILABLE = True
@@ -192,61 +192,55 @@ except Exception as e:
     ADVANCED_FEATURES_AVAILABLE = False
     print(f"[ERROR] Erreur import Advanced Features: {e}")
 
-# Arsenal Features System (RÉVOLUTIONNAIRE - 40 fonctionnalités)
+# Arsenal Features System
 try:
     from commands.arsenal_features import ArsenalBotFeatures
     ARSENAL_FEATURES_AVAILABLE = True
-    print("🚀 [OK] Arsenal Features System chargé - 40 fonctionnalités Discord!")
+    print("🚀 [OK] Arsenal Features System chargé")
 except Exception as e:
     ARSENAL_FEATURES_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Features System: {e}")
 
-# Arsenal Config Ultimate (RÉVOLUTIONNAIRE V2.0)
+# Arsenal Config Revolution (V2.0)
 try:
     from commands.config_revolution import ArsenalConfigRevolution
     ARSENAL_CONFIG_REVOLUTION_AVAILABLE = True
-    print("🚀 [OK] Arsenal Config Revolution chargé - Configuration révolutionnaire V2.0!")
+    print("🚀 [OK] Arsenal Config Revolution chargé")
 except Exception as e:
     ARSENAL_CONFIG_REVOLUTION_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Config Revolution: {e}")
 
-# Arsenal Config Ultimate (UNIFIÉ DANS /config)
-# try:
-#     from commands.arsenal_config_ultimate import ArsenalConfigUltimate
-#     ARSENAL_CONFIG_ULTIMATE_AVAILABLE = True
-#     print("🔥 [OK] Arsenal Config Ultimate chargé - Configuration révolutionnaire!")
-# except Exception as e:
+# L'ancien module "Arsenal Config Ultimate" est maintenant unifié dans /config
 ARSENAL_CONFIG_ULTIMATE_AVAILABLE = False
-print("ℹ️ [INFO] Arsenal Config Ultimate unifié dans /config")
 
-# Arsenal Profile Ultimate (RÉVOLUTIONNAIRE - Profil bot le plus impressionnant)
+# Arsenal Profile Ultimate
 try:
     from commands.arsenal_profile_ultimate import ArsenalProfileUltimate  
     ARSENAL_PROFILE_ULTIMATE_AVAILABLE = True
-    print("💎 [OK] Arsenal Profile Ultimate chargé - Profil révolutionnaire!")
+    print("💎 [OK] Arsenal Profile Ultimate chargé")
 except Exception as e:
     ARSENAL_PROFILE_ULTIMATE_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Profile Ultimate: {e}")
 
-# Discord Badges System (NOUVEAU - Pour afficher les capacités à droite du nom)
+# Discord Badges System
 try:
     from core.discord_badges import DiscordBadges
     DISCORD_BADGES_AVAILABLE = True
-    print("🏆 [OK] Discord Badges System chargé - Badges natifs Discord!")
+    print("🏆 [OK] Discord Badges System chargé")
 except Exception as e:
     DISCORD_BADGES_AVAILABLE = False
     print(f"❌ [ERREUR] Discord Badges System: {e}")
 
-# Arsenal Diagnostic System (NOUVEAU - Vérification complète du bot)
+# Arsenal Diagnostic System
 try:
     from commands.arsenal_diagnostic import ArsenalDiagnostic
     ARSENAL_DIAGNOSTIC_AVAILABLE = True
-    print("🔧 [OK] Arsenal Diagnostic System chargé - Vérification complète!")
+    print("🔧 [OK] Arsenal Diagnostic System chargé")
 except Exception as e:
     ARSENAL_DIAGNOSTIC_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Diagnostic System: {e}")
 
-# Hunt Royal Auth System (NOUVEAU)
+# Hunt Royal Auth System
 try:
     import commands.hunt_royal_auth as hunt_auth
     HUNT_AUTH_AVAILABLE = True
@@ -255,7 +249,7 @@ except Exception as e:
     HUNT_AUTH_AVAILABLE = False
     print(f"[WARNING] Hunt Royal Auth non disponible: {e}")
 
-# Hunt Royal Profiles System (NOUVEAU)
+# Hunt Royal Profiles System
 try:
     import commands.hunt_royal_profiles as hunt_profiles
     HUNT_PROFILES_AVAILABLE = True
@@ -264,7 +258,7 @@ except Exception as e:
     HUNT_PROFILES_AVAILABLE = False
     print(f"[WARNING] Hunt Royal Profiles non disponible: {e}")
 
-# Hunt Royal Integration System (NOUVEAU V4)
+# Hunt Royal Integration System
 try:
     import commands.hunt_royal_integration as hunt_integration
     HUNT_INTEGRATION_AVAILABLE = True
@@ -273,7 +267,7 @@ except Exception as e:
     HUNT_INTEGRATION_AVAILABLE = False
     print(f"[WARNING] Hunt Royal Integration non disponible: {e}")
 
-# Server Management System (NOUVEAU V4.3)
+# Server Management System
 try:
     import commands.server_management_system as server_management
     SERVER_MANAGEMENT_AVAILABLE = True
@@ -282,7 +276,7 @@ except Exception as e:
     SERVER_MANAGEMENT_AVAILABLE = False
     print(f"[WARNING] Server Management System non disponible: {e}")
 
-# Gaming API System (NOUVEAU V4.3)
+# Gaming API System
 try:
     import commands.gaming_api_system as gaming_api
     GAMING_API_AVAILABLE = True
@@ -291,17 +285,17 @@ except Exception as e:
     GAMING_API_AVAILABLE = False
     print(f"[WARNING] Gaming API System non disponible: {e}")
 
-# Absence Ticket System (NOUVEAU V4.5.2)
+# Absence Ticket System
 try:
     from commands.absence_tickets import AbsenceTicketSystem
     from commands.absence_config import setup_absence_config_db
     ABSENCE_SYSTEM_AVAILABLE = True
-    print("🎫 [OK] Absence Ticket System chargé - Gestion tickets d'absence!")
+    print("🎫 [OK] Absence Ticket System chargé")
 except Exception as e:
     ABSENCE_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Absence Ticket System: {e}")
 
-# Social Fun System (NOUVEAU V4.3)
+# Social Fun System
 try:
     import commands.social_fun_system as social_fun
     SOCIAL_FUN_AVAILABLE = True
@@ -310,7 +304,7 @@ except Exception as e:
     SOCIAL_FUN_AVAILABLE = False
     print(f"[WARNING] Social Fun System non disponible: {e}")
 
-# Enhanced Music System (NOUVEAU V4.3)
+# Enhanced Music System
 try:
     import commands.music_enhanced_system as music_enhanced
     MUSIC_ENHANCED_AVAILABLE = True
@@ -319,7 +313,7 @@ except Exception as e:
     MUSIC_ENHANCED_AVAILABLE = False
     print(f"[WARNING] Enhanced Music System non disponible: {e}")
 
-# Crypto System Integration (NOUVEAU V4.2)
+# Crypto System Integration
 try:
     from modules.crypto_bot_integration import setup
     CRYPTO_INTEGRATION_AVAILABLE = True
@@ -328,7 +322,7 @@ except Exception as e:
     CRYPTO_INTEGRATION_AVAILABLE = False
     print(f"[WARNING] Crypto System Integration non disponible: {e}")
 
-# SQLite Database Manager (NOUVEAU V4.5)
+# SQLite Database Manager
 try:
     from modules.sqlite_database import database_manager
     SQLITE_DATABASE_AVAILABLE = True
@@ -337,38 +331,38 @@ except Exception as e:
     SQLITE_DATABASE_AVAILABLE = False
     print(f"⚠️ Module sqlite_database non trouvé: {e}")
 
-# Sanctions System (NOUVEAU V4.5.2)
+# Sanctions System
 try:
     from commands.sanctions_system import SanctionsSystem
     SANCTIONS_SYSTEM_AVAILABLE = True
-    print("⚖️ [OK] Sanctions System chargé - Casier permanent & AutoMod!")
+    print("⚖️ [OK] Sanctions System chargé")
 except Exception as e:
     SANCTIONS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Sanctions System: {e}")
 
-# Complete Commands System - Liste TOUTES les commandes (NOUVEAU V4.5.2)
+# Complete Commands System
 try:
     from commands.complete_commands_system import CompleteCommandsSystem
     COMPLETE_COMMANDS_SYSTEM_AVAILABLE = True
-    print("📋 [OK] Complete Commands System chargé - Liste toutes les commandes!")
+    print("📋 [OK] Complete Commands System chargé")
 except Exception as e:
     COMPLETE_COMMANDS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Complete Commands System: {e}")
 
-# Communication System - Say et Traduction (NOUVEAU V4.5.2)
+# Communication System
 try:
     from commands.communication_system import CommunicationSystem
     COMMUNICATION_SYSTEM_AVAILABLE = True
-    print("📢 [OK] Communication System chargé - Say & Traduction IA!")
+    print("📢 [OK] Communication System chargé")
 except Exception as e:
     COMMUNICATION_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Communication System: {e}")
 
-# Help System V2 (NOUVEAU V4.5.2)
+# Help System V2
 try:
     from commands.help_system_v2 import HelpSystemV2
     HELP_SYSTEM_V2_AVAILABLE = True
-    print("📚 [OK] Help System V2 chargé - Interface révolutionnaire!")
+    print("📚 [OK] Help System V2 chargé")
 except Exception as e:
     HELP_SYSTEM_V2_AVAILABLE = False
     print(f"❌ [ERREUR] Help System V2: {e}")
@@ -410,310 +404,280 @@ class ArsenalBot(commands.Bot):
         self.status_system = None
         
     async def setup_hook(self):
-        # DÉSACTIVÉ - Système de statut Arsenal (remplacé par Profile Ultimate 2000%)
-        # self.status_system = initialize_status_system(self)
-        # print("🔄 [STATUS] Système de statut Arsenal initialisé")
+        # Le système de statut est maintenant géré par Arsenal Profile Ultimate 2000
         self.loop.create_task(restore_voice_channels(self))
         self.loop.create_task(start_terminal(self))
-        # DÉSACTIVÉ - Démarrage systèmes de statut Arsenal (conflit avec Profile 2000%)
-        # await self.status_system.start_status_rotation()
-        # await self.status_system.start_keepalive()
-        print("🔄 [STATUS] Systèmes de statut gérés par Arsenal Profile Ultimate 2000%")
         setup_audio(self)
         
         # Charger le système de rechargement de modules
         if RELOADER_AVAILABLE:
             try:
                 await self.add_cog(ReloaderCommands(self))
-                log.info("[OK] Système de rechargement de modules chargé")
+                log.info("[OK] Cog 'ReloaderCommands' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement reloader: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ReloaderCommands': {e}")
         
         # Charger Hunt Royal et Suggestions
         if HUNT_ROYAL_AVAILABLE:
             try:
                 await self.add_cog(HuntRoyalCommands(self))
-                log.info("[OK] Module Hunt Royal chargé")
+                log.info("[OK] Cog 'HuntRoyalCommands' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Hunt Royal: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'HuntRoyalCommands': {e}")
         
         if SUGGESTIONS_AVAILABLE:
             try:
                 await self.add_cog(SuggestionsCommands(self))
-                log.info("[OK] Module Suggestions chargé")
+                log.info("[OK] Cog 'SuggestionsCommands' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Suggestions: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'SuggestionsCommands': {e}")
         
         # Charger Hunt Royal Integration
         if HUNT_INTEGRATION_AVAILABLE:
             try:
                 await self.add_cog(hunt_integration.HuntRoyalIntegration(self))
-                log.info("[OK] Module Hunt Royal Integration chargé")
+                log.info("[OK] Cog 'HuntRoyalIntegration' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Hunt Royal Integration: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'HuntRoyalIntegration': {e}")
         
         # Charger Crypto System Integration
         if CRYPTO_INTEGRATION_AVAILABLE:
             try:
                 self.crypto_integration = setup(self)
-                log.info("[OK] Module Crypto System Integration chargé")
+                log.info("[OK] Intégration 'Crypto System' chargée")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Crypto System Integration: {e}")
+                log.error(f"[ERROR] Erreur chargement intégration 'Crypto System': {e}")
         
         # Charger WebPanel Integration Commands
         if WEBPANEL_COMMANDS_AVAILABLE:
             try:
                 await self.add_cog(WebPanelCommands(self))
-                log.info("[OK] Module WebPanel Integration Commands chargé")
+                log.info("[OK] Cog 'WebPanelCommands' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement WebPanel Commands: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'WebPanelCommands': {e}")
         
         # Charger Advanced Bot Features
         if ADVANCED_FEATURES_AVAILABLE:
             try:
                 await self.add_cog(AdvancedBotFeatures(self))
-                log.info("[OK] Module Advanced Bot Features chargé")
+                log.info("[OK] Cog 'AdvancedBotFeatures' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Advanced Features: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'AdvancedBotFeatures': {e}")
         
         # Charger Server Management System
         if SERVER_MANAGEMENT_AVAILABLE:
             try:
                 await self.add_cog(server_management.ServerManagementSystem(self))
-                log.info("[OK] Module Server Management System chargé")
+                log.info("[OK] Cog 'ServerManagementSystem' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Server Management: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ServerManagementSystem': {e}")
         
         # Charger Gaming API System
         if GAMING_API_AVAILABLE:
             try:
                 await self.add_cog(gaming_api.GamingAPISystem(self))
-                log.info("[OK] Module Gaming API System chargé")
+                log.info("[OK] Cog 'GamingAPISystem' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Gaming API: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'GamingAPISystem': {e}")
         
         # Charger Social Fun System
         if SOCIAL_FUN_AVAILABLE:
             try:
                 await self.add_cog(social_fun.SocialFunSystem(self))
-                log.info("[OK] Module Social Fun System chargé")
+                log.info("[OK] Cog 'SocialFunSystem' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Social Fun: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'SocialFunSystem': {e}")
         
-        # Charger Arsenal Config Revolution (SYSTÈME RÉVOLUTIONNAIRE V2.0)
+        # Charger Arsenal Config Revolution
         if ARSENAL_CONFIG_REVOLUTION_AVAILABLE:
             try:
                 await self.add_cog(ArsenalConfigRevolution(self))
-                log.info("🚀 [OK] Arsenal Config Revolution chargé - Configuration révolutionnaire V2.0!")
+                log.info("[OK] Cog 'ArsenalConfigRevolution' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Config Revolution: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ArsenalConfigRevolution': {e}")
         
         # Charger Enhanced Music System
         if MUSIC_ENHANCED_AVAILABLE:
             try:
                 await self.add_cog(music_enhanced.EnhancedMusicSystem(self))
-                log.info("[OK] Module Enhanced Music System chargé")
+                log.info("[OK] Cog 'EnhancedMusicSystem' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Enhanced Music: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'EnhancedMusicSystem': {e}")
         
-        # Charger Arsenal Economy System UNIFIÉ (NOUVEAU V4.6) avec Configuration Moderne
+        # Charger Arsenal Economy System
         if ARSENAL_ECONOMY_AVAILABLE:
             try:
                 await self.add_cog(ArsenalEconomyUnified(self))
                 await self.add_cog(ArsenalShopAdmin(self))
-                # Config unifié maintenant dans commands/config.py
-                # from commands.config_modal_system import ArsenalConfigSystemModal
-                # await self.add_cog(ArsenalConfigSystemModal(self))
                 await self.add_cog(ArsenalUpdateNotifier(self))
-                log.info("[OK] Arsenal Economy UNIFIÉ, Shop & Update Notifier System chargé")
+                log.info("[OK] Cogs 'ArsenalEconomyUnified', 'ArsenalShopAdmin', 'ArsenalUpdateNotifier' chargés")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Economy UNIFIÉ: {e}")
+                log.error(f"[ERROR] Erreur chargement cogs 'Arsenal Economy': {e}")
                 
-        # Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots (NOUVEAU)
+        # Arsenal AutoMod V5.0.1
         try:
             from commands.arsenal_automod_v5_fixed import ArsenalCommandGroupsFinalFixed
             await self.add_cog(ArsenalCommandGroupsFinalFixed(self))
-            log.info("🛡️ [OK] Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots chargé!")
+            log.info("🛡️ [OK] Cog 'ArsenalAutoMod V5.0.1' chargé")
         except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1 CORRIGÉ: {e}")
+            log.error(f"[ERROR] Erreur chargement cog 'ArsenalAutoMod V5.0.1': {e}")
             
-        # Arsenal Bug Reporter - Système de signalement (NOUVEAU)
+        # Arsenal Bug Reporter
         try:
             from commands.arsenal_bug_reporter import ArsenalBugReporter
             await self.add_cog(ArsenalBugReporter(self))
-            log.info("🐛 [OK] Arsenal Bug Reporter - Système de signalement chargé!")
+            log.info("🐛 [OK] Cog 'ArsenalBugReporter' chargé")
         except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Arsenal Bug Reporter: {e}")
+            log.error(f"[ERROR] Erreur chargement cog 'ArsenalBugReporter': {e}")
             
-        # Arsenal Test Suite - Tests automatiques (NOUVEAU)
+        # Arsenal Test Suite
         try:
             from commands.arsenal_test_suite import ArsenalTestSuite
             await self.add_cog(ArsenalTestSuite(self))
-            log.info("🧪 [OK] Arsenal Test Suite - Tests automatiques chargé!")
+            log.info("🧪 [OK] Cog 'ArsenalTestSuite' chargé")
         except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Arsenal Test Suite: {e}")
+            log.error(f"[ERROR] Erreur chargement cog 'ArsenalTestSuite': {e}")
                 
-            # Bot Migration System - Révolutionnaire
+            # Bot Migration System
             if BOT_MIGRATION_AVAILABLE:
                 try:
                     await self.add_cog(BotMigrationSystem(self))
-                    log.info("🚀 [OK] Bot Migration System - Système révolutionnaire de récupération de configs d'autres bots!")
+                    log.info("[OK] Cog 'BotMigrationSystem' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Bot Migration System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'BotMigrationSystem': {e}")
             else:
-                log.warning("[WARNING] Bot Migration System non disponible")
+                log.warning("[WARNING] Cog 'BotMigrationSystem' non disponible")
                 
             # Migration Help System
             try:
                 from commands.migration_help import MigrationHelp
                 await self.add_cog(MigrationHelp(self))
-                log.info("📚 [OK] Migration Help System - Guide interactif de migration!")
+                log.info("[OK] Cog 'MigrationHelp' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Migration Help: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'MigrationHelp': {e}")
                 
-            # Arsenal Features System - Affichage complet des fonctionnalités
+            # Arsenal Features System
             try:
                 from commands.arsenal_features import ArsenalBotFeatures
                 await self.add_cog(ArsenalBotFeatures(self))
-                log.info("🌟 [OK] Arsenal Features System - Toutes les fonctionnalités Discord natives!")
+                log.info("[OK] Cog 'ArsenalBotFeatures' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Features: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ArsenalBotFeatures': {e}")
                 
-            # Arsenal Config Ultimate - Configuration révolutionnaire
+            # Arsenal Config Ultimate
             try:
                 from commands.arsenal_config_ultimate import ArsenalConfigUltimate
                 await self.add_cog(ArsenalConfigUltimate(self))
-                log.info("🔥 [OK] Arsenal Config Ultimate - Configuration la plus avancée Discord!")
+                log.info("[OK] Cog 'ArsenalConfigUltimate' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Config Ultimate: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ArsenalConfigUltimate': {e}")
             
-            # Règlement Intelligent - Système ultra-complet avec interface moderne
+            # Règlement Intelligent
             try:
                 from commands.reglement import ReglementSystem
                 await self.add_cog(ReglementSystem(self))
-                log.info("📜 [OK] Règlement Intelligent - Interface ultra-complète avec toutes les fonctionnalités !")
+                log.info("[OK] Cog 'ReglementSystem' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Règlement: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ReglementSystem': {e}")
                 
-            # Hub Vocal - Salons temporaires avec panel de contrôle
+            # Hub Vocal
             try:
                 from commands.hub_vocal import HubVocal
                 await self.add_cog(HubVocal(self))
-                log.info("🎤 [OK] Hub Vocal - Système complet de salons temporaires avec contrôle !")
+                log.info("[OK] Cog 'HubVocal' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Hub Vocal: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'HubVocal': {e}")
                 
-            # DÉSACTIVÉ - Arsenal Profile Ultimate (ancien, remplacé par 2000%)
-            # try:
-            #     from commands.arsenal_profile_ultimate import ArsenalProfileUltimate
-            #     await self.add_cog(ArsenalProfileUltimate(self))
-            #     log.info("💎 [OK] Arsenal Profile Ultimate - Profil bot révolutionnaire!")
-            # except Exception as e:
-            #     log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate: {e}")
-                
-            # Arsenal Profile Ultimate 2000% - Profil révolutionnaire COMPLET (SEUL ACTIF)
+            # Arsenal Profile Ultimate 2000%
             try:
                 from commands.arsenal_profile_ultimate_2000 import ArsenalProfileUltimate2000
                 await self.add_cog(ArsenalProfileUltimate2000(self))
-                log.info("🔥 [OK] Arsenal Profile Ultimate 2000% - STREAMING + 2000% personnalisation!")
+                log.info("[OK] Cog 'ArsenalProfileUltimate2000' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Profile Ultimate 2000%: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ArsenalProfileUltimate2000': {e}")
                 
-            # Arsenal Config 2000% (UNIFIÉ DANS /config)
-            # try:
-            #     from commands.arsenal_config_2000 import ArsenalConfig2000System
-            #     await self.add_cog(ArsenalConfig2000System(self))
-            #     log.info("🚀 [OK] Arsenal Config 2000% - Configuration la plus avancée Discord!")
-            # except Exception as e:
-            log.info("ℹ️ [INFO] Arsenal Config 2000% unifié dans /config")
+            # L'ancien module "Arsenal Config 2000%" est maintenant unifié dans /config
+            log.info("ℹ️ [INFO] 'Arsenal Config 2000%' est maintenant unifié dans /config")
                 
-            # Discord Badges System - Pour afficher les capacités à droite du nom
+            # Discord Badges System
             if DISCORD_BADGES_AVAILABLE:
                 try:
                     await self.add_cog(DiscordBadges(self))
-                    log.info("🏆 [OK] Discord Badges System - Badges natifs Discord activés!")
+                    log.info("[OK] Cog 'DiscordBadges' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Discord Badges System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'DiscordBadges': {e}")
                     
-            # Arsenal Diagnostic System - Vérification complète du bot
+            # Arsenal Diagnostic System
             if ARSENAL_DIAGNOSTIC_AVAILABLE:
                 try:
                     await self.add_cog(ArsenalDiagnostic(self))
-                    log.info("🔧 [OK] Arsenal Diagnostic System - Vérification complète activée!")
+                    log.info("[OK] Cog 'ArsenalDiagnostic' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Arsenal Diagnostic System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'ArsenalDiagnostic': {e}")
                 
-            # DÉSACTIVÉ - Arsenal Profile Updater (conflit avec Profile Ultimate 2000%)
-            # try:
-            #     from commands.arsenal_profile_updater import ArsenalProfileUpdater
-            #     await self.add_cog(ArsenalProfileUpdater(self))
-            #     log.info("🎯 [OK] Arsenal Profile Updater - Profil Discord auto-optimisé!")
-            # except Exception as e:
-            #     log.error(f"[ERROR] Erreur chargement Profile Updater: {e}")
-                
-            # Arsenal Context Menus - Menus contextuels (clic droit)
+            # Arsenal Context Menus
             try:
                 from commands.arsenal_context_menus import ArsenalContextMenus
                 await self.add_cog(ArsenalContextMenus(self))
-                log.info("🖱️ [OK] Arsenal Context Menus - Menus contextuels natifs Discord!")
+                log.info("[OK] Cog 'ArsenalContextMenus' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Context Menus: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'ArsenalContextMenus': {e}")
                 
-            # Discord Integration Forcer - Force Discord à reconnaître TOUTES nos prises en charge
+            # Discord Integration Forcer
             try:
                 from commands.discord_integration_forcer import DiscordIntegrationForcer
                 await self.add_cog(DiscordIntegrationForcer(self))
-                log.info("💎 [OK] Discord Integration Forcer - TOUTES les prises en charge forcées!")
+                log.info("[OK] Cog 'DiscordIntegrationForcer' chargé")
             except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Discord Integration Forcer: {e}")
+                log.error(f"[ERROR] Erreur chargement cog 'DiscordIntegrationForcer': {e}")
                 
-            # Absence Ticket System - Gestion des tickets d'absence
+            # Absence Ticket System
             if ABSENCE_SYSTEM_AVAILABLE:
                 try:
-                    # Initialiser la base de données
                     await setup_absence_config_db()
                     await self.add_cog(AbsenceTicketSystem(self))
-                    log.info("🎫 [OK] Absence Ticket System - Tickets d'absence avec auto-expiry!")
+                    log.info("[OK] Cog 'AbsenceTicketSystem' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Absence Ticket System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'AbsenceTicketSystem': {e}")
                     
-            # Sanctions System - Casier judiciaire permanent
+            # Sanctions System
             if SANCTIONS_SYSTEM_AVAILABLE:
                 try:
                     await self.add_cog(SanctionsSystem(self))
-                    log.info("⚖️ [OK] Sanctions System - Casier permanent & Modération avancée!")
+                    log.info("[OK] Cog 'SanctionsSystem' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'SanctionsSystem': {e}")
                     
-            # Complete Commands System - Liste toutes les commandes
+            # Complete Commands System
             if COMPLETE_COMMANDS_SYSTEM_AVAILABLE:
                 try:
                     await self.add_cog(CompleteCommandsSystem(self))
-                    log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
+                    log.info("[OK] Cog 'CompleteCommandsSystem' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'CompleteCommandsSystem': {e}")
                     
-            # Communication System - Say & Traduction avancée
+            # Communication System
             if COMMUNICATION_SYSTEM_AVAILABLE:
                 try:
                     await self.add_cog(CommunicationSystem(self))
-                    log.info("📢 [OK] Communication System - Say & Traduction IA chargés!")
+                    log.info("[OK] Cog 'CommunicationSystem' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Communication System: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'CommunicationSystem': {e}")
                     import traceback
                     log.error(f"[DEBUG] Communication System Traceback: {traceback.format_exc()}")
                     
-            # Help System V2 - Interface d'aide révolutionnaire
+            # Help System V2
             if HELP_SYSTEM_V2_AVAILABLE:
                 try:
                     await self.add_cog(HelpSystemV2(self))
-                    log.info("📚 [OK] Help System V2 - Interface moderne chargée!")
+                    log.info("[OK] Cog 'HelpSystemV2' chargé")
                 except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Help System V2: {e}")
+                    log.error(f"[ERROR] Erreur chargement cog 'HelpSystemV2': {e}")
                     import traceback
                     log.error(f"[DEBUG] Help System V2 Detailed Error: {traceback.format_exc()}")
 
 client = ArsenalBot(command_prefix=PREFIX, intents=intents)
+client.creator_id = CREATOR_ID
 client.startup_time = datetime.datetime.now(datetime.timezone.utc)
 client.command_usage = {}
 
