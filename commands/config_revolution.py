@@ -177,6 +177,7 @@ class ArsenalConfigRevolution(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+        self.creator_id = getattr(bot, 'creator_id', None)
         # Référence au système de config central (si chargé)
         try:
             self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
@@ -998,10 +999,10 @@ class ArsenalConfigRevolution(commands.Cog):
         """Commande principale de configuration Arsenal"""
         
         # Vérifications de permissions
-        if not interaction.user.guild_permissions.administrator:
+        if not interaction.user.guild_permissions.administrator and interaction.user.id != self.creator_id:
             embed = discord.Embed(
                 title="❌ Permissions Insuffisantes",
-                description="Seuls les **Administrateurs** peuvent utiliser ce système de configuration.",
+                description="Seuls les **Administrateurs** ou le **Créateur du bot** peuvent utiliser ce système de configuration.",
                 color=0xFF0000
             )
             return await interaction.response.send_message(embed=embed, ephemeral=True)
@@ -1266,56 +1267,6 @@ class ArsenalConfigRevolution(commands.Cog):
 # VUES DISCORD UI - INTERFACES ULTRA-MODERNES
 # =============================================================================
 
-class ConfigMainView(discord.ui.View):
-    """Vue principale de configuration avec boutons ultra-modernes"""
-    
-    def __init__(self, cog: ArsenalConfigRevolution, guild_id: int, preset: str = None):
-        super().__init__(timeout=1800)  # 30 minutes
-        self.cog = cog
-        self.guild_id = guild_id
-        self.preset = preset
-    
-    @discord.ui.button(label="🚀 Configuration Rapide", style=discord.ButtonStyle.primary, emoji="⚡")
-    async def quick_setup_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        """Démarre la configuration rapide"""
-        await interaction.response.defer()
-        
-        # Démarrer la configuration par étapes
-        view = QuickSetupStep1(self.cog, self.guild_id, self.preset)
-        embed = self.cog.create_step1_embed()
-        
-        await interaction.edit_original_response(embed=embed, view=view)
-    
-    @discord.ui.button(label="🔧 Configuration Avancée", style=discord.ButtonStyle.secondary, emoji="⚙️")
-    async def advanced_setup_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        """Configuration avancée module par module"""
-        await interaction.response.defer()
-        
-        view = AdvancedConfigView(self.cog, self.guild_id)
-        embed = self.cog.create_advanced_config_embed(await self.cog.load_guild_config(self.guild_id))
-        
-        await interaction.edit_original_response(embed=embed, view=view)
-    
-    @discord.ui.button(label="📊 Dashboard", style=discord.ButtonStyle.success, emoji="📈")
-    async def dashboard_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        """Ouvre le dashboard analytics"""
-        await interaction.response.defer()
-        
-        view = AnalyticsDashboardView(self.cog, self.guild_id)
-        embed = await self.cog.create_analytics_embed(interaction.guild)
-        
-        await interaction.edit_original_response(embed=embed, view=view)
-    
-    @discord.ui.button(label="❌ Annuler", style=discord.ButtonStyle.danger)
-    async def cancel_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        """Annule la configuration"""
-        embed = discord.Embed(
-            title="❌ Configuration Annulée",
-            description="La configuration a été annulée. Aucun changement n'a été effectué.",
-            color=0xFF0000
-        )
-        await interaction.response.edit_message(embed=embed, view=None)
-
 class QuickSetupStep1(discord.ui.View):
     """Étape 1: Sélection du type de serveur"""
     
@@ -1388,7 +1339,7 @@ class QuickSetupStep1(discord.ui.View):
         """Retour au menu principal"""
         await interaction.response.defer()
         
-        view = ConfigMainView(self.cog, self.guild_id, self.selected_preset)
+        view = ConfigMainView(self.cog.bot, interaction.user.id, self.guild_id)
         embed = self.cog.create_welcome_embed(interaction.guild)
         
         await interaction.edit_original_response(embed=embed, view=view)
@@ -1711,6 +1662,15 @@ class ConfigMainView(discord.ui.View):
         self.user_id = user_id
         self.guild_id = guild_id
         self.config_system = self.bot.get_cog('ArsenalConfigRevolution')
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        """Vérifie si l'utilisateur est autorisé à interagir."""
+        is_original_user = interaction.user.id == self.user_id
+        is_creator = self.config_system and interaction.user.id == self.config_system.creator_id
+        if not is_original_user and not is_creator:
+            await interaction.response.send_message("❌ Seul l'utilisateur qui a initié cette commande ou le créateur du bot peut l'utiliser.", ephemeral=True)
+            return False
+        return True
         
     @discord.ui.button(
         label="⚡ Configuration Rapide", 
@@ -1720,10 +1680,6 @@ class ConfigMainView(discord.ui.View):
     )
     async def quick_setup(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Configuration rapide en 5 étapes (15-30 min)"""
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("❌ Seul l'administrateur peut utiliser cette interface!", ephemeral=True)
-            return
-        
         embed = discord.Embed(
             title="⚡ Configuration Rapide Arsenal",
             description="""
@@ -1757,10 +1713,6 @@ Cette configuration guidée va vous permettre de configurer tous les modules ess
     )
     async def advanced_setup(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Configuration avancée module par module"""
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("❌ Seul l'administrateur peut utiliser cette interface!", ephemeral=True)
-            return
-        
         embed = discord.Embed(
             title="🎛️ Configuration Avancée Arsenal",
             description="""
@@ -1795,10 +1747,6 @@ Configurez chaque module Arsenal individuellement avec toutes les options avanc�
     )
     async def config_status(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Affiche l'état actuel de la configuration"""
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("❌ Seul l'administrateur peut utiliser cette interface!", ephemeral=True)
-            return
-        
         config = self.config_system.load_guild_config(self.guild_id)
         
         # Calcul du pourcentage de completion
@@ -1863,10 +1811,6 @@ Configurez chaque module Arsenal individuellement avec toutes les options avanc�
     )
     async def reset_config(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Réinitialise complètement la configuration"""
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("❌ Seul l'administrateur peut utiliser cette interface!", ephemeral=True)
-            return
-        
         embed = discord.Embed(
             title="🔄 Réinitialisation de la Configuration",
             description="""
