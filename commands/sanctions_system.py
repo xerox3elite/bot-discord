@@ -294,6 +294,7 @@ class SanctionsSystem(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+        self.creator_id = getattr(bot, 'creator_id', None)
         asyncio.create_task(self.setup_database())
     
     async def setup_database(self):
@@ -536,34 +537,48 @@ class SanctionsSystem(commands.Cog):
     # ==================== CASIER JUDICIAIRE ====================
     
     @app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un membre")
-    @app_commands.describe(user="Membre dont voir le casier")
-    async def view_casier(self, interaction: discord.Interaction, user: discord.Member = None):
+    @app_commands.describe(user="Membre dont voir le casier", global_view="Afficher le casier sur tous les serveurs (Créateur du bot seulement)")
+    async def view_casier(self, interaction: discord.Interaction, user: discord.Member = None, global_view: bool = False):
         """Afficher le casier judiciaire complet"""
         
         if not user:
             user = interaction.user
         
-        if not interaction.user.guild_permissions.moderate_members and user != interaction.user:
-            await interaction.response.send_message("❌ Vous ne pouvez voir que votre propre casier", ephemeral=True)
+        # Permission check
+        is_creator = interaction.user.id == self.bot.creator_id
+        if global_view and not is_creator:
+            await interaction.response.send_message("❌ Seuls les créateurs du bot peuvent voir le casier global.", ephemeral=True)
+            return
+
+        if not interaction.user.guild_permissions.moderate_members and user != interaction.user and not is_creator:
+            await interaction.response.send_message("❌ Vous ne pouvez voir que votre propre casier.", ephemeral=True)
             return
         
         try:
             db_path = "data/sanctions_casier.db"
             async with aiosqlite.connect(db_path) as db:
-                # Récupérer toutes les sanctions
-                cursor = await db.execute("""
-                    SELECT id, sanction_type, reason, duration, created_at, moderator_id, active
-                    FROM sanctions 
-                    WHERE guild_id = ? AND user_id = ?
-                    ORDER BY created_at DESC
-                """, (interaction.guild.id, user.id))
+                if global_view:
+                    cursor = await db.execute("""
+                        SELECT id, guild_id, sanction_type, reason, duration, created_at, moderator_id, active
+                        FROM sanctions
+                        WHERE user_id = ?
+                        ORDER BY created_at DESC
+                    """, (user.id,))
+                else:
+                    cursor = await db.execute("""
+                        SELECT id, guild_id, sanction_type, reason, duration, created_at, moderator_id, active
+                        FROM sanctions
+                        WHERE guild_id = ? AND user_id = ?
+                        ORDER BY created_at DESC
+                    """, (interaction.guild.id, user.id))
                 
                 sanctions = await cursor.fetchall()
             
+            title = f"📋 Casier Judiciaire {'Global' if global_view else ''} - {user.display_name}"
             if not sanctions:
                 embed = discord.Embed(
-                    title="📋 Casier Judiciaire - Vierge",
-                    description=f"**{user.display_name}** n'a aucune sanction enregistrée",
+                    title=title,
+                    description=f"**{user.display_name}** n'a aucune sanction enregistrée {'globalement' if global_view else 'sur ce serveur'}.",
                     color=0x00ff00,
                     timestamp=datetime.now(timezone.utc)
                 )
@@ -573,17 +588,17 @@ class SanctionsSystem(commands.Cog):
             
             # Statistiques
             total = len(sanctions)
-            active = len([s for s in sanctions if s[6] == 1])  # active = 1
+            active = len([s for s in sanctions if s[7] == 1])
             types = {}
             
             for sanction in sanctions:
-                sanction_type = sanction[1]
+                sanction_type = sanction[2]
                 if sanction_type not in types:
                     types[sanction_type] = 0
                 types[sanction_type] += 1
             
             embed = discord.Embed(
-                title=f"📋 Casier Judiciaire - {user.display_name}",
+                title=title,
                 description=f"**Total:** {total} sanctions • **Actives:** {active}",
                 color=0xff9900 if active > 0 else 0x00ff00,
                 timestamp=datetime.now(timezone.utc)
@@ -609,7 +624,9 @@ class SanctionsSystem(commands.Cog):
             # Dernières sanctions (5 max)
             recent_text = ""
             for i, sanction in enumerate(sanctions[:5]):
-                sanction_id, sanction_type, reason, duration, created_at, moderator_id, active = sanction
+                sanction_id, guild_id, sanction_type, reason, duration, created_at, moderator_id, active = sanction
+
+                guild_name = self.bot.get_guild(guild_id).name if self.bot.get_guild(guild_id) else f"Serveur ID: {guild_id}"
                 
                 # Format date
                 try:
@@ -620,21 +637,17 @@ class SanctionsSystem(commands.Cog):
                 
                 # Moderator
                 try:
-                    moderator = interaction.guild.get_member(moderator_id)
+                    moderator = await self.bot.fetch_user(moderator_id)
                     mod_name = moderator.display_name if moderator else f"ID:{moderator_id}"
                 except:
                     mod_name = f"ID:{moderator_id}"
                 
                 # Status
                 status = "🟢" if active else "🔴"
-                
-                # Emoji sanction
                 emoji = emojis.get(sanction_type, "📋")
-                
-                # Durée
                 duration_text = f" ({duration})" if duration else ""
                 
-                recent_text += f"{status} {emoji} **#{sanction_id}** - {sanction_type.title()}{duration_text}\n"
+                recent_text += f"{status} {emoji} **#{sanction_id}** - {sanction_type.title()}{duration_text} sur **{guild_name}**\n"
                 recent_text += f"└ *{reason[:50]}...* | {date_str} | {mod_name}\n\n"
             
             if recent_text:

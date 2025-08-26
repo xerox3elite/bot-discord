@@ -13,9 +13,9 @@ async def test_migration_system():
     # Test 1: Structure des fichiers
     print("\n📁 Test: Structure des fichiers...")
     
-    migration_file = "A:\\Arsenal_propre\\commands\\bot_migration_system.py"
-    test_file = "A:\\Arsenal_propre\\tests\\test_migration_system.py"
-    doc_file = "A:\\Arsenal_propre\\DOCUMENTATION_MIGRATION_SYSTEM.md"
+    migration_file = "commands/bot_migration_system.py"
+    test_file = "tests/test_migration_system.py"
+    doc_file = "DOCUMENTATION_MIGRATION_SYSTEM.md"
     
     files_exist = (
         os.path.exists(migration_file) and
