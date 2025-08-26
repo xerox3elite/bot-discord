@@ -1388,7 +1388,7 @@ class QuickSetupStep1(discord.ui.View):
         """Retour au menu principal"""
         await interaction.response.defer()
         
-        view = ConfigMainView(self.cog, self.guild_id, self.selected_preset)
+        view = ConfigMainView(self.cog.bot, interaction.user.id, self.guild_id)
         embed = self.cog.create_welcome_embed(interaction.guild)
         
         await interaction.edit_original_response(embed=embed, view=view)

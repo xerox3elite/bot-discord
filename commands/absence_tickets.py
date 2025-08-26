@@ -512,7 +512,7 @@ class AbsenceRequestView(discord.ui.View):
     
     @discord.ui.button(label="🎫 Créer Ticket d'Absence", style=discord.ButtonStyle.primary, emoji="🎫")
     async def create_absence_ticket(self, interaction: discord.Interaction, button: discord.ui.Button):
-    modal = AbsenceTicketModal(self.bot, self.channel_config, self.bot.get_cog)
+        modal = AbsenceTicketModal(self.channel_config, self.bot.get_cog)
         await interaction.response.send_modal(modal)
 
 class AbsenceTicketSystem(commands.Cog):
