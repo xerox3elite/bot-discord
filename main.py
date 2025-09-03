@@ -485,14 +485,6 @@ class ArsenalBot(commands.Bot):
         except Exception as e:
             log.error(f"[ERROR] Erreur chargement Hunt Royal Profiles: {e}")
         
-        # Hunt Royal Integration System - API complète
-        try:
-            from commands.hunt_royal_integration import HuntRoyalIntegrationSystem
-            await self.add_cog(HuntRoyalIntegrationSystem(self))
-            log.info("🔗 [OK] Hunt Royal Integration System - API complète!")
-        except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Hunt Royal Integration System: {e}")
-        
         # Charger Crypto System Integration
         if CRYPTO_INTEGRATION_AVAILABLE:
             try:
