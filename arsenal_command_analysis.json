@@ -1,57 +1,57 @@
 {
   "timestamp": "2025-09-03 16:35:00",
   "analysis_summary": {
-    "total_files": 46,
-    "total_commands": 147,
+    "total_files": 48,
+    "total_commands": 153,
     "active_commands": 525,
-    "inactive_commands": 358,
+    "inactive_commands": 376,
     "loaded_cogs": 43,
-    "command_conflicts": 13
+    "command_conflicts": 18
   },
   "loaded_cogs": [
-    "arsenal_shop_admin",
-    "social_fun_system",
-    "arsenal_context_menus",
-    "gaming_api_system",
-    "level_system",
-    "hunt_royal_integration",
-    "arsenal_diagnostic",
-    "notifications_system",
-    "reglement",
-    "autoroles_system",
-    "hub_vocal",
-    "bot_migration_system",
-    "reaction_roles_system",
-    "advanced_logs",
-    "webpanel_integration",
-    "help_system_v2",
-    "advanced_features",
-    "arsenal_config_ultimate",
-    "arsenal_config_system",
-    "arsenal_automod_v5_fixed",
-    "creator_tools",
-    "unknown",
-    "hunt_royal_auth",
-    "arsenal_bug_reporter",
-    "arsenal_voice_manager",
-    "absence_tickets",
-    "hunt_royal_profiles",
-    "community",
-    "migration_help",
-    "invcmd_system",
-    "arsenal_update_notifier",
-    "music_enhanced_system",
-    "server_management_system",
-    "arsenal_profile_ultimate_2000",
-    "complete_commands_system",
-    "discord_integration_forcer",
-    "arsenal_test_suite",
-    "arsenal_custom_commands",
-    "arsenal_features",
-    "arsenal_economy_unified",
-    "advanced_ticket_system",
     "communication_system",
-    "config_revolution"
+    "arsenal_test_suite",
+    "arsenal_diagnostic",
+    "creator_tools",
+    "advanced_ticket_system",
+    "community",
+    "music_enhanced_system",
+    "arsenal_update_notifier",
+    "arsenal_economy_unified",
+    "arsenal_bug_reporter",
+    "arsenal_config_ultimate",
+    "reaction_roles_system",
+    "hunt_royal_integration",
+    "reglement",
+    "level_system",
+    "server_management_system",
+    "hub_vocal",
+    "unknown",
+    "arsenal_voice_manager",
+    "hunt_royal_profiles",
+    "arsenal_shop_admin",
+    "hunt_royal_auth",
+    "autoroles_system",
+    "arsenal_custom_commands",
+    "arsenal_context_menus",
+    "webpanel_integration",
+    "advanced_features",
+    "invcmd_system",
+    "arsenal_profile_ultimate_2000",
+    "arsenal_features",
+    "migration_help",
+    "help_system_v2",
+    "gaming_api_system",
+    "discord_integration_forcer",
+    "arsenal_config_system",
+    "absence_tickets",
+    "bot_migration_system",
+    "notifications_system",
+    "config_revolution",
+    "complete_commands_system",
+    "advanced_logs",
+    "arsenal_automod_v5_fixed",
+    "social_fun_system"
   ],
   "theoretical_commands": {
     "absence_tickets": [
@@ -582,6 +582,29 @@
         "status": "inactive"
       }
     ],
+    "help_system": [
+      {
+        "name": "help",
+        "type": "app_command",
+        "description": "📚 Afficher l'aide du bot",
+        "file": "help_system",
+        "status": "inactive"
+      },
+      {
+        "name": "commands",
+        "type": "app_command",
+        "description": "📋 Liste complète des commandes",
+        "file": "help_system",
+        "status": "inactive"
+      },
+      {
+        "name": "helpme",
+        "type": "traditional_command",
+        "description": "N/A",
+        "file": "help_system",
+        "status": "inactive"
+      }
+    ],
     "help_system_advanced": [
       {
         "name": "helpadvanced",
@@ -998,6 +1021,29 @@
         "type": "app_command",
         "description": "🛡️ Gestion du règlement du serveur",
         "file": "reglement_system",
+        "status": "inactive"
+      }
+    ],
+    "sanction": [
+      {
+        "name": "warn",
+        "type": "app_command",
+        "description": "⚠️ Avertir un utilisateur",
+        "file": "sanction",
+        "status": "inactive"
+      },
+      {
+        "name": "timeout",
+        "type": "app_command",
+        "description": "⏰ Mettre un utilisateur en timeout",
+        "file": "sanction",
+        "status": "inactive"
+      },
+      {
+        "name": "casier",
+        "type": "app_command",
+        "description": "📋 Voir le casier judiciaire d'un utilisateur",
+        "file": "sanction",
         "status": "inactive"
       }
     ],
@@ -4988,6 +5034,69 @@
       "status": "inactive"
     },
     {
+      "name": "help",
+      "type": "app_command",
+      "description": "📚 Afficher l'aide du bot",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Liste complète des commandes",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "helpme",
+      "type": "traditional_command",
+      "description": "N/A",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "help",
+      "type": "app_command",
+      "description": "📚 Afficher l'aide du bot",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Liste complète des commandes",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "helpme",
+      "type": "traditional_command",
+      "description": "N/A",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "help",
+      "type": "app_command",
+      "description": "📚 Afficher l'aide du bot",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Liste complète des commandes",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
+      "name": "helpme",
+      "type": "traditional_command",
+      "description": "N/A",
+      "file": "help_system",
+      "status": "inactive"
+    },
+    {
       "name": "helpadvanced",
       "type": "app_command",
       "description": "🚀 Système d'aide interactif Arsenal V4 Ultimate",
@@ -6661,6 +6770,69 @@
       "status": "inactive"
     },
     {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Avertir un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Mettre un utilisateur en timeout",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Avertir un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Mettre un utilisateur en timeout",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Avertir un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Mettre un utilisateur en timeout",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un utilisateur",
+      "file": "sanction",
+      "status": "inactive"
+    },
+    {
       "name": "timeout",
       "type": "app_command",
       "description": "⏰ Timeout un membre",
@@ -7405,6 +7577,20 @@
       ]
     },
     {
+      "command": "help",
+      "files": [
+        "help",
+        "help_system"
+      ]
+    },
+    {
+      "command": "commands",
+      "files": [
+        "complete_commands_system",
+        "help_system"
+      ]
+    },
+    {
       "command": "help_search",
       "files": [
         "complete_commands_system",
@@ -7452,13 +7638,36 @@
         "hunt_royal_system",
         "hunt_royal_system"
       ]
+    },
+    {
+      "command": "timeout",
+      "files": [
+        "sanction",
+        "sanctions_system"
+      ]
+    },
+    {
+      "command": "warn",
+      "files": [
+        "sanction",
+        "sanctions_system"
+      ]
+    },
+    {
+      "command": "casier",
+      "files": [
+        "sanction",
+        "sanctions_system"
+      ]
     }
   ],
   "recommendations": [
-    "⚠️ Résoudre 13 conflits de noms de commandes",
-    "🔧 Activer 358 commandes inactives ou nettoyer le code",
+    "⚠️ Résoudre 18 conflits de noms de commandes",
+    "🔧 Activer 376 commandes inactives ou nettoyer le code",
     "🗂️ Fichier help: 9 commandes non chargées",
+    "🗂️ Fichier help_system: 9 commandes non chargées",
     "🗂️ Fichier hunt_royal_system: 225 commandes non chargées",
+    "🗂️ Fichier sanction: 9 commandes non chargées",
     "🗂️ Fichier sanctions_system: 100 commandes non chargées"
   ]
 }
