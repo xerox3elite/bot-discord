@@ -160,6 +160,7 @@ from manager.status_manager import initialize_status_system
 # import commands.admin as admin  # DÉSACTIVÉ - Remplacé par ArsenalCommandGroupsFinal
 import commands.moderateur as moderateur
 import commands.sanction as sanction
+import commands.help_system as help_system
 
 # Import music avancé pour éviter l'erreur
 try:
@@ -349,6 +350,14 @@ try:
 except Exception as e:
     SANCTIONS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Sanctions System: {e}")
+
+# Help System Complete - Aide interactive (NOUVEAU V4.5.2)
+try:
+    HELP_SYSTEM_AVAILABLE = True
+    print("📚 [OK] Help System V2 chargé - Interface révolutionnaire!")
+except Exception as e:
+    HELP_SYSTEM_AVAILABLE = False
+    print(f"❌ [ERREUR] Help System: {e}")
 
 # Complete Commands System - Liste TOUTES les commandes (NOUVEAU V4.5.2)
 try:
@@ -560,8 +569,13 @@ class ArsenalBot(commands.Bot):
         # Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots (NOUVEAU)
         try:
             from commands.arsenal_automod_v5_fixed import ArsenalCommandGroupsFinalFixed
-            await self.add_cog(ArsenalCommandGroupsFinalFixed(self))
-            log.info("🛡️ [OK] Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots chargé!")
+            # Vérifier si la commande automod existe déjà
+            existing_automod = self.tree.get_command("automod")
+            if not existing_automod:
+                await self.add_cog(ArsenalCommandGroupsFinalFixed(self))
+                log.info("🛡️ [OK] Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots chargé!")
+            else:
+                log.info("🛡️ [INFO] Arsenal AutoMod déjà chargé - évité duplication")
         except Exception as e:
             log.error(f"[ERROR] Erreur chargement Arsenal AutoMod V5.0.1 CORRIGÉ: {e}")
             
@@ -678,6 +692,13 @@ class ArsenalBot(commands.Bot):
                 log.info("🎭 [OK] Reaction Roles System - Rôles par réaction!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Reaction Roles System: {e}")
+            
+            # Help System Complete - Aide interactive
+            try:
+                await help_system.setup(self)
+                log.info("📚 [OK] Help System Complete V4.5.2 - Aide interactive!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Help System: {e}")
                 
             # AutoRoles System - Attribution automatique de rôles
             try:

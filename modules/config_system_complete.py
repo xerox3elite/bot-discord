@@ -213,6 +213,18 @@ class ConfigCog(commands.Cog):
     
     def check_permissions(self, interaction: discord.Interaction) -> bool:
         """Vérifie les permissions admin"""
+        # Vérifier si c'est une interaction en serveur
+        if not interaction.guild:
+            return False
+        
+        # Vérifier si l'utilisateur est un Member (pas juste User)
+        if not hasattr(interaction.user, 'guild_permissions'):
+            # Récupérer le membre depuis le serveur
+            member = interaction.guild.get_member(interaction.user.id)
+            if not member:
+                return False
+            return member.guild_permissions.administrator or interaction.user.id == interaction.guild.owner_id
+        
         return interaction.user.guild_permissions.administrator or interaction.user.id == interaction.guild.owner_id
     
     @app_commands.command(name="config", description="🔧 Configuration complète du serveur")
