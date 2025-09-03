@@ -159,8 +159,8 @@ from manager.status_manager import initialize_status_system
 # import commands.community as community  # Maintenant géré par le Cog CommunityCommands
 # import commands.admin as admin  # DÉSACTIVÉ - Remplacé par ArsenalCommandGroupsFinal
 import commands.moderateur as moderateur
-import commands.sanction as sanction
-import commands.help_system as help_system
+# Sanctions sera géré par sanctions_system uniquement
+# Help System V1 - DÉSACTIVÉ (remplacé par V2)
 
 # Import music avancé pour éviter l'erreur
 try:
@@ -260,14 +260,9 @@ except Exception as e:
     HUNT_AUTH_AVAILABLE = False
     print(f"[WARNING] Hunt Royal Auth non disponible: {e}")
 
-# Hunt Royal Profiles System (NOUVEAU)
-try:
-    import commands.hunt_royal_profiles as hunt_profiles
-    HUNT_PROFILES_AVAILABLE = True
-    print("[OK] Hunt Royal Profiles System chargé")
-except Exception as e:
-    HUNT_PROFILES_AVAILABLE = False
-    print(f"[WARNING] Hunt Royal Profiles non disponible: {e}")
+# Hunt Royal Profiles System sera chargé via Cog uniquement
+HUNT_PROFILES_AVAILABLE = True
+print("[OK] Hunt Royal Profiles System préparé")
 
 # Hunt Royal Integration System (NOUVEAU V4)
 try:
@@ -460,34 +455,37 @@ class ArsenalBot(commands.Bot):
         # Charger Hunt Royal Integration
         if HUNT_INTEGRATION_AVAILABLE:
             try:
-                await self.add_cog(hunt_integration.HuntRoyalIntegration(self))
+                await self.add_cog(hunt_integration.HuntRoyalIntegrationSystem(self))
                 log.info("[OK] Module Hunt Royal Integration chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Hunt Royal Integration: {e}")
         
         # Hunt Royal Auth System - Système d'authentification
-        try:
-            from commands.hunt_royal_auth import HuntRoyalAuthSystem
-            await self.add_cog(HuntRoyalAuthSystem(self))
-            log.info("🏹 [OK] Hunt Royal Auth System - Authentification avancée!")
-        except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Hunt Royal Auth: {e}")
+        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
+        # try:
+        #     from commands.hunt_royal_auth import HuntRoyalAuthSystem
+        #     await self.add_cog(HuntRoyalAuthSystem(self))
+        #     log.info("🏹 [OK] Hunt Royal Auth System - Authentification avancée!")
+        # except Exception as e:
+        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Auth: {e}")
         
         # Hunt Royal Profiles System - Gestion des profils
-        try:
-            from commands.hunt_royal_profiles import HuntRoyalProfilesSystem
-            await self.add_cog(HuntRoyalProfilesSystem(self))
-            log.info("👤 [OK] Hunt Royal Profiles System - Profils joueurs!")
-        except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Hunt Royal Profiles: {e}")
+        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
+        # try:
+        #     from commands.hunt_royal_profiles import HuntRoyalProfilesSystem
+        #     await self.add_cog(HuntRoyalProfilesSystem(self))
+        #     log.info("👤 [OK] Hunt Royal Profiles System - Profils joueurs!")
+        # except Exception as e:
+        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Profiles: {e}")
         
         # Hunt Royal Integration System - API complète
-        try:
-            from commands.hunt_royal_integration import HuntRoyalIntegrationSystem
-            await self.add_cog(HuntRoyalIntegrationSystem(self))
-            log.info("🔗 [OK] Hunt Royal Integration System - API complète!")
-        except Exception as e:
-            log.error(f"[ERROR] Erreur chargement Hunt Royal Integration System: {e}")
+        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
+        # try:
+        #     from commands.hunt_royal_integration import HuntRoyalIntegrationSystem
+        #     await self.add_cog(HuntRoyalIntegrationSystem(self))
+        #     log.info("🔗 [OK] Hunt Royal Integration System - API complète!")
+        # except Exception as e:
+        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Integration System: {e}")
         
         # Charger Crypto System Integration
         if CRYPTO_INTEGRATION_AVAILABLE:
@@ -693,12 +691,12 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Reaction Roles System: {e}")
             
-            # Help System Complete - Aide interactive
-            try:
-                await help_system.setup(self)
-                log.info("📚 [OK] Help System Complete V4.5.2 - Aide interactive!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Help System: {e}")
+            # Help System Complete - DÉSACTIVÉ (remplacé par V2)
+            # try:
+            #     await help_system.setup(self)
+            #     log.info("📚 [OK] Help System Complete V4.5.2 - Aide interactive!")
+            # except Exception as e:
+            #     log.error(f"[ERROR] Erreur chargement Help System: {e}")
                 
             # AutoRoles System - Attribution automatique de rôles
             try:
@@ -977,7 +975,7 @@ async def on_command_error(ctx, error):
 # Imports modules
 client.tree.add_command(moderateur.moderator_group)
 # client.tree.add_command(admin.admin_group)  # DÉSACTIVÉ - Remplacé par ArsenalCommandGroupsFinal
-client.tree.add_command(sanction.sanction_group)
+# client.tree.add_command(sanction.sanction_group)  # DÉSACTIVÉ - Remplacé par SanctionsSystem
 
 # Individuelles - Les commandes community sont maintenant gérées par le Cog CommunityCommands
 

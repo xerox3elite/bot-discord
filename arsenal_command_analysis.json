@@ -2,56 +2,56 @@
   "timestamp": "2025-09-03 16:35:00",
   "analysis_summary": {
     "total_files": 48,
-    "total_commands": 153,
-    "active_commands": 525,
+    "total_commands": 156,
+    "active_commands": 552,
     "inactive_commands": 376,
     "loaded_cogs": 43,
-    "command_conflicts": 18
+    "command_conflicts": 21
   },
   "loaded_cogs": [
-    "communication_system",
-    "arsenal_test_suite",
-    "arsenal_diagnostic",
-    "creator_tools",
-    "advanced_ticket_system",
-    "community",
-    "music_enhanced_system",
-    "arsenal_update_notifier",
-    "arsenal_economy_unified",
-    "arsenal_bug_reporter",
-    "arsenal_config_ultimate",
-    "reaction_roles_system",
-    "hunt_royal_integration",
-    "reglement",
-    "level_system",
-    "server_management_system",
-    "hub_vocal",
-    "unknown",
-    "arsenal_voice_manager",
-    "hunt_royal_profiles",
-    "arsenal_shop_admin",
-    "hunt_royal_auth",
-    "autoroles_system",
-    "arsenal_custom_commands",
-    "arsenal_context_menus",
     "webpanel_integration",
-    "advanced_features",
-    "invcmd_system",
-    "arsenal_profile_ultimate_2000",
-    "arsenal_features",
-    "migration_help",
-    "help_system_v2",
-    "gaming_api_system",
-    "discord_integration_forcer",
-    "arsenal_config_system",
-    "absence_tickets",
     "bot_migration_system",
-    "notifications_system",
+    "arsenal_shop_admin",
     "config_revolution",
-    "complete_commands_system",
-    "advanced_logs",
+    "arsenal_profile_ultimate_2000",
+    "communication_system",
+    "community",
+    "unknown",
+    "arsenal_test_suite",
+    "migration_help",
+    "arsenal_custom_commands",
+    "absence_tickets",
+    "advanced_ticket_system",
+    "help_system_v2",
     "arsenal_automod_v5_fixed",
-    "social_fun_system"
+    "discord_integration_forcer",
+    "arsenal_bug_reporter",
+    "arsenal_update_notifier",
+    "music_enhanced_system",
+    "notifications_system",
+    "arsenal_diagnostic",
+    "arsenal_context_menus",
+    "level_system",
+    "reaction_roles_system",
+    "invcmd_system",
+    "hunt_royal_profiles",
+    "creator_tools",
+    "arsenal_economy_unified",
+    "hunt_royal_auth",
+    "server_management_system",
+    "reglement",
+    "arsenal_voice_manager",
+    "gaming_api_system",
+    "hunt_royal_integration",
+    "autoroles_system",
+    "complete_commands_system",
+    "social_fun_system",
+    "arsenal_features",
+    "arsenal_config_ultimate",
+    "arsenal_config_system",
+    "advanced_logs",
+    "hub_vocal",
+    "advanced_features"
   ],
   "theoretical_commands": {
     "absence_tickets": [
@@ -720,6 +720,27 @@
         "name": "unlink-hunt",
         "type": "app_command",
         "description": "Délier votre compte Hunt Royal de Discord",
+        "file": "hunt_royal_profiles",
+        "status": "active"
+      },
+      {
+        "name": "link-hunt",
+        "type": "app_command",
+        "description": "🔗 Lier votre compte Hunt Royal",
+        "file": "hunt_royal_profiles",
+        "status": "active"
+      },
+      {
+        "name": "profile-hunt",
+        "type": "app_command",
+        "description": "📊 Voir votre profil Hunt Royal",
+        "file": "hunt_royal_profiles",
+        "status": "active"
+      },
+      {
+        "name": "unlink-hunt",
+        "type": "app_command",
+        "description": "🔗 Délier votre compte Hunt Royal",
         "file": "hunt_royal_profiles",
         "status": "active"
       }
@@ -3333,21 +3354,21 @@
     {
       "name": "link-hunt",
       "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
+      "description": "🔗 Lier votre compte Hunt Royal",
       "file": "hunt_royal_profiles",
       "status": "active"
     },
     {
       "name": "profile-hunt",
       "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "description": "📊 Voir votre profil Hunt Royal",
       "file": "hunt_royal_profiles",
       "status": "active"
     },
     {
       "name": "unlink-hunt",
       "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
+      "description": "🔗 Délier votre compte Hunt Royal",
       "file": "hunt_royal_profiles",
       "status": "active"
     },
@@ -3369,6 +3390,195 @@
       "name": "unlink-hunt",
       "type": "app_command",
       "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
       "file": "hunt_royal_profiles",
       "status": "active"
     },
@@ -7605,6 +7815,27 @@
       ]
     },
     {
+      "command": "link-hunt",
+      "files": [
+        "hunt_royal_profiles",
+        "hunt_royal_profiles"
+      ]
+    },
+    {
+      "command": "profile-hunt",
+      "files": [
+        "hunt_royal_profiles",
+        "hunt_royal_profiles"
+      ]
+    },
+    {
+      "command": "unlink-hunt",
+      "files": [
+        "hunt_royal_profiles",
+        "hunt_royal_profiles"
+      ]
+    },
+    {
       "command": "register",
       "files": [
         "hunt_royal_auth",
@@ -7662,7 +7893,7 @@
     }
   ],
   "recommendations": [
-    "⚠️ Résoudre 18 conflits de noms de commandes",
+    "⚠️ Résoudre 21 conflits de noms de commandes",
     "🔧 Activer 376 commandes inactives ou nettoyer le code",
     "🗂️ Fichier help: 9 commandes non chargées",
     "🗂️ Fichier help_system: 9 commandes non chargées",
