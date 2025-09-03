@@ -932,35 +932,6 @@ async def setup(bot):
             ephemeral=True
         )
 
-    # 💬 /top_messages — Classement messages envoyés (version simplifiée pour production)  
-    @app_commands.command(name="community_top_messages", description="Classement des membres actifs par messages")
-    async def top_messages(self, interaction: discord.Interaction):
-        await interaction.response.send_message(
-            "💬 **Top Messages (en cours de développement)**\n"
-            "📊 Le système de tracking sera disponible prochainement !\n" 
-            "⚡ Contactez un administrateur pour plus d'infos.",
-            ephemeral=True
-        )
-
-    # 📅 /version — Affiche changelog (version simplifiée pour production)
-    @app_commands.command(name="community_version", description="Affiche la version actuelle du bot")
-    async def version(self, interaction: discord.Interaction):
-        embed = discord.Embed(
-            title="📦 Version Arsenal : V4.5.0", 
-            color=discord.Color.orange(), 
-            timestamp=datetime.datetime.now(datetime.timezone.utc)
-        )
-        embed.add_field(name="✨ Statut", value="Arsenal Bot en production", inline=False)
-        embed.add_field(name="🚀 Features", value="150+ commandes disponibles", inline=False)
-        embed.add_field(name="💎 ArsenalCoin", value="Système économique intégré", inline=False)
-        await interaction.response.send_message(embed=embed)
-
-    # 🐛 /bugreport — Signaler un bug
-    @app_commands.command(name="community_bugreport", description="Signaler un bug du bot")
-    async def bugreport(self, interaction: discord.Interaction):
-        modal = BugReportModal()
-        await interaction.response.send_modal(modal)
-
 # Modal pour le bug report
 class BugReportModal(discord.ui.Modal, title="🐛 Signaler un Bug"):
     def __init__(self):

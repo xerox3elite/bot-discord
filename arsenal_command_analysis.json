@@ -2,56 +2,51 @@
   "timestamp": "2025-09-03 16:35:00",
   "analysis_summary": {
     "total_files": 48,
-    "total_commands": 156,
-    "active_commands": 552,
-    "inactive_commands": 376,
-    "loaded_cogs": 43,
-    "command_conflicts": 21
+    "total_commands": 153,
+    "active_commands": 412,
+    "inactive_commands": 459,
+    "loaded_cogs": 38,
+    "command_conflicts": 18
   },
   "loaded_cogs": [
-    "webpanel_integration",
-    "bot_migration_system",
-    "arsenal_shop_admin",
-    "config_revolution",
-    "arsenal_profile_ultimate_2000",
+    "notifications_system",
+    "advanced_ticket_system",
+    "autoroles_system",
     "communication_system",
-    "community",
-    "unknown",
-    "arsenal_test_suite",
+    "arsenal_profile_ultimate_2000",
+    "gaming_api_system",
+    "config_revolution",
+    "arsenal_diagnostic",
+    "arsenal_bug_reporter",
+    "arsenal_voice_manager",
+    "social_fun_system",
+    "server_management_system",
     "migration_help",
     "arsenal_custom_commands",
-    "absence_tickets",
-    "advanced_ticket_system",
-    "help_system_v2",
-    "arsenal_automod_v5_fixed",
-    "discord_integration_forcer",
-    "arsenal_bug_reporter",
-    "arsenal_update_notifier",
-    "music_enhanced_system",
-    "notifications_system",
-    "arsenal_diagnostic",
-    "arsenal_context_menus",
-    "level_system",
-    "reaction_roles_system",
-    "invcmd_system",
-    "hunt_royal_profiles",
     "creator_tools",
-    "arsenal_economy_unified",
-    "hunt_royal_auth",
-    "server_management_system",
-    "reglement",
-    "arsenal_voice_manager",
-    "gaming_api_system",
-    "hunt_royal_integration",
-    "autoroles_system",
-    "complete_commands_system",
-    "social_fun_system",
-    "arsenal_features",
-    "arsenal_config_ultimate",
-    "arsenal_config_system",
-    "advanced_logs",
     "hub_vocal",
-    "advanced_features"
+    "arsenal_features",
+    "advanced_features",
+    "reglement",
+    "bot_migration_system",
+    "arsenal_shop_admin",
+    "music_enhanced_system",
+    "arsenal_economy_unified",
+    "arsenal_config_ultimate",
+    "webpanel_integration",
+    "absence_tickets",
+    "arsenal_automod_v5_fixed",
+    "advanced_logs",
+    "community",
+    "arsenal_update_notifier",
+    "unknown",
+    "invcmd_system",
+    "help_system_v2",
+    "discord_integration_forcer",
+    "level_system",
+    "arsenal_test_suite",
+    "reaction_roles_system",
+    "arsenal_context_menus"
   ],
   "theoretical_commands": {
     "absence_tickets": [
@@ -174,35 +169,35 @@
         "type": "app_command",
         "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
         "file": "arsenal_config_system",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "config",
         "type": "app_command",
         "description": "⚙️ Configuration complète d'Arsenal Bot",
         "file": "arsenal_config_system",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "poll",
         "type": "app_command",
         "description": "📊 Créer un sondage interactif",
         "file": "arsenal_config_system",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "suggest",
         "type": "app_command",
         "description": "💡 Faire une suggestion",
         "file": "arsenal_config_system",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "configlevel",
         "type": "app_command",
         "description": "🏆 Voir votre niveau et XP",
         "file": "arsenal_config_system",
-        "status": "active"
+        "status": "inactive"
       }
     ],
     "arsenal_economy_unified": [
@@ -449,27 +444,6 @@
         "description": "📋 Historique complet des mises à jour Arsenal",
         "file": "community",
         "status": "active"
-      },
-      {
-        "name": "community_top_messages",
-        "type": "app_command",
-        "description": "Classement des membres actifs par messages",
-        "file": "community",
-        "status": "active"
-      },
-      {
-        "name": "community_version",
-        "type": "app_command",
-        "description": "Affiche la version actuelle du bot",
-        "file": "community",
-        "status": "active"
-      },
-      {
-        "name": "community_bugreport",
-        "type": "app_command",
-        "description": "Signaler un bug du bot",
-        "file": "community",
-        "status": "active"
       }
     ],
     "complete_commands_system": [
@@ -478,14 +452,14 @@
         "type": "app_command",
         "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
         "file": "complete_commands_system",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "help_search",
         "type": "app_command",
         "description": "🔍 Rechercher une commande spécifique",
         "file": "complete_commands_system",
-        "status": "active"
+        "status": "inactive"
       }
     ],
     "config_revolution": [
@@ -661,21 +635,21 @@
         "type": "app_command",
         "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
         "file": "hunt_royal_auth",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "mytoken",
         "type": "app_command",
         "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
         "file": "hunt_royal_auth",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "hunt-stats",
         "type": "app_command",
         "description": "[ADMIN] Statistiques du système Hunt Royal",
         "file": "hunt_royal_auth",
-        "status": "active"
+        "status": "inactive"
       }
     ],
     "hunt_royal_integration": [
@@ -684,21 +658,21 @@
         "type": "app_command",
         "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
         "file": "hunt_royal_integration",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "myhrcode",
         "type": "app_command",
         "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
         "file": "hunt_royal_integration",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "hrstats",
         "type": "app_command",
         "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
         "file": "hunt_royal_integration",
-        "status": "active"
+        "status": "inactive"
       }
     ],
     "hunt_royal_profiles": [
@@ -707,42 +681,42 @@
         "type": "app_command",
         "description": "Lier votre compte Hunt Royal à Discord",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "profile-hunt",
         "type": "app_command",
         "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "unlink-hunt",
         "type": "app_command",
         "description": "Délier votre compte Hunt Royal de Discord",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "link-hunt",
         "type": "app_command",
         "description": "🔗 Lier votre compte Hunt Royal",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "profile-hunt",
         "type": "app_command",
         "description": "📊 Voir votre profil Hunt Royal",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       },
       {
         "name": "unlink-hunt",
         "type": "app_command",
         "description": "🔗 Délier votre compte Hunt Royal",
         "file": "hunt_royal_profiles",
-        "status": "active"
+        "status": "inactive"
       }
     ],
     "hunt_royal_system": [
@@ -1427,181 +1401,6 @@
       "status": "active"
     },
     {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "active"
-    },
-    {
       "name": "balance",
       "type": "app_command",
       "description": "💰 Affiche votre solde ArsenalCoin",
@@ -2162,23 +1961,58 @@
       "status": "active"
     },
     {
+      "name": "info",
+      "type": "app_command",
+      "description": "📊 Informations complètes sur Arsenal Bot",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "report",
+      "type": "app_command",
+      "description": "🚨 Système de signalement avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "top_vocal",
+      "type": "app_command",
+      "description": "🏆 Classement vocal avancé avec statistiques",
+      "file": "community",
+      "status": "active"
+    },
+    {
       "name": "community_top_messages",
       "type": "app_command",
-      "description": "Classement des membres actifs par messages",
+      "description": "💬 Classement des messages avec analyses",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_version",
       "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
+      "description": "🚀 Informations détaillées sur la version",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_bugreport",
       "type": "app_command",
-      "description": "Signaler un bug du bot",
+      "description": "🐛 Système de rapport de bugs avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "feedback",
+      "type": "app_command",
+      "description": "💭 Système de feedback et suggestions",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "changelog",
+      "type": "app_command",
+      "description": "📋 Historique complet des mises à jour Arsenal",
       "file": "community",
       "status": "active"
     },
@@ -2239,23 +2073,58 @@
       "status": "active"
     },
     {
+      "name": "info",
+      "type": "app_command",
+      "description": "📊 Informations complètes sur Arsenal Bot",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "report",
+      "type": "app_command",
+      "description": "🚨 Système de signalement avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "top_vocal",
+      "type": "app_command",
+      "description": "🏆 Classement vocal avancé avec statistiques",
+      "file": "community",
+      "status": "active"
+    },
+    {
       "name": "community_top_messages",
       "type": "app_command",
-      "description": "Classement des membres actifs par messages",
+      "description": "💬 Classement des messages avec analyses",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_version",
       "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
+      "description": "🚀 Informations détaillées sur la version",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_bugreport",
       "type": "app_command",
-      "description": "Signaler un bug du bot",
+      "description": "🐛 Système de rapport de bugs avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "feedback",
+      "type": "app_command",
+      "description": "💭 Système de feedback et suggestions",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "changelog",
+      "type": "app_command",
+      "description": "📋 Historique complet des mises à jour Arsenal",
       "file": "community",
       "status": "active"
     },
@@ -2316,23 +2185,58 @@
       "status": "active"
     },
     {
+      "name": "info",
+      "type": "app_command",
+      "description": "📊 Informations complètes sur Arsenal Bot",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "report",
+      "type": "app_command",
+      "description": "🚨 Système de signalement avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "top_vocal",
+      "type": "app_command",
+      "description": "🏆 Classement vocal avancé avec statistiques",
+      "file": "community",
+      "status": "active"
+    },
+    {
       "name": "community_top_messages",
       "type": "app_command",
-      "description": "Classement des membres actifs par messages",
+      "description": "💬 Classement des messages avec analyses",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_version",
       "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
+      "description": "🚀 Informations détaillées sur la version",
       "file": "community",
       "status": "active"
     },
     {
       "name": "community_bugreport",
       "type": "app_command",
-      "description": "Signaler un bug du bot",
+      "description": "🐛 Système de rapport de bugs avancé",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "feedback",
+      "type": "app_command",
+      "description": "💭 Système de feedback et suggestions",
+      "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "changelog",
+      "type": "app_command",
+      "description": "📋 Historique complet des mises à jour Arsenal",
       "file": "community",
       "status": "active"
     },
@@ -2393,27 +2297,6 @@
       "status": "active"
     },
     {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
       "name": "info",
       "type": "app_command",
       "description": "📊 Informations complètes sur Arsenal Bot",
@@ -2467,517 +2350,6 @@
       "type": "app_command",
       "description": "📋 Historique complet des mises à jour Arsenal",
       "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "info",
-      "type": "app_command",
-      "description": "📊 Informations complètes sur Arsenal Bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "report",
-      "type": "app_command",
-      "description": "🚨 Système de signalement avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "top_vocal",
-      "type": "app_command",
-      "description": "🏆 Classement vocal avancé avec statistiques",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "💬 Classement des messages avec analyses",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "🚀 Informations détaillées sur la version",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "🐛 Système de rapport de bugs avancé",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "feedback",
-      "type": "app_command",
-      "description": "💭 Système de feedback et suggestions",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "changelog",
-      "type": "app_command",
-      "description": "📋 Historique complet des mises à jour Arsenal",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_top_messages",
-      "type": "app_command",
-      "description": "Classement des membres actifs par messages",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_version",
-      "type": "app_command",
-      "description": "Affiche la version actuelle du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "community_bugreport",
-      "type": "app_command",
-      "description": "Signaler un bug du bot",
-      "file": "community",
-      "status": "active"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
-      "file": "complete_commands_system",
-      "status": "active"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "complete_commands_system",
-      "status": "active"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
-      "file": "complete_commands_system",
-      "status": "active"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "complete_commands_system",
       "status": "active"
     },
     {
@@ -3202,384 +2574,6 @@
       "type": "app_command",
       "description": "📚 Système d'aide complet Arsenal - Commandes + Support + Infos",
       "file": "help_system_v2",
-      "status": "active"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "active"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "active"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
       "status": "active"
     },
     {
@@ -5153,6 +4147,181 @@
       "status": "inactive"
     },
     {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "poll",
+      "type": "app_command",
+      "description": "📊 Créer un sondage interactif",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "suggest",
+      "type": "app_command",
+      "description": "💡 Faire une suggestion",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "configlevel",
+      "type": "app_command",
+      "description": "🏆 Voir votre niveau et XP",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "poll",
+      "type": "app_command",
+      "description": "📊 Créer un sondage interactif",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "suggest",
+      "type": "app_command",
+      "description": "💡 Faire une suggestion",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "configlevel",
+      "type": "app_command",
+      "description": "🏆 Voir votre niveau et XP",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "poll",
+      "type": "app_command",
+      "description": "📊 Créer un sondage interactif",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "suggest",
+      "type": "app_command",
+      "description": "💡 Faire une suggestion",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "configlevel",
+      "type": "app_command",
+      "description": "🏆 Voir votre niveau et XP",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "poll",
+      "type": "app_command",
+      "description": "📊 Créer un sondage interactif",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "suggest",
+      "type": "app_command",
+      "description": "💡 Faire une suggestion",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "configlevel",
+      "type": "app_command",
+      "description": "🏆 Voir votre niveau et XP",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "⚙️ Configuration complète d'Arsenal Bot",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "poll",
+      "type": "app_command",
+      "description": "📊 Créer un sondage interactif",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "suggest",
+      "type": "app_command",
+      "description": "💡 Faire une suggestion",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
+      "name": "configlevel",
+      "type": "app_command",
+      "description": "🏆 Voir votre niveau et XP",
+      "file": "arsenal_config_system",
+      "status": "inactive"
+    },
+    {
       "name": "update_profile",
       "type": "traditional_command",
       "description": "N/A",
@@ -5178,6 +4347,34 @@
       "type": "traditional_command",
       "description": "N/A",
       "file": "arsenal_profile_updater",
+      "status": "inactive"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
+      "file": "complete_commands_system",
+      "status": "inactive"
+    },
+    {
+      "name": "help_search",
+      "type": "app_command",
+      "description": "🔍 Rechercher une commande spécifique",
+      "file": "complete_commands_system",
+      "status": "inactive"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
+      "file": "complete_commands_system",
+      "status": "inactive"
+    },
+    {
+      "name": "help_search",
+      "type": "app_command",
+      "description": "🔍 Rechercher une commande spécifique",
+      "file": "complete_commands_system",
       "status": "inactive"
     },
     {
@@ -5367,6 +4564,384 @@
       "type": "app_command",
       "description": "📋 Liste rapide de toutes les commandes",
       "file": "help_ultimate",
+      "status": "inactive"
+    },
+    {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "inactive"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "🔗 Lier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "📊 Voir votre profil Hunt Royal",
+      "file": "hunt_royal_profiles",
+      "status": "inactive"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "🔗 Délier votre compte Hunt Royal",
+      "file": "hunt_royal_profiles",
       "status": "inactive"
     },
     {
@@ -7759,27 +7334,6 @@
       ]
     },
     {
-      "command": "community_top_messages",
-      "files": [
-        "community",
-        "community"
-      ]
-    },
-    {
-      "command": "community_version",
-      "files": [
-        "community",
-        "community"
-      ]
-    },
-    {
-      "command": "community_bugreport",
-      "files": [
-        "community",
-        "community"
-      ]
-    },
-    {
       "command": "help_search",
       "files": [
         "complete_commands_system",
@@ -7893,10 +7447,14 @@
     }
   ],
   "recommendations": [
-    "⚠️ Résoudre 21 conflits de noms de commandes",
-    "🔧 Activer 376 commandes inactives ou nettoyer le code",
+    "⚠️ Résoudre 18 conflits de noms de commandes",
+    "🔧 Activer 459 commandes inactives ou nettoyer le code",
+    "🗂️ Fichier arsenal_config_system: 25 commandes non chargées",
     "🗂️ Fichier help: 9 commandes non chargées",
     "🗂️ Fichier help_system: 9 commandes non chargées",
+    "🗂️ Fichier hunt_royal_auth: 9 commandes non chargées",
+    "🗂️ Fichier hunt_royal_integration: 9 commandes non chargées",
+    "🗂️ Fichier hunt_royal_profiles: 36 commandes non chargées",
     "🗂️ Fichier hunt_royal_system: 225 commandes non chargées",
     "🗂️ Fichier sanction: 9 commandes non chargées",
     "🗂️ Fichier sanctions_system: 100 commandes non chargées"

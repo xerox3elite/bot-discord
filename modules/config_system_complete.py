@@ -227,7 +227,7 @@ class ConfigCog(commands.Cog):
         
         return interaction.user.guild_permissions.administrator or interaction.user.id == interaction.guild.owner_id
     
-    @app_commands.command(name="config", description="🔧 Configuration complète du serveur")
+    @app_commands.command(name="configmain", description="🔧 Configuration complète du serveur")
     async def config_main(self, interaction: discord.Interaction):
         """Menu principal de configuration"""
         if not self.check_permissions(interaction):

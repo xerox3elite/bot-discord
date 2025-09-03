@@ -337,11 +337,11 @@ except Exception as e:
     SQLITE_DATABASE_AVAILABLE = False
     print(f"⚠️ Module sqlite_database non trouvé: {e}")
 
-# SUPPRIMÉ: # Sanctions System (NOUVEAU V4.5.2)
+# Sanctions System (NOUVEAU V4.5.2) - Sera chargé dans setup_hook
 try:
     from commands.sanctions_system import SanctionsSystem
     SANCTIONS_SYSTEM_AVAILABLE = True
-    print("⚖️ [OK] Sanctions System chargé - Casier permanent & AutoMod!")
+    print("⚖️ [OK] Sanctions System importé - Sera chargé au démarrage!")
 except Exception as e:
     SANCTIONS_SYSTEM_AVAILABLE = False
     print(f"❌ [ERREUR] Sanctions System: {e}")
@@ -627,13 +627,13 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config Ultimate: {e}")
                 
-            # Arsenal Config System Unified - Système /config unifié
-            try:
-                from commands.arsenal_config_system_unified import ArsenalConfigSystem
-                await self.add_cog(ArsenalConfigSystem(self))
-                log.info("🚀 [OK] Arsenal Config System Unified - Commandes /config unifiées!")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement Arsenal Config System Unified: {e}")
+            # Arsenal Config System Unified - Système /config unifié (DÉSACTIVÉ - Conflit éliminé)
+            # try:
+            #     from commands.arsenal_config_system_unified import ArsenalConfigSystem
+            #     await self.add_cog(ArsenalConfigSystem(self))
+            #     log.info("🚀 [OK] Arsenal Config System Unified - Commandes /config unifiées!")
+            # except Exception as e:
+            #     log.error(f"[ERROR] Erreur chargement Arsenal Config System Unified: {e}")
                 
             # Arsenal Custom Commands - Système de commandes personnalisées
             try:
@@ -745,6 +745,14 @@ class ArsenalBot(commands.Bot):
                 log.info("🎤 [OK] Arsenal Voice Manager - Gestion vocale avancée!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Voice Manager: {e}")
+                
+            # NPB System - Navigation Par Bouton (RÉVOLUTIONNAIRE !)
+            try:
+                from commands.npb_system import NPBSystem
+                await self.add_cog(NPBSystem(self))
+                log.info("🎮 [OK] NPB System - Interface graphique complète sans erreurs !")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement NPB System: {e}")
                 
             # Creator Tools - Outils pour créateurs
             try:
@@ -868,13 +876,13 @@ class ArsenalBot(commands.Bot):
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
                     
-            # Complete Commands System - Liste toutes les commandes
-            if COMPLETE_COMMANDS_SYSTEM_AVAILABLE:
-                try:
-                    await self.add_cog(CompleteCommandsSystem(self))
-                    log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
-                except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
+            # Complete Commands System - DÉSACTIVÉ (conflit avec Help Systems)
+            # if COMPLETE_COMMANDS_SYSTEM_AVAILABLE:
+            #     try:
+            #         await self.add_cog(CompleteCommandsSystem(self))
+            #         log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
+            #     except Exception as e:
+            #         log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
                     
             # Communication System - Say & Traduction avancée
             if COMMUNICATION_SYSTEM_AVAILABLE:
@@ -985,11 +993,11 @@ if HUNT_AUTH_AVAILABLE:
     client.tree.add_command(hunt_auth.get_my_token)
     client.tree.add_command(hunt_auth.hunt_royal_stats)
 
-# Hunt Royal Profile Commands (NOUVEAU)
-if HUNT_PROFILES_AVAILABLE:
-    client.tree.add_command(hunt_profiles.link_hunt_royal)
-    client.tree.add_command(hunt_profiles.profile_hunt_royal)
-    client.tree.add_command(hunt_profiles.unlink_hunt_royal)
+# Hunt Royal Profile Commands (DÉSACTIVÉ - Pas d'import hunt_profiles)
+# if HUNT_PROFILES_AVAILABLE:
+#     client.tree.add_command(hunt_profiles.link_hunt_royal)
+#     client.tree.add_command(hunt_profiles.profile_hunt_royal)
+#     client.tree.add_command(hunt_profiles.unlink_hunt_royal)
 
 # Reload System Commands (NOUVEAU)
 if RELOADER_AVAILABLE:
@@ -999,11 +1007,11 @@ if RELOADER_AVAILABLE:
 try:
     from commands.arsenal_economy_unified import ArsenalEconomyUnified
     from commands.arsenal_shop_admin import ArsenalShopAdmin
-    from commands.arsenal_config_system import ArsenalConfigSystem
+    # SUPPRIMÉ CONFLIT: from commands.arsenal_config_system import ArsenalConfigSystem
 # SUPPRIMÉ: from commands.arsenal_config_complete import ArsenalCompleteConfig
     from commands.arsenal_update_notifier import ArsenalUpdateNotifier
     ARSENAL_ECONOMY_AVAILABLE = True
-    print("[OK] Arsenal Economy UNIFIÉ, Config, Arsenal Complete & Update Notifier System chargé")
+    print("[OK] Arsenal Economy UNIFIÉ, Shop Admin & Update Notifier System chargé")
 except Exception as e:
     ARSENAL_ECONOMY_AVAILABLE = False
     print(f"[WARNING] Arsenal Economy System non disponible: {e}")
