@@ -10,6 +10,7 @@ Système de liaison et affichage des profils Hunt Royal
 
 import discord
 from discord import app_commands
+from discord.ext import commands
 import sqlite3
 import aiohttp
 import asyncio

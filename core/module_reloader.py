@@ -24,6 +24,7 @@ from pathlib import Path
 import discord
 from discord.ext import commands
 from discord import app_commands
+from discord.app_commands import errors as app_commands_errors
 from typing import Dict, List, Optional
 import json
 
@@ -341,8 +342,17 @@ class ModuleReloader:
             reloaded_module = sys.modules[module_path]
             cog_class = getattr(reloaded_module, cog_class_name)
             new_cog = cog_class(self.bot)
-            await self.bot.add_cog(new_cog)
-            print(f"✅ Nouveau Cog {cog_class_name} chargé")
+            
+            # Ajouter le cog avec gestion des conflits
+            try:
+                await self.bot.add_cog(new_cog)
+                print(f"✅ Nouveau Cog {cog_class_name} chargé")
+            except app_commands_errors.CommandAlreadyRegistered as e:
+                print(f"❌ Erreur rechargement {module_name}: {e}")
+                return f"❌ Conflit de commandes: {e}"
+            except Exception as e:
+                print(f"❌ Erreur générale rechargement {module_name}: {e}")
+                return f"❌ Erreur: {e}"
             
             # Étape 5: Ré-ajouter les commandes slash
             for cmd_name in commands_to_remove:
