@@ -272,7 +272,7 @@ class EconomyLevelManager:
         except Exception as e:
             logger.error(f"Erreur create_guild_config: {e}")
 
-class EconomyLevelCog(commands.Cog):
+class EconomyCog(commands.Cog):
     """Cog principal Economy & Level"""
     
     def __init__(self, bot: commands.Bot):
@@ -389,7 +389,7 @@ def set_economy_manager(manager):
 
 async def setup(bot: commands.Bot):
     """Setup function"""
-    cog = EconomyLevelCog(bot)
+    cog = EconomyCog(bot)
     await bot.add_cog(cog)
     set_economy_manager(cog.manager)
     logger.info("✅ Arsenal Economy & Level System V4.5.2 chargé")

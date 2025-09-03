@@ -81,17 +81,13 @@ class SocialFunSystem(commands.Cog):
         with open(self.memory_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-    @app_commands.command(name="random_quote", description="✨ Affiche une citation motivante")
-    @app_commands.describe(category="Catégorie de citation (motivational/anime)")
-    async def random_quote(self, interaction: discord.Interaction, 
-                          category: Optional[str] = "motivational"):
-        """Affiche une citation aléatoire"""
-        
+    async def _get_random_quote(self, interaction: discord.Interaction, category: Optional[str] = "motivational"):
+        """Méthode privée pour obtenir une citation aléatoire"""
         try:
             with open(self.quotes_file, 'r', encoding='utf-8') as f:
                 quotes_data = json.load(f)
             
-            if category.lower() not in quotes_data:
+            if category and category.lower() not in quotes_data:
                 available = ", ".join(quotes_data.keys())
                 await interaction.response.send_message(
                     f"❌ Catégorie invalide.\n**Disponibles:** {available}", 
@@ -99,7 +95,8 @@ class SocialFunSystem(commands.Cog):
                 )
                 return
             
-            quote = random.choice(quotes_data[category.lower()])
+            quote_category = category.lower() if category else "motivational"
+            quote = random.choice(quotes_data[quote_category])
             
             # Couleur selon la catégorie
             colors = {
@@ -109,27 +106,34 @@ class SocialFunSystem(commands.Cog):
             }
             
             embed = discord.Embed(
-                title=f"✨ Citation {category.title()}",
+                title=f"✨ Citation {quote_category.title()}",
                 description=f"*{quote}*",
-                color=colors.get(category.lower(), discord.Color.blue())
+                color=colors.get(quote_category, discord.Color.blue())
             )
             
-            embed.set_footer(text=f"Arsenal V4 • Citations {category.title()}")
+            embed.set_footer(text=f"Arsenal V4 • Citations {quote_category.title()}")
             
             await interaction.response.send_message(embed=embed)
             
         except Exception as e:
             await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
 
+    @app_commands.command(name="random_quote", description="✨ Affiche une citation motivante")
+    @app_commands.describe(category="Catégorie de citation (motivational/anime)")
+    async def random_quote(self, interaction: discord.Interaction, 
+                          category: Optional[str] = "motivational"):
+        """Affiche une citation aléatoire"""
+        await self._get_random_quote(interaction, category)
+
     @app_commands.command(name="anime_quote", description="🍥 Citation inspirante d'anime")
     async def anime_quote(self, interaction: discord.Interaction):
         """Citation d'anime spécifique"""
-        await self.random_quote(interaction, "anime")
+        await self._get_random_quote(interaction, "anime")
 
     @app_commands.command(name="chuck_norris_joke", description="💪 Blague Chuck Norris")
     async def chuck_norris_joke(self, interaction: discord.Interaction):
         """Blague Chuck Norris"""
-        await self.random_quote(interaction, "chuck_norris")
+        await self._get_random_quote(interaction, "chuck_norris")
 
     @app_commands.command(name="mock_text", description="🤪 Transforme un texte en version sarcastique")
     @app_commands.describe(text="Texte à transformer")

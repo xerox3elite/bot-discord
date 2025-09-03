@@ -212,7 +212,7 @@ class HelpCog(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
     
-    @commands.command(name="help")
+    @commands.command(name="helpme")
     async def help_prefix(self, ctx, *, command: str = None):
         """Commande help pour préfixe"""
         if command:
