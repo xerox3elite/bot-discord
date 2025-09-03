@@ -2490,6 +2490,32 @@ class ModuleCustomizationView(discord.ui.View):
     """Vue pour personnaliser les modules"""
     pass
 
+class ModuleConfigView(discord.ui.View):
+    """Vue pour configurer un module spécifique"""
+    def __init__(self, config_system, guild_id, module):
+        super().__init__(timeout=300)
+        self.config_system = config_system
+        self.guild_id = guild_id
+        self.module = module
+    
+    @discord.ui.button(label="✅ Activer Module", style=discord.ButtonStyle.success)
+    async def activate_module(self, interaction: discord.Interaction, button: discord.ui.Button):
+        embed = discord.Embed(
+            title="✅ Module Activé",
+            description=f"Le module **{self.module}** a été activé avec succès !",
+            color=0x00ff00
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+    
+    @discord.ui.button(label="⚙️ Configurer", style=discord.ButtonStyle.primary)
+    async def configure_module(self, interaction: discord.Interaction, button: discord.ui.Button):
+        embed = discord.Embed(
+            title="⚙️ Configuration en cours...",
+            description=f"Configuration du module **{self.module}**",
+            color=0x0099ff
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
 class FinalizedConfigView(discord.ui.View):
     """Vue finale après configuration terminée"""
     pass

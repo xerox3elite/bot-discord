@@ -114,14 +114,14 @@ def update_bot_status():
         except:
             pass  # Si même ça échoue, on abandonne silencieusement
 
-# Système de rechargement de modules (NOUVEAU)
-try:
-    from core.module_reloader import ReloaderCommands, reload_group
-    RELOADER_AVAILABLE = True
-    print("[OK] Système de rechargement de modules chargé")
-except Exception as e:
-    RELOADER_AVAILABLE = False
-    print(f"[WARNING] Système de rechargement non disponible: {e}")
+# Système de rechargement de modules (TEMPORAIREMENT DÉSACTIVÉ pour éviter rate limit)
+# try:
+#     from core.module_reloader import ReloaderCommands, reload_group
+#     RELOADER_AVAILABLE = True
+#     print("[OK] Système de rechargement de modules chargé")
+# except Exception as e:
+RELOADER_AVAILABLE = False
+print("[INFO] Système de rechargement temporairement désactivé pour stabilité")
 
 # Modules Hunt Royal et Suggestions (NOUVEAU)
 try:
@@ -205,6 +205,15 @@ try:
 except Exception as e:
     ARSENAL_FEATURES_AVAILABLE = False
     print(f"❌ [ERREUR] Arsenal Features System: {e}")
+
+# Arsenal Config System V2.0 Modulaire (NOUVEAU - Navigation par boutons)
+try:
+    from commands.config_modular import ArsenalConfigSystem
+    ARSENAL_CONFIG_MODULAR_AVAILABLE = True
+    print("🔧 [OK] Arsenal Config System V2.0 Modulaire chargé - Navigation par boutons!")
+except Exception as e:
+    ARSENAL_CONFIG_MODULAR_AVAILABLE = False
+    print(f"❌ [ERREUR] Arsenal Config System V2.0 Modulaire: {e}")
 
 # Arsenal Config Ultimate (RÉVOLUTIONNAIRE V2.0)
 try:
@@ -429,13 +438,13 @@ class ArsenalBot(commands.Bot):
         print("🔄 [STATUS] Systèmes de statut gérés par Arsenal Profile Ultimate 2000%")
         setup_audio(self)
         
-        # Charger le système de rechargement de modules
-        if RELOADER_AVAILABLE:
-            try:
-                await self.add_cog(ReloaderCommands(self))
-                log.info("[OK] Système de rechargement de modules chargé")
-            except Exception as e:
-                log.error(f"[ERROR] Erreur chargement reloader: {e}")
+        # Charger le système de rechargement de modules (DÉSACTIVÉ)
+        # if RELOADER_AVAILABLE:
+        #     try:
+        #         await self.add_cog(ReloaderCommands(self))
+        #         log.info("[OK] Système de rechargement de modules chargé")
+        #     except Exception as e:
+        #         log.error(f"[ERROR] Erreur chargement reloader: {e}")
         
         # Charger Hunt Royal et Suggestions
         if HUNT_ROYAL_AVAILABLE:
@@ -534,6 +543,14 @@ class ArsenalBot(commands.Bot):
                 log.info("[OK] Module Social Fun System chargé")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Social Fun: {e}")
+        
+        # Charger Arsenal Config System V2.0 Modulaire (NOUVEAU - Navigation par boutons)
+        if ARSENAL_CONFIG_MODULAR_AVAILABLE:
+            try:
+                await self.add_cog(ArsenalConfigSystem(self))
+                log.info("🔧 [OK] Arsenal Config System V2.0 Modulaire - Navigation par boutons parfaite!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Config Modulaire: {e}")
         
         # Charger Arsenal Config Revolution (SYSTÈME RÉVOLUTIONNAIRE V2.0)
         if ARSENAL_CONFIG_REVOLUTION_AVAILABLE:
@@ -746,6 +763,14 @@ class ArsenalBot(commands.Bot):
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Voice Manager: {e}")
                 
+            # Command Protection System - Protection contre les conflits
+            try:
+                from commands.command_protection import ProtectionCog
+                await self.add_cog(ProtectionCog(self))
+                log.info("🛡️ [OK] Command Protection System - Évite les conflits de commandes!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Command Protection System: {e}")
+                
             # NPB System - Navigation Par Bouton (RÉVOLUTIONNAIRE !)
             try:
                 from commands.npb_system import NPBSystem
@@ -753,6 +778,7 @@ class ArsenalBot(commands.Bot):
                 log.info("🎮 [OK] NPB System - Interface graphique complète sans erreurs !")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement NPB System: {e}")
+                print(f"[DEBUG] NPB Error details: {e}")  # Debug supplémentaire
                 
             # Creator Tools - Outils pour créateurs
             try:
@@ -999,9 +1025,9 @@ if HUNT_AUTH_AVAILABLE:
 #     client.tree.add_command(hunt_profiles.profile_hunt_royal)
 #     client.tree.add_command(hunt_profiles.unlink_hunt_royal)
 
-# Reload System Commands (NOUVEAU)
-if RELOADER_AVAILABLE:
-    client.tree.add_command(reload_group)
+# Reload System Commands (DÉSACTIVÉ)
+# if RELOADER_AVAILABLE:
+#     client.tree.add_command(reload_group)
 
 # Arsenal Economy System UNIFIÉ (NOUVEAU V4.6)
 try:

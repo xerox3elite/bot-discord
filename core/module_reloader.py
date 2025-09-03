@@ -517,11 +517,11 @@ class ModuleReloader:
                         success, message = await self.reload_module(module_name)
                         print(f"🔄 Auto-reload {module_name}: {message}")
                 
-                await asyncio.sleep(5)  # Vérifier toutes les 5 secondes
+                await asyncio.sleep(60)  # Vérifier toutes les 60 secondes (au lieu de 5)
                 
             except Exception as e:
                 print(f"❌ Erreur auto-reload: {e}")
-                await asyncio.sleep(10)
+                await asyncio.sleep(30)  # Pause plus longue en cas d'erreur
 
 class ReloaderCommands(commands.Cog):
     """Commandes de gestion des modules"""
