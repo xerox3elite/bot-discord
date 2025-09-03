@@ -146,7 +146,8 @@ try:
     pass  # Bloc temporairement vide
 except ImportError:
     print("[WARNING] Module audio avancé non disponible, utilisation du fallback")
-    def setup_audio():
+    def setup_audio(bot=None):
+        """Fonction audio fallback - ne fait rien si module audio indisponible"""
         pass
 
 # Arsenal Status System (NOUVEAU)
