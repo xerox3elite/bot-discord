@@ -256,5 +256,125 @@ __all__ = [
     'SanctionManager', 
     'SanctionDatabase',
     'init_sanctions',
-    'get_sanctions_manager'
+    'get_sanctions_manager',
+    'sanction_group'
 ]
+
+# Création du groupe de commandes slash pour compatibilité
+@discord.app_commands.Group(name="sanction", description="⚖️ Système de sanctions Arsenal")
+class SanctionGroup(discord.app_commands.Group):
+    """Groupe de commandes de sanctions"""
+    
+    @discord.app_commands.command(name="warn", description="⚠️ Avertir un utilisateur")
+    @discord.app_commands.describe(
+        user="Utilisateur à avertir",
+        reason="Raison de l'avertissement"
+    )
+    async def warn_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
+        """Avertir un utilisateur"""
+        if not interaction.user.guild_permissions.moderate_members:
+            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            return
+        
+        try:
+            manager = get_sanctions_manager()
+            if not manager:
+                manager = SanctionManager(interaction.client)
+            
+            sanction_id = await manager.warn_user(interaction.guild, user, interaction.user, reason)
+            
+            embed = discord.Embed(
+                title="⚠️ Avertissement envoyé",
+                description=f"{user.mention} a été averti",
+                color=0xffaa00
+            )
+            embed.add_field(name="Raison", value=reason or "Non spécifiée", inline=False)
+            embed.add_field(name="ID Sanction", value=f"#{sanction_id}", inline=True)
+            
+            await interaction.response.send_message(embed=embed)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+    
+    @discord.app_commands.command(name="timeout", description="🔇 Mettre en timeout un utilisateur")
+    @discord.app_commands.describe(
+        user="Utilisateur à timeout",
+        duration="Durée en minutes",
+        reason="Raison du timeout"
+    )
+    async def timeout_user(self, interaction: discord.Interaction, user: discord.Member, duration: int, reason: str = None):
+        """Timeout un utilisateur"""
+        if not interaction.user.guild_permissions.moderate_members:
+            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            return
+        
+        try:
+            manager = get_sanctions_manager()
+            if not manager:
+                manager = SanctionManager(interaction.client)
+            
+            duration_seconds = duration * 60  # Convertir en secondes
+            sanction_id = await manager.timeout_user(interaction.guild, user, interaction.user, duration_seconds, reason)
+            
+            embed = discord.Embed(
+                title="🔇 Timeout appliqué",
+                description=f"{user.mention} a été mis en timeout",
+                color=0xff6600
+            )
+            embed.add_field(name="Durée", value=f"{duration} minutes", inline=True)
+            embed.add_field(name="Raison", value=reason or "Non spécifiée", inline=False)
+            embed.add_field(name="ID Sanction", value=f"#{sanction_id}", inline=True)
+            
+            await interaction.response.send_message(embed=embed)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+    
+    @discord.app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un utilisateur")
+    @discord.app_commands.describe(user="Utilisateur dont voir le casier")
+    async def casier_user(self, interaction: discord.Interaction, user: discord.Member):
+        """Voir le casier d'un utilisateur"""
+        if not interaction.user.guild_permissions.moderate_members:
+            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            return
+        
+        try:
+            db = SanctionDatabase()
+            sanctions = db.get_user_sanctions(interaction.guild.id, user.id)
+            
+            embed = discord.Embed(
+                title=f"📋 Casier judiciaire de {user.display_name}",
+                color=0x3366ff
+            )
+            
+            if not sanctions:
+                embed.description = "✅ Aucune sanction enregistrée"
+            else:
+                embed.description = f"**{len(sanctions)} sanctions trouvées**"
+                
+                for i, sanction in enumerate(sanctions[:5]):  # Limiter à 5 dernières
+                    sanction_type = sanction.get('sanction_type', 'unknown').upper()
+                    reason = sanction.get('reason', 'Non spécifiée')
+                    created_at = sanction.get('created_at', 'Inconnue')
+                    
+                    embed.add_field(
+                        name=f"{i+1}. {sanction_type}",
+                        value=f"**Raison:** {reason}\n**Date:** {created_at}",
+                        inline=False
+                    )
+                
+                if len(sanctions) > 5:
+                    embed.add_field(
+                        name="ℹ️ Note",
+                        value=f"... et {len(sanctions) - 5} autres sanctions",
+                        inline=False
+                    )
+            
+            embed.set_thumbnail(url=user.display_avatar.url)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            
+        except Exception as e:
+            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+
+# Instance du groupe pour export
+sanction_group = SanctionGroup()
