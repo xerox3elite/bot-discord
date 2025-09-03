@@ -376,7 +376,7 @@ class ArsenalEconomyUnified(commands.Cog):
         
         await handler.safe_edit(interaction, embed=embed)
     
-    @app_commands.command(name="leaderboard", description="🏆 Affiche le classement ArsenalCoin")
+    @app_commands.command(name="coinboard", description="🏆 Affiche le classement ArsenalCoin")
     @app_commands.describe(page="Page du classement (défaut: 1)")
     async def leaderboard_command(self, interaction: discord.Interaction, page: Optional[int] = 1):
         """🏆 Classement des plus riches"""

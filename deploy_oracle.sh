@@ -1,22 +1,44 @@
 #!/bin/bash
-echo "🚀 ARSENAL BOT - DÉPLOIEMENT ORACLE CLOUD"
-echo "============================================="
 
-# Configuration Oracle Cloud
-INSTANCE_IP="your-oracle-instance-ip"
-SSH_KEY="~/.ssh/oracle-key"
-REMOTE_PATH="/home/ubuntu/arsenal-bot"
+# =============================================================================
+# 🚀 ARSENAL V4.5.2 ULTIMATE - SCRIPT DE DÉPLOIEMENT ORACLE
+# =============================================================================
+# Auteur: Arsenal Studio
+# Date: 2025-09-03
+# Version: 4.5.2 Ultimate
+# Description: Déploiement automatisé sur Oracle Cloud
+# =============================================================================
 
-echo "📦 Préparation des fichiers de déploiement..."
+echo "🚀 [START] Arsenal V4.5.2 Ultimate - Déploiement Oracle"
+echo "======================================================="
 
-# Créer requirements.txt optimisé pour production
-echo "discord.py>=2.3.0
-aiohttp>=3.8.0
-asyncio
-sqlite3
-python-dotenv
-psutil
-colorama" > requirements.txt
+# Configuration
+PROJECT_NAME="arsenal-v4-ultimate"
+PYTHON_VERSION="3.10"
+DISCORD_TOKEN_VAR="DISCORD_TOKEN"
+
+# Vérification des prérequis
+echo "🔍 [CHECK] Vérification des prérequis..."
+
+# Vérifier Python
+if ! command -v python3 &> /dev/null; then
+    echo "❌ [ERROR] Python 3 n'est pas installé"
+    exit 1
+fi
+
+# Vérifier pip
+if ! command -v pip3 &> /dev/null; then
+    echo "❌ [ERROR] pip3 n'est pas installé"
+    exit 1
+fi
+
+# Vérifier Git
+if ! command -v git &> /dev/null; then
+    echo "❌ [ERROR] Git n'est pas installé"
+    exit 1
+fi
+
+echo "✅ [OK] Prérequis vérifiés"
 
 echo "🔧 Création du fichier de service systemd..."
 cat > arsenal-bot.service << 'EOF'

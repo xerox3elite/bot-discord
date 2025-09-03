@@ -1269,8 +1269,8 @@ Tous les builds sont **totalement anonymisés**
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
     
-    @app_commands.command(name="help", description="❓ Guide complet Hunt Royal Arsenal")
-    async def help(self, interaction: discord.Interaction):
+    @app_commands.command(name="hunthelp", description="❓ Guide complet Hunt Royal Arsenal")
+    async def hunt_help(self, interaction: discord.Interaction):
         """Guide d'utilisation complet Hunt Royal"""
         
         embed = discord.Embed(
@@ -1353,8 +1353,8 @@ Le système Hunt Royal d'Arsenal offre les outils les plus avancés pour optimis
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
     
-    @app_commands.command(name="info", description="ℹ️ Informations système Hunt Royal")
-    async def info(self, interaction: discord.Interaction):
+    @app_commands.command(name="huntinfo", description="ℹ️ Informations système Hunt Royal")
+    async def hunt_info(self, interaction: discord.Interaction):
         """Informations détaillées du système Hunt Royal"""
         
         # Statistiques système (anonymisées)
@@ -1512,8 +1512,8 @@ async def setup(bot):
         modal = HRRegistrationModal()
         await interaction.response.send_modal(modal)
     
-    @app_commands.command(name="calculator", description="🔢 Calculateur de stuff Hunt Royal (Attack/Defence)")
-    async def calculator(self, interaction: discord.Interaction):
+    @app_commands.command(name="huntcalc", description="🔢 Calculateur de stuff Hunt Royal (Attack/Defence)")
+    async def hunt_calculator(self, interaction: discord.Interaction):
         """Calculateur de stuff Hunt Royal avancé"""
         
         embed = discord.Embed(
@@ -1838,8 +1838,8 @@ Découvrez les meilleures configurations partagées par les experts Hunt Royal !
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
     
-    @app_commands.command(name="help", description="❓ Guide complet Hunt Royal Arsenal")
-    async def help(self, interaction: discord.Interaction):
+    @app_commands.command(name="huntguide", description="❓ Guide complet Hunt Royal Arsenal")
+    async def hunt_guide(self, interaction: discord.Interaction):
         """Guide d'utilisation Hunt Royal complet"""
         
         embed = discord.Embed(
@@ -1915,8 +1915,8 @@ Arsenal offre le système Hunt Royal le plus complet avec authentification sécu
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
     
-    @app_commands.command(name="info", description="ℹ️ Informations système Hunt Royal")
-    async def info(self, interaction: discord.Interaction):
+    @app_commands.command(name="huntstats", description="ℹ️ Informations système Hunt Royal")
+    async def hunt_stats(self, interaction: discord.Interaction):
         """Informations détaillées sur le système Hunt Royal"""
         
         # Statistiques globales

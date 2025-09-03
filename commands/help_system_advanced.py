@@ -287,7 +287,7 @@ class HelpSystemAdvanced(commands.Cog):
             embed.set_thumbnail(url=bot.user.display_avatar.url)
             return embed
 
-    @app_commands.command(name="help", description="🚀 Système d'aide interactif Arsenal V4 Ultimate")
+    @app_commands.command(name="helpadvanced", description="🚀 Système d'aide interactif Arsenal V4 Ultimate")
     async def help_command(self, interaction: discord.Interaction):
         """Commande d'aide principale avec interface interactive"""
         

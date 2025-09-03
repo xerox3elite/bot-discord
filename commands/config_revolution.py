@@ -955,7 +955,7 @@ class ArsenalConfigRevolution(commands.Cog):
             else:
                 base_dict[key] = value
     
-    @app_commands.command(name="config", description="🚀 Configuration révolutionnaire Arsenal - Setup complet en 30 min !")
+    @app_commands.command(name="configrev", description="🚀 Configuration révolutionnaire Arsenal - Setup complet en 30 min !")
     @app_commands.describe(
         action="Action à effectuer",
         module="Module spécifique à configurer",
@@ -2495,7 +2495,7 @@ class FinalizedConfigView(discord.ui.View):
     pass
 
 # Commande principale
-@app_commands.command(name="config", description="🔧 Interface de configuration révolutionnaire Arsenal")
+@app_commands.command(name="configrevolution", description="🔧 Interface de configuration révolutionnaire Arsenal")
 @app_commands.describe(action="Action à effectuer (optionnel)")
 async def config_revolution(interaction: discord.Interaction, action: str = None):
     """Commande principale de configuration révolutionnaire"""

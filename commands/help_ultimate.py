@@ -436,7 +436,7 @@ class ArsenalHelpSystemUltimate(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @app_commands.command(name="help", description="🚀 Guide complet Arsenal avec toutes les commandes")
+    @app_commands.command(name="helpultimate", description="🚀 Guide complet Arsenal avec toutes les commandes")
     @app_commands.describe(
         catégorie="Catégorie spécifique à afficher (optionnel)"
     )

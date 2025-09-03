@@ -1137,7 +1137,7 @@ async def suggest(interaction: discord.Interaction, suggestion: str):
     await message.add_reaction("❌")  # Contre
     await message.add_reaction("🤔")  # Neutre
 
-@app_commands.command(name="level", description="🏆 Voir votre niveau et XP")
+@app_commands.command(name="configlevel", description="🏆 Voir votre niveau et XP")
 @app_commands.describe(user="Utilisateur à consulter")
 async def level_command(interaction: discord.Interaction, user: Optional[discord.Member] = None):
     """Système de niveaux"""

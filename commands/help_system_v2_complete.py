@@ -482,7 +482,7 @@ class HelpSystemV2(commands.Cog):
         self.bot = bot
         log.info("📚 [OK] Help System V2 ULTIMATE initialisé")
     
-    @app_commands.command(name="help", description="📚 Système d'aide complet Arsenal - Commandes + Support + Infos")
+    @app_commands.command(name="helpv2complete", description="📚 Système d'aide complet Arsenal - Commandes + Support + Infos")
     async def help_command(self, interaction: discord.Interaction):
         """Commande d'aide principale complète"""
         log.info(f"[HELP] {interaction.user} utilise /help")
