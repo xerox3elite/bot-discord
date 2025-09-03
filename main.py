@@ -208,7 +208,7 @@ except Exception as e:
 
 # Arsenal Config System V2.0 Modulaire (NOUVEAU - Navigation par boutons)
 try:
-    from commands.config_modular import ArsenalConfigSystem
+    from commands.config_modular import ArsenalConfigModular
     ARSENAL_CONFIG_MODULAR_AVAILABLE = True
     print("🔧 [OK] Arsenal Config System V2.0 Modulaire chargé - Navigation par boutons!")
 except Exception as e:
@@ -470,31 +470,28 @@ class ArsenalBot(commands.Bot):
                 log.error(f"[ERROR] Erreur chargement Hunt Royal Integration: {e}")
         
         # Hunt Royal Auth System - Système d'authentification
-        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
-        # try:
-        #     from commands.hunt_royal_auth import HuntRoyalAuthSystem
-        #     await self.add_cog(HuntRoyalAuthSystem(self))
-        #     log.info("🏹 [OK] Hunt Royal Auth System - Authentification avancée!")
-        # except Exception as e:
-        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Auth: {e}")
+        try:
+            from commands.hunt_royal_auth import HuntRoyalAuthSystem
+            await self.add_cog(HuntRoyalAuthSystem(self))
+            log.info("🏹 [OK] Hunt Royal Auth System - Authentification avancée!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Hunt Royal Auth: {e}")
         
         # Hunt Royal Profiles System - Gestion des profils
-        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
-        # try:
-        #     from commands.hunt_royal_profiles import HuntRoyalProfilesSystem
-        #     await self.add_cog(HuntRoyalProfilesSystem(self))
-        #     log.info("👤 [OK] Hunt Royal Profiles System - Profils joueurs!")
-        # except Exception as e:
-        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Profiles: {e}")
+        try:
+            from commands.hunt_royal_profiles import HuntRoyalProfilesSystem
+            await self.add_cog(HuntRoyalProfilesSystem(self))
+            log.info("👤 [OK] Hunt Royal Profiles System - Profils joueurs!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Hunt Royal Profiles: {e}")
         
         # Hunt Royal Integration System - API complète
-        # TEMPORAIREMENT DÉSACTIVÉ pour éviter conflits
-        # try:
-        #     from commands.hunt_royal_integration import HuntRoyalIntegrationSystem
-        #     await self.add_cog(HuntRoyalIntegrationSystem(self))
-        #     log.info("🔗 [OK] Hunt Royal Integration System - API complète!")
-        # except Exception as e:
-        #     log.error(f"[ERROR] Erreur chargement Hunt Royal Integration System: {e}")
+        try:
+            from commands.hunt_royal_integration import HuntRoyalIntegrationSystem
+            await self.add_cog(HuntRoyalIntegrationSystem(self))
+            log.info("🔗 [OK] Hunt Royal Integration System - API complète!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur chargement Hunt Royal Integration System: {e}")
         
         # Charger Crypto System Integration
         if CRYPTO_INTEGRATION_AVAILABLE:
@@ -547,7 +544,7 @@ class ArsenalBot(commands.Bot):
         # Charger Arsenal Config System V2.0 Modulaire (NOUVEAU - Navigation par boutons)
         if ARSENAL_CONFIG_MODULAR_AVAILABLE:
             try:
-                await self.add_cog(ArsenalConfigSystem(self))
+                await self.add_cog(ArsenalConfigModular(self))
                 log.info("🔧 [OK] Arsenal Config System V2.0 Modulaire - Navigation par boutons parfaite!")
             except Exception as e:
                 log.error(f"[ERROR] Erreur chargement Arsenal Config Modulaire: {e}")
@@ -894,21 +891,61 @@ class ArsenalBot(commands.Bot):
                 except Exception as e:
                     log.error(f"[ERROR] Erreur chargement Absence Ticket System: {e}")
                     
-# SUPPRIMÉ: # Sanctions System - Casier judiciaire permanent
-            if SANCTIONS_SYSTEM_AVAILABLE:
-                try:
-# SUPPRIMÉ: await self.add_cog(SanctionsSystem(self))
-                    log.info("⚖️ [OK] Sanctions System - Casier permanent & Modération avancée!")
-                except Exception as e:
-                    log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
+# Sanctions System - Casier judiciaire permanent
+            try:
+                from commands.sanctions_system import SanctionsSystem
+                await self.add_cog(SanctionsSystem(self))
+                log.info("⚖️ [OK] Sanctions System - Casier permanent & Modération avancée!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Sanctions System: {e}")
                     
-            # Complete Commands System - DÉSACTIVÉ (conflit avec Help Systems)
-            # if COMPLETE_COMMANDS_SYSTEM_AVAILABLE:
-            #     try:
-            #         await self.add_cog(CompleteCommandsSystem(self))
-            #         log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
-            #     except Exception as e:
-            #         log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
+            # Complete Commands System - Liste complète des commandes
+            try:
+                from commands.complete_commands_system import CompleteCommandsSystem
+                await self.add_cog(CompleteCommandsSystem(self))
+                log.info("📋 [OK] Complete Commands System - Liste complète des commandes!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Complete Commands System: {e}")
+                
+            # KeepAlive System - Maintien du bot actif
+            try:
+                from commands.keepalive_system import KeepAliveSystem
+                await self.add_cog(KeepAliveSystem(self))
+                log.info("💚 [OK] KeepAlive System - Maintien du bot actif!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement KeepAlive System: {e}")
+                
+            # Announcements System - Système d'annonces
+            try:
+                from commands.announcements_system import AnnouncementsSystem
+                await self.add_cog(AnnouncementsSystem(self))
+                log.info("📢 [OK] Announcements System - Système d'annonces avancé!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Announcements System: {e}")
+                
+            # Hunt Royal System V2.0 - Système principal avec 15 commandes
+            try:
+                from commands.hunt_royal_system import HuntRoyalSystem
+                await self.add_cog(HuntRoyalSystem(self))
+                log.info("🏹 [OK] Hunt Royal System V2.0 - Système principal avec calculateurs!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Hunt Royal System V2.0: {e}")
+                
+            # Arsenal Bug Report System - Système de rapport de bugs
+            try:
+                from commands.arsenal_bugreport_system import ArsenalBugReport
+                await self.add_cog(ArsenalBugReport(self))
+                log.info("🐛 [OK] Arsenal Bug Report System - Rapports de bugs avancés!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Bug Report System: {e}")
+                
+            # Arsenal Profile Updater - Mise à jour automatique des profils
+            try:
+                from commands.arsenal_profile_updater import ArsenalProfileUpdater
+                await self.add_cog(ArsenalProfileUpdater(self))
+                log.info("🔄 [OK] Arsenal Profile Updater - Profils Discord auto-optimisés!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement Arsenal Profile Updater: {e}")
                     
             # Communication System - Say & Traduction avancée
             if COMMUNICATION_SYSTEM_AVAILABLE:

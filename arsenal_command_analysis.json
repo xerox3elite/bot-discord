@@ -1,52 +1,63 @@
 {
   "timestamp": "2025-09-03 16:35:00",
   "analysis_summary": {
-    "total_files": 48,
-    "total_commands": 153,
-    "active_commands": 412,
-    "inactive_commands": 459,
-    "loaded_cogs": 38,
-    "command_conflicts": 18
+    "total_files": 42,
+    "total_commands": 132,
+    "active_commands": 660,
+    "inactive_commands": 4,
+    "loaded_cogs": 49,
+    "command_conflicts": 0
   },
   "loaded_cogs": [
-    "notifications_system",
-    "advanced_ticket_system",
-    "autoroles_system",
-    "communication_system",
-    "arsenal_profile_ultimate_2000",
-    "gaming_api_system",
-    "config_revolution",
+    "sanctions_system",
     "arsenal_diagnostic",
-    "arsenal_bug_reporter",
-    "arsenal_voice_manager",
-    "social_fun_system",
-    "server_management_system",
-    "migration_help",
+    "arsenal_bugreport_system",
+    "arsenal_features",
+    "webpanel_integration",
+    "discord_integration_forcer",
+    "music_enhanced_system",
+    "communication_system",
+    "help_system_v2",
+    "advanced_ticket_system",
+    "level_system",
+    "autoroles_system",
+    "arsenal_shop_admin",
+    "arsenal_config_ultimate",
+    "npb_system",
+    "command_protection",
+    "config_modular",
+    "gaming_api_system",
     "arsenal_custom_commands",
+    "arsenal_automod_v5_fixed",
+    "arsenal_update_notifier",
+    "advanced_logs",
+    "hunt_royal_profiles",
+    "community",
+    "config_revolution",
+    "reglement",
+    "keepalive_system",
+    "reaction_roles_system",
+    "complete_commands_system",
+    "hunt_royal_system",
+    "arsenal_test_suite",
+    "arsenal_context_menus",
+    "announcements_system",
+    "server_management_system",
+    "arsenal_profile_ultimate_2000",
     "creator_tools",
     "hub_vocal",
-    "arsenal_features",
+    "arsenal_bug_reporter",
+    "arsenal_voice_manager",
     "advanced_features",
-    "reglement",
-    "bot_migration_system",
-    "arsenal_shop_admin",
-    "music_enhanced_system",
-    "arsenal_economy_unified",
-    "arsenal_config_ultimate",
-    "webpanel_integration",
-    "absence_tickets",
-    "arsenal_automod_v5_fixed",
-    "advanced_logs",
-    "community",
-    "arsenal_update_notifier",
-    "unknown",
+    "hunt_royal_integration",
     "invcmd_system",
-    "help_system_v2",
-    "discord_integration_forcer",
-    "level_system",
-    "arsenal_test_suite",
-    "reaction_roles_system",
-    "arsenal_context_menus"
+    "migration_help",
+    "notifications_system",
+    "hunt_royal_auth",
+    "bot_migration_system",
+    "absence_tickets",
+    "social_fun_system",
+    "arsenal_economy_unified"
   ],
   "theoretical_commands": {
     "absence_tickets": [
@@ -96,7 +107,7 @@
         "type": "app_command",
         "description": "📢 Système de gestion des annonces",
         "file": "announcements_system",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "arsenal_automod_v5_fixed": [
@@ -114,14 +125,14 @@
         "type": "app_command",
         "description": "🐛 Signaler un bug Arsenal en 5 secondes",
         "file": "arsenal_bugreport_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "voirbug",
         "type": "app_command",
         "description": "👁️ Voir les bugs reportés (Créateur uniquement)",
         "file": "arsenal_bugreport_system",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "arsenal_bug_reporter": [
@@ -152,52 +163,6 @@
         "description": "🔧 Gestion des bugs (Admin)",
         "file": "arsenal_bug_reporter",
         "status": "active"
-      }
-    ],
-    "arsenal_command_groups_final": [
-      {
-        "name": "automod",
-        "type": "app_command",
-        "description": "🛡️ Configurer Arsenal AutoMod V5.0.1 (489 mots)",
-        "file": "arsenal_command_groups_final",
-        "status": "inactive"
-      }
-    ],
-    "arsenal_config_system": [
-      {
-        "name": "config",
-        "type": "app_command",
-        "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-        "file": "arsenal_config_system",
-        "status": "inactive"
-      },
-      {
-        "name": "config",
-        "type": "app_command",
-        "description": "⚙️ Configuration complète d'Arsenal Bot",
-        "file": "arsenal_config_system",
-        "status": "inactive"
-      },
-      {
-        "name": "poll",
-        "type": "app_command",
-        "description": "📊 Créer un sondage interactif",
-        "file": "arsenal_config_system",
-        "status": "inactive"
-      },
-      {
-        "name": "suggest",
-        "type": "app_command",
-        "description": "💡 Faire une suggestion",
-        "file": "arsenal_config_system",
-        "status": "inactive"
-      },
-      {
-        "name": "configlevel",
-        "type": "app_command",
-        "description": "🏆 Voir votre niveau et XP",
-        "file": "arsenal_config_system",
-        "status": "inactive"
       }
     ],
     "arsenal_economy_unified": [
@@ -365,6 +330,22 @@
         "status": "active"
       }
     ],
+    "command_protection": [
+      {
+        "name": "protection-status",
+        "type": "app_command",
+        "description": "🛡️ Statut du système de protection",
+        "file": "command_protection",
+        "status": "active"
+      },
+      {
+        "name": "clear-protection",
+        "type": "app_command",
+        "description": "🧹 Vider le cache de protection",
+        "file": "command_protection",
+        "status": "active"
+      }
+    ],
     "communication_system": [
       {
         "name": "say",
@@ -452,14 +433,58 @@
         "type": "app_command",
         "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
         "file": "complete_commands_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "help_search",
         "type": "app_command",
         "description": "🔍 Rechercher une commande spécifique",
         "file": "complete_commands_system",
-        "status": "inactive"
+        "status": "active"
+      }
+    ],
+    "config_modular": [
+      {
+        "name": "config",
+        "type": "app_command",
+        "description": "🔧 Configuration générale Arsenal",
+        "file": "config_modular",
+        "status": "active"
+      },
+      {
+        "name": "config-economie",
+        "type": "app_command",
+        "description": "💰 Configuration du système d'économie",
+        "file": "config_modular",
+        "status": "active"
+      },
+      {
+        "name": "config-level",
+        "type": "app_command",
+        "description": "📈 Configuration du système de niveaux",
+        "file": "config_modular",
+        "status": "active"
+      },
+      {
+        "name": "config-reglement",
+        "type": "app_command",
+        "description": "📜 Configuration du règlement",
+        "file": "config_modular",
+        "status": "active"
+      },
+      {
+        "name": "config-automod",
+        "type": "app_command",
+        "description": "🛡️ Configuration de l'AutoMod",
+        "file": "config_modular",
+        "status": "active"
+      },
+      {
+        "name": "config-tickets",
+        "type": "app_command",
+        "description": "🎫 Configuration des tickets",
+        "file": "config_modular",
+        "status": "active"
       }
     ],
     "config_revolution": [
@@ -533,68 +558,6 @@
         "status": "active"
       }
     ],
-    "help": [
-      {
-        "name": "help",
-        "type": "app_command",
-        "description": "🚀 Système d'aide Arsenal professionnel",
-        "file": "help",
-        "status": "inactive"
-      },
-      {
-        "name": "help_search",
-        "type": "app_command",
-        "description": "🔍 Rechercher une commande spécifique",
-        "file": "help",
-        "status": "inactive"
-      },
-      {
-        "name": "commands_count",
-        "type": "app_command",
-        "description": "📊 Statistiques des commandes Arsenal",
-        "file": "help",
-        "status": "inactive"
-      }
-    ],
-    "help_system": [
-      {
-        "name": "help",
-        "type": "app_command",
-        "description": "📚 Afficher l'aide du bot",
-        "file": "help_system",
-        "status": "inactive"
-      },
-      {
-        "name": "commands",
-        "type": "app_command",
-        "description": "📋 Liste complète des commandes",
-        "file": "help_system",
-        "status": "inactive"
-      },
-      {
-        "name": "helpme",
-        "type": "traditional_command",
-        "description": "N/A",
-        "file": "help_system",
-        "status": "inactive"
-      }
-    ],
-    "help_system_advanced": [
-      {
-        "name": "helpadvanced",
-        "type": "app_command",
-        "description": "🚀 Système d'aide interactif Arsenal V4 Ultimate",
-        "file": "help_system_advanced",
-        "status": "inactive"
-      },
-      {
-        "name": "help_search",
-        "type": "app_command",
-        "description": "🔍 Rechercher dans l'aide",
-        "file": "help_system_advanced",
-        "status": "inactive"
-      }
-    ],
     "help_system_v2": [
       {
         "name": "helpv2",
@@ -604,52 +567,27 @@
         "status": "active"
       }
     ],
-    "help_system_v2_complete": [
-      {
-        "name": "helpv2complete",
-        "type": "app_command",
-        "description": "📚 Système d'aide complet Arsenal - Commandes + Support + Infos",
-        "file": "help_system_v2_complete",
-        "status": "inactive"
-      }
-    ],
-    "help_ultimate": [
-      {
-        "name": "helpultimate",
-        "type": "app_command",
-        "description": "🚀 Guide complet Arsenal avec toutes les commandes",
-        "file": "help_ultimate",
-        "status": "inactive"
-      },
-      {
-        "name": "commands",
-        "type": "app_command",
-        "description": "📋 Liste rapide de toutes les commandes",
-        "file": "help_ultimate",
-        "status": "inactive"
-      }
-    ],
     "hunt_royal_auth": [
       {
         "name": "register",
         "type": "app_command",
         "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
         "file": "hunt_royal_auth",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "mytoken",
         "type": "app_command",
         "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
         "file": "hunt_royal_auth",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "hunt-stats",
         "type": "app_command",
         "description": "[ADMIN] Statistiques du système Hunt Royal",
         "file": "hunt_royal_auth",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "hunt_royal_integration": [
@@ -658,21 +596,21 @@
         "type": "app_command",
         "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
         "file": "hunt_royal_integration",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "myhrcode",
         "type": "app_command",
         "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
         "file": "hunt_royal_integration",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "hrstats",
         "type": "app_command",
         "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
         "file": "hunt_royal_integration",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "hunt_royal_profiles": [
@@ -681,149 +619,79 @@
         "type": "app_command",
         "description": "Lier votre compte Hunt Royal à Discord",
         "file": "hunt_royal_profiles",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "profile-hunt",
         "type": "app_command",
         "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
         "file": "hunt_royal_profiles",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "unlink-hunt",
         "type": "app_command",
         "description": "Délier votre compte Hunt Royal de Discord",
         "file": "hunt_royal_profiles",
-        "status": "inactive"
-      },
-      {
-        "name": "link-hunt",
-        "type": "app_command",
-        "description": "🔗 Lier votre compte Hunt Royal",
-        "file": "hunt_royal_profiles",
-        "status": "inactive"
-      },
-      {
-        "name": "profile-hunt",
-        "type": "app_command",
-        "description": "📊 Voir votre profil Hunt Royal",
-        "file": "hunt_royal_profiles",
-        "status": "inactive"
-      },
-      {
-        "name": "unlink-hunt",
-        "type": "app_command",
-        "description": "🔗 Délier votre compte Hunt Royal",
-        "file": "hunt_royal_profiles",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "hunt_royal_system": [
       {
-        "name": "register",
+        "name": "hr-register",
         "type": "app_command",
         "description": "🏹 S'enregistrer dans le système Hunt Royal",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "calculator",
         "type": "app_command",
         "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "profile",
         "type": "app_command",
         "description": "👤 Voir votre profil Hunt Royal complet",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "builds",
         "type": "app_command",
         "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "hunters",
         "type": "app_command",
         "description": "🏹 Base de données des chasseurs Hunt Royal",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "popular",
         "type": "app_command",
         "description": "🔥 Builds populaires de la communauté",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "hunthelp",
         "type": "app_command",
         "description": "❓ Guide complet Hunt Royal Arsenal",
         "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "huntinfo",
         "type": "app_command",
         "description": "ℹ️ Informations système Hunt Royal",
         "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "huntcalc",
-        "type": "app_command",
-        "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "profile",
-        "type": "app_command",
-        "description": "👤 Voir votre profil Hunt Royal complet",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "builds",
-        "type": "app_command",
-        "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "hunters",
-        "type": "app_command",
-        "description": "🏹 Base de données des chasseurs Hunt Royal",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "popular",
-        "type": "app_command",
-        "description": "🔥 Builds populaires de la communauté",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "huntguide",
-        "type": "app_command",
-        "description": "❓ Guide complet Hunt Royal Arsenal",
-        "file": "hunt_royal_system",
-        "status": "inactive"
-      },
-      {
-        "name": "huntstats",
-        "type": "app_command",
-        "description": "ℹ️ Informations système Hunt Royal",
-        "file": "hunt_royal_system",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "invcmd_system": [
@@ -841,14 +709,14 @@
         "type": "app_command",
         "description": "🔄 Gestion système KeepAlive",
         "file": "keepalive_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "uptime",
         "type": "app_command",
         "description": "📊 Statistiques d'uptime",
         "file": "keepalive_system",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "level_system": [
@@ -978,6 +846,22 @@
         "status": "active"
       }
     ],
+    "npb_system": [
+      {
+        "name": "npb",
+        "type": "app_command",
+        "description": "🎮 Navigation Par Bouton - Interface graphique complète Arsenal",
+        "file": "npb_system",
+        "status": "active"
+      },
+      {
+        "name": "npb-help",
+        "type": "app_command",
+        "description": "📚 Guide du système NPB",
+        "file": "npb_system",
+        "status": "active"
+      }
+    ],
     "reaction_roles_system": [
       {
         "name": "reactionroles",
@@ -1010,108 +894,76 @@
         "status": "active"
       }
     ],
-    "reglement_system": [
-      {
-        "name": "reglement",
-        "type": "app_command",
-        "description": "🛡️ Gestion du règlement du serveur",
-        "file": "reglement_system",
-        "status": "inactive"
-      }
-    ],
-    "sanction": [
-      {
-        "name": "warn",
-        "type": "app_command",
-        "description": "⚠️ Avertir un utilisateur",
-        "file": "sanction",
-        "status": "inactive"
-      },
-      {
-        "name": "timeout",
-        "type": "app_command",
-        "description": "⏰ Mettre un utilisateur en timeout",
-        "file": "sanction",
-        "status": "inactive"
-      },
-      {
-        "name": "casier",
-        "type": "app_command",
-        "description": "📋 Voir le casier judiciaire d'un utilisateur",
-        "file": "sanction",
-        "status": "inactive"
-      }
-    ],
     "sanctions_system": [
       {
         "name": "timeout",
         "type": "app_command",
         "description": "⏰ Timeout un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "warn",
         "type": "app_command",
         "description": "⚠️ Warn un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "kick",
         "type": "app_command",
         "description": "👢 Kick un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "ban",
         "type": "app_command",
         "description": "🔨 Ban un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "mute",
         "type": "app_command",
         "description": "🔇 Mute un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "untimeout",
         "type": "app_command",
         "description": "✅ Retirer le timeout",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "unban",
         "type": "app_command",
         "description": "✅ Unban un utilisateur",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "unmute",
         "type": "app_command",
         "description": "✅ Unmute un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "unwarn",
         "type": "app_command",
         "description": "✅ Retirer un warn",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       },
       {
         "name": "casier",
         "type": "app_command",
         "description": "📋 Voir le casier judiciaire d'un membre",
         "file": "sanctions_system",
-        "status": "inactive"
+        "status": "active"
       }
     ],
     "server_management_system": [
@@ -1282,10 +1134,45 @@
       "status": "active"
     },
     {
+      "name": "announcements",
+      "type": "app_command",
+      "description": "📢 Système de gestion des annonces",
+      "file": "announcements_system",
+      "status": "active"
+    },
+    {
       "name": "automod",
       "type": "app_command",
       "description": "🛡️ Configurer Arsenal AutoMod V5.0.1 (489 mots EXACT)",
       "file": "arsenal_automod_v5_fixed",
+      "status": "active"
+    },
+    {
+      "name": "bugreport",
+      "type": "app_command",
+      "description": "🐛 Signaler un bug Arsenal en 5 secondes",
+      "file": "arsenal_bugreport_system",
+      "status": "active"
+    },
+    {
+      "name": "voirbug",
+      "type": "app_command",
+      "description": "👁️ Voir les bugs reportés (Créateur uniquement)",
+      "file": "arsenal_bugreport_system",
+      "status": "active"
+    },
+    {
+      "name": "bugreport",
+      "type": "app_command",
+      "description": "🐛 Signaler un bug Arsenal en 5 secondes",
+      "file": "arsenal_bugreport_system",
+      "status": "active"
+    },
+    {
+      "name": "voirbug",
+      "type": "app_command",
+      "description": "👁️ Voir les bugs reportés (Créateur uniquement)",
+      "file": "arsenal_bugreport_system",
       "status": "active"
     },
     {
@@ -1842,6 +1729,55 @@
       "status": "active"
     },
     {
+      "name": "protection-status",
+      "type": "app_command",
+      "description": "🛡️ Statut du système de protection",
+      "file": "command_protection",
+      "status": "active"
+    },
+    {
+      "name": "clear-protection",
+      "type": "app_command",
+      "description": "🧹 Vider le cache de protection",
+      "file": "command_protection",
+      "status": "active"
+    },
+    {
+      "name": "protection-status",
+      "type": "app_command",
+      "description": "🛡️ Statut du système de protection",
+      "file": "command_protection",
+      "status": "active"
+    },
+    {
+      "name": "clear-protection",
+      "type": "app_command",
+      "description": "🧹 Vider le cache de protection",
+      "file": "command_protection",
+      "status": "active"
+    },
+    {
+      "name": "say",
+      "type": "app_command",
+      "description": "📢 Envoyer un message via le bot",
+      "file": "communication_system",
+      "status": "active"
+    },
+    {
+      "name": "translate",
+      "type": "app_command",
+      "description": "🌍 Traduire un texte dans n'importe quelle langue",
+      "file": "communication_system",
+      "status": "active"
+    },
+    {
+      "name": "say_embed",
+      "type": "app_command",
+      "description": "📢 Envoyer un embed personnalisé avancé",
+      "file": "communication_system",
+      "status": "active"
+    },
+    {
       "name": "say",
       "type": "app_command",
       "description": "📢 Envoyer un message via le bot",
@@ -1884,27 +1820,6 @@
       "status": "active"
     },
     {
-      "name": "say",
-      "type": "app_command",
-      "description": "📢 Envoyer un message via le bot",
-      "file": "communication_system",
-      "status": "active"
-    },
-    {
-      "name": "translate",
-      "type": "app_command",
-      "description": "🌍 Traduire un texte dans n'importe quelle langue",
-      "file": "communication_system",
-      "status": "active"
-    },
-    {
-      "name": "say_embed",
-      "type": "app_command",
-      "description": "📢 Envoyer un embed personnalisé avancé",
-      "file": "communication_system",
-      "status": "active"
-    },
-    {
       "name": "info",
       "type": "app_command",
       "description": "📊 Informations complètes sur Arsenal Bot",
@@ -2350,6 +2265,286 @@
       "type": "app_command",
       "description": "📋 Historique complet des mises à jour Arsenal",
       "file": "community",
+      "status": "active"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
+      "file": "complete_commands_system",
+      "status": "active"
+    },
+    {
+      "name": "help_search",
+      "type": "app_command",
+      "description": "🔍 Rechercher une commande spécifique",
+      "file": "complete_commands_system",
+      "status": "active"
+    },
+    {
+      "name": "commands",
+      "type": "app_command",
+      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
+      "file": "complete_commands_system",
+      "status": "active"
+    },
+    {
+      "name": "help_search",
+      "type": "app_command",
+      "description": "🔍 Rechercher une commande spécifique",
+      "file": "complete_commands_system",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config",
+      "type": "app_command",
+      "description": "🔧 Configuration générale Arsenal",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-economie",
+      "type": "app_command",
+      "description": "💰 Configuration du système d'économie",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-level",
+      "type": "app_command",
+      "description": "📈 Configuration du système de niveaux",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-reglement",
+      "type": "app_command",
+      "description": "📜 Configuration du règlement",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-automod",
+      "type": "app_command",
+      "description": "🛡️ Configuration de l'AutoMod",
+      "file": "config_modular",
+      "status": "active"
+    },
+    {
+      "name": "config-tickets",
+      "type": "app_command",
+      "description": "🎫 Configuration des tickets",
+      "file": "config_modular",
       "status": "active"
     },
     {
@@ -2577,10 +2772,675 @@
       "status": "active"
     },
     {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "register",
+      "type": "app_command",
+      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "mytoken",
+      "type": "app_command",
+      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "hunt-stats",
+      "type": "app_command",
+      "description": "[ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_auth",
+      "status": "active"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "registerhr",
+      "type": "app_command",
+      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "myhrcode",
+      "type": "app_command",
+      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "hrstats",
+      "type": "app_command",
+      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
+      "file": "hunt_royal_integration",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "link-hunt",
+      "type": "app_command",
+      "description": "Lier votre compte Hunt Royal à Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "profile-hunt",
+      "type": "app_command",
+      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "unlink-hunt",
+      "type": "app_command",
+      "description": "Délier votre compte Hunt Royal de Discord",
+      "file": "hunt_royal_profiles",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hr-register",
+      "type": "app_command",
+      "description": "🏹 S'enregistrer dans le système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "calculator",
+      "type": "app_command",
+      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "profile",
+      "type": "app_command",
+      "description": "👤 Voir votre profil Hunt Royal complet",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "builds",
+      "type": "app_command",
+      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunters",
+      "type": "app_command",
+      "description": "🏹 Base de données des chasseurs Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "popular",
+      "type": "app_command",
+      "description": "🔥 Builds populaires de la communauté",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "hunthelp",
+      "type": "app_command",
+      "description": "❓ Guide complet Hunt Royal Arsenal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
+      "name": "huntinfo",
+      "type": "app_command",
+      "description": "ℹ️ Informations système Hunt Royal",
+      "file": "hunt_royal_system",
+      "status": "active"
+    },
+    {
       "name": "invcmd",
       "type": "app_command",
       "description": "🖥️ Terminal de monitoring et débogage (créateurs uniquement)",
       "file": "invcmd_system",
+      "status": "active"
+    },
+    {
+      "name": "keepalive",
+      "type": "app_command",
+      "description": "🔄 Gestion système KeepAlive",
+      "file": "keepalive_system",
+      "status": "active"
+    },
+    {
+      "name": "uptime",
+      "type": "app_command",
+      "description": "📊 Statistiques d'uptime",
+      "file": "keepalive_system",
+      "status": "active"
+    },
+    {
+      "name": "keepalive",
+      "type": "app_command",
+      "description": "🔄 Gestion système KeepAlive",
+      "file": "keepalive_system",
+      "status": "active"
+    },
+    {
+      "name": "uptime",
+      "type": "app_command",
+      "description": "📊 Statistiques d'uptime",
+      "file": "keepalive_system",
       "status": "active"
     },
     {
@@ -3221,6 +4081,34 @@
       "status": "active"
     },
     {
+      "name": "npb",
+      "type": "app_command",
+      "description": "🎮 Navigation Par Bouton - Interface graphique complète Arsenal",
+      "file": "npb_system",
+      "status": "active"
+    },
+    {
+      "name": "npb-help",
+      "type": "app_command",
+      "description": "📚 Guide du système NPB",
+      "file": "npb_system",
+      "status": "active"
+    },
+    {
+      "name": "npb",
+      "type": "app_command",
+      "description": "🎮 Navigation Par Bouton - Interface graphique complète Arsenal",
+      "file": "npb_system",
+      "status": "active"
+    },
+    {
+      "name": "npb-help",
+      "type": "app_command",
+      "description": "📚 Guide du système NPB",
+      "file": "npb_system",
+      "status": "active"
+    },
+    {
       "name": "reactionroles",
       "type": "app_command",
       "description": "🎭 Configuration des rôles par réaction",
@@ -3288,6 +4176,706 @@
       "type": "app_command",
       "description": "📊 Statistiques complètes du règlement",
       "file": "reglement",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "timeout",
+      "type": "app_command",
+      "description": "⏰ Timeout un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "warn",
+      "type": "app_command",
+      "description": "⚠️ Warn un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "kick",
+      "type": "app_command",
+      "description": "👢 Kick un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "ban",
+      "type": "app_command",
+      "description": "🔨 Ban un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "mute",
+      "type": "app_command",
+      "description": "🔇 Mute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "untimeout",
+      "type": "app_command",
+      "description": "✅ Retirer le timeout",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unban",
+      "type": "app_command",
+      "description": "✅ Unban un utilisateur",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unmute",
+      "type": "app_command",
+      "description": "✅ Unmute un membre",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "unwarn",
+      "type": "app_command",
+      "description": "✅ Retirer un warn",
+      "file": "sanctions_system",
+      "status": "active"
+    },
+    {
+      "name": "casier",
+      "type": "app_command",
+      "description": "📋 Voir le casier judiciaire d'un membre",
+      "file": "sanctions_system",
       "status": "active"
     },
     {
@@ -4105,223 +5693,6 @@
   ],
   "inactive_commands": [
     {
-      "name": "announcements",
-      "type": "app_command",
-      "description": "📢 Système de gestion des annonces",
-      "file": "announcements_system",
-      "status": "inactive"
-    },
-    {
-      "name": "bugreport",
-      "type": "app_command",
-      "description": "🐛 Signaler un bug Arsenal en 5 secondes",
-      "file": "arsenal_bugreport_system",
-      "status": "inactive"
-    },
-    {
-      "name": "voirbug",
-      "type": "app_command",
-      "description": "👁️ Voir les bugs reportés (Créateur uniquement)",
-      "file": "arsenal_bugreport_system",
-      "status": "inactive"
-    },
-    {
-      "name": "bugreport",
-      "type": "app_command",
-      "description": "🐛 Signaler un bug Arsenal en 5 secondes",
-      "file": "arsenal_bugreport_system",
-      "status": "inactive"
-    },
-    {
-      "name": "voirbug",
-      "type": "app_command",
-      "description": "👁️ Voir les bugs reportés (Créateur uniquement)",
-      "file": "arsenal_bugreport_system",
-      "status": "inactive"
-    },
-    {
-      "name": "automod",
-      "type": "app_command",
-      "description": "🛡️ Configurer Arsenal AutoMod V5.0.1 (489 mots)",
-      "file": "arsenal_command_groups_final",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot avec MODALS",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "config",
-      "type": "app_command",
-      "description": "⚙️ Configuration complète d'Arsenal Bot",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "poll",
-      "type": "app_command",
-      "description": "📊 Créer un sondage interactif",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "suggest",
-      "type": "app_command",
-      "description": "💡 Faire une suggestion",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
-      "name": "configlevel",
-      "type": "app_command",
-      "description": "🏆 Voir votre niveau et XP",
-      "file": "arsenal_config_system",
-      "status": "inactive"
-    },
-    {
       "name": "update_profile",
       "type": "traditional_command",
       "description": "N/A",
@@ -4348,3115 +5719,10 @@
       "description": "N/A",
       "file": "arsenal_profile_updater",
       "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
-      "file": "complete_commands_system",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "complete_commands_system",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Afficher TOUTES les commandes du bot avec descriptions",
-      "file": "complete_commands_system",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "complete_commands_system",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "🚀 Système d'aide Arsenal professionnel",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "commands_count",
-      "type": "app_command",
-      "description": "📊 Statistiques des commandes Arsenal",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "🚀 Système d'aide Arsenal professionnel",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "commands_count",
-      "type": "app_command",
-      "description": "📊 Statistiques des commandes Arsenal",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "🚀 Système d'aide Arsenal professionnel",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher une commande spécifique",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "commands_count",
-      "type": "app_command",
-      "description": "📊 Statistiques des commandes Arsenal",
-      "file": "help",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "📚 Afficher l'aide du bot",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Liste complète des commandes",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "helpme",
-      "type": "traditional_command",
-      "description": "N/A",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "📚 Afficher l'aide du bot",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Liste complète des commandes",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "helpme",
-      "type": "traditional_command",
-      "description": "N/A",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "help",
-      "type": "app_command",
-      "description": "📚 Afficher l'aide du bot",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Liste complète des commandes",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "helpme",
-      "type": "traditional_command",
-      "description": "N/A",
-      "file": "help_system",
-      "status": "inactive"
-    },
-    {
-      "name": "helpadvanced",
-      "type": "app_command",
-      "description": "🚀 Système d'aide interactif Arsenal V4 Ultimate",
-      "file": "help_system_advanced",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher dans l'aide",
-      "file": "help_system_advanced",
-      "status": "inactive"
-    },
-    {
-      "name": "helpadvanced",
-      "type": "app_command",
-      "description": "🚀 Système d'aide interactif Arsenal V4 Ultimate",
-      "file": "help_system_advanced",
-      "status": "inactive"
-    },
-    {
-      "name": "help_search",
-      "type": "app_command",
-      "description": "🔍 Rechercher dans l'aide",
-      "file": "help_system_advanced",
-      "status": "inactive"
-    },
-    {
-      "name": "helpv2complete",
-      "type": "app_command",
-      "description": "📚 Système d'aide complet Arsenal - Commandes + Support + Infos",
-      "file": "help_system_v2_complete",
-      "status": "inactive"
-    },
-    {
-      "name": "helpultimate",
-      "type": "app_command",
-      "description": "🚀 Guide complet Arsenal avec toutes les commandes",
-      "file": "help_ultimate",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Liste rapide de toutes les commandes",
-      "file": "help_ultimate",
-      "status": "inactive"
-    },
-    {
-      "name": "helpultimate",
-      "type": "app_command",
-      "description": "🚀 Guide complet Arsenal avec toutes les commandes",
-      "file": "help_ultimate",
-      "status": "inactive"
-    },
-    {
-      "name": "commands",
-      "type": "app_command",
-      "description": "📋 Liste rapide de toutes les commandes",
-      "file": "help_ultimate",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "S'enregistrer pour accéder au Hunt Royal Calculator avec GUI avancé",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "mytoken",
-      "type": "app_command",
-      "description": "Récupérer votre token d'accès Hunt Royal avec gestion avancée",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "hunt-stats",
-      "type": "app_command",
-      "description": "[ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_auth",
-      "status": "inactive"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "registerhr",
-      "type": "app_command",
-      "description": "🏹 Enregistrer votre ID Hunt Royal pour accéder au calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "myhrcode",
-      "type": "app_command",
-      "description": "🔑 Récupérer votre code d'accès Hunt Royal Calculator",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "hrstats",
-      "type": "app_command",
-      "description": "📊 [ADMIN] Statistiques du système Hunt Royal",
-      "file": "hunt_royal_integration",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "Lier votre compte Hunt Royal à Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "Afficher votre profil Hunt Royal ou celui d'un autre joueur",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "Délier votre compte Hunt Royal de Discord",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "link-hunt",
-      "type": "app_command",
-      "description": "🔗 Lier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "profile-hunt",
-      "type": "app_command",
-      "description": "📊 Voir votre profil Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "unlink-hunt",
-      "type": "app_command",
-      "description": "🔗 Délier votre compte Hunt Royal",
-      "file": "hunt_royal_profiles",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "register",
-      "type": "app_command",
-      "description": "🏹 S'enregistrer dans le système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "calculator",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunthelp",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntinfo",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntcalc",
-      "type": "app_command",
-      "description": "🔢 Calculateur de stuff Hunt Royal (Attack/Defence)",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "profile",
-      "type": "app_command",
-      "description": "👤 Voir votre profil Hunt Royal complet",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "builds",
-      "type": "app_command",
-      "description": "📁 Gérer vos builds Hunt Royal sauvegardés",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "hunters",
-      "type": "app_command",
-      "description": "🏹 Base de données des chasseurs Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "popular",
-      "type": "app_command",
-      "description": "🔥 Builds populaires de la communauté",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntguide",
-      "type": "app_command",
-      "description": "❓ Guide complet Hunt Royal Arsenal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "huntstats",
-      "type": "app_command",
-      "description": "ℹ️ Informations système Hunt Royal",
-      "file": "hunt_royal_system",
-      "status": "inactive"
-    },
-    {
-      "name": "keepalive",
-      "type": "app_command",
-      "description": "🔄 Gestion système KeepAlive",
-      "file": "keepalive_system",
-      "status": "inactive"
-    },
-    {
-      "name": "uptime",
-      "type": "app_command",
-      "description": "📊 Statistiques d'uptime",
-      "file": "keepalive_system",
-      "status": "inactive"
-    },
-    {
-      "name": "keepalive",
-      "type": "app_command",
-      "description": "🔄 Gestion système KeepAlive",
-      "file": "keepalive_system",
-      "status": "inactive"
-    },
-    {
-      "name": "uptime",
-      "type": "app_command",
-      "description": "📊 Statistiques d'uptime",
-      "file": "keepalive_system",
-      "status": "inactive"
-    },
-    {
-      "name": "reglement",
-      "type": "app_command",
-      "description": "🛡️ Gestion du règlement du serveur",
-      "file": "reglement_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Avertir un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Mettre un utilisateur en timeout",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Avertir un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Mettre un utilisateur en timeout",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Avertir un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Mettre un utilisateur en timeout",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un utilisateur",
-      "file": "sanction",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "timeout",
-      "type": "app_command",
-      "description": "⏰ Timeout un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "warn",
-      "type": "app_command",
-      "description": "⚠️ Warn un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "kick",
-      "type": "app_command",
-      "description": "👢 Kick un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "ban",
-      "type": "app_command",
-      "description": "🔨 Ban un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "mute",
-      "type": "app_command",
-      "description": "🔇 Mute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "untimeout",
-      "type": "app_command",
-      "description": "✅ Retirer le timeout",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unban",
-      "type": "app_command",
-      "description": "✅ Unban un utilisateur",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unmute",
-      "type": "app_command",
-      "description": "✅ Unmute un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "unwarn",
-      "type": "app_command",
-      "description": "✅ Retirer un warn",
-      "file": "sanctions_system",
-      "status": "inactive"
-    },
-    {
-      "name": "casier",
-      "type": "app_command",
-      "description": "📋 Voir le casier judiciaire d'un membre",
-      "file": "sanctions_system",
-      "status": "inactive"
     }
   ],
-  "command_conflicts": [
-    {
-      "command": "automod",
-      "files": [
-        "arsenal_automod_v5_fixed",
-        "arsenal_command_groups_final"
-      ]
-    },
-    {
-      "command": "config",
-      "files": [
-        "arsenal_config_system",
-        "arsenal_config_system"
-      ]
-    },
-    {
-      "command": "help_search",
-      "files": [
-        "complete_commands_system",
-        "help"
-      ]
-    },
-    {
-      "command": "help",
-      "files": [
-        "help",
-        "help_system"
-      ]
-    },
-    {
-      "command": "commands",
-      "files": [
-        "complete_commands_system",
-        "help_system"
-      ]
-    },
-    {
-      "command": "help_search",
-      "files": [
-        "complete_commands_system",
-        "help_system_advanced"
-      ]
-    },
-    {
-      "command": "commands",
-      "files": [
-        "complete_commands_system",
-        "help_ultimate"
-      ]
-    },
-    {
-      "command": "link-hunt",
-      "files": [
-        "hunt_royal_profiles",
-        "hunt_royal_profiles"
-      ]
-    },
-    {
-      "command": "profile-hunt",
-      "files": [
-        "hunt_royal_profiles",
-        "hunt_royal_profiles"
-      ]
-    },
-    {
-      "command": "unlink-hunt",
-      "files": [
-        "hunt_royal_profiles",
-        "hunt_royal_profiles"
-      ]
-    },
-    {
-      "command": "register",
-      "files": [
-        "hunt_royal_auth",
-        "hunt_royal_system"
-      ]
-    },
-    {
-      "command": "profile",
-      "files": [
-        "hunt_royal_system",
-        "hunt_royal_system"
-      ]
-    },
-    {
-      "command": "builds",
-      "files": [
-        "hunt_royal_system",
-        "hunt_royal_system"
-      ]
-    },
-    {
-      "command": "hunters",
-      "files": [
-        "hunt_royal_system",
-        "hunt_royal_system"
-      ]
-    },
-    {
-      "command": "popular",
-      "files": [
-        "hunt_royal_system",
-        "hunt_royal_system"
-      ]
-    },
-    {
-      "command": "timeout",
-      "files": [
-        "sanction",
-        "sanctions_system"
-      ]
-    },
-    {
-      "command": "warn",
-      "files": [
-        "sanction",
-        "sanctions_system"
-      ]
-    },
-    {
-      "command": "casier",
-      "files": [
-        "sanction",
-        "sanctions_system"
-      ]
-    }
-  ],
+  "command_conflicts": [],
   "recommendations": [
-    "⚠️ Résoudre 18 conflits de noms de commandes",
-    "🔧 Activer 459 commandes inactives ou nettoyer le code",
-    "🗂️ Fichier arsenal_config_system: 25 commandes non chargées",
-    "🗂️ Fichier help: 9 commandes non chargées",
-    "🗂️ Fichier help_system: 9 commandes non chargées",
-    "🗂️ Fichier hunt_royal_auth: 9 commandes non chargées",
-    "🗂️ Fichier hunt_royal_integration: 9 commandes non chargées",
-    "🗂️ Fichier hunt_royal_profiles: 36 commandes non chargées",
-    "🗂️ Fichier hunt_royal_system: 225 commandes non chargées",
-    "🗂️ Fichier sanction: 9 commandes non chargées",
-    "🗂️ Fichier sanctions_system: 100 commandes non chargées"
+    "🔧 Activer 4 commandes inactives ou nettoyer le code"
   ]
 }

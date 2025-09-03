@@ -283,8 +283,8 @@ class AddShopItemModal(discord.ui.Modal, title="➕ Ajouter Objet Shop"):
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
-class ArsenalConfigSystem(commands.Cog):
-    """🔧 Système de Configuration Arsenal V2.0"""
+class ArsenalConfigModular(commands.Cog):
+    """🔧 Système de Configuration Arsenal V2.0 Modulaire"""
     
     def __init__(self, bot):
         self.bot = bot
@@ -436,7 +436,7 @@ Utilisez les commandes ci-dessous pour configurer chaque module :
 
 async def setup(bot: commands.Bot):
     """Setup function"""
-    await bot.add_cog(ArsenalConfigSystem(bot))
+    await bot.add_cog(ArsenalConfigModular(bot))
     log.info("🔧 [OK] Arsenal Config System V2.0 Modulaire chargé !")
 
 async def teardown(bot: commands.Bot):
