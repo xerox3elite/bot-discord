@@ -141,14 +141,16 @@ from manager.terminal_manager import start_terminal
 from manager.memory_manager import memoire
 
 # Setup audio - utilise le système avancé maintenant
+def setup_audio(bot=None):
+    """Fonction audio fallback - ne fait rien si module audio indisponible"""
+    print("[INFO] Audio system fallback - no operation")
+    pass
+
 try:
     # SUPPRIMÉ: from commands.music_system_advanced import setup_audio
     pass  # Bloc temporairement vide
 except ImportError:
     print("[WARNING] Module audio avancé non disponible, utilisation du fallback")
-    def setup_audio(bot=None):
-        """Fonction audio fallback - ne fait rien si module audio indisponible"""
-        pass
 
 # Arsenal Status System (NOUVEAU)
 from manager.status_manager import initialize_status_system
