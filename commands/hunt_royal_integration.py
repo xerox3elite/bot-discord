@@ -25,10 +25,10 @@ except ImportError:
     print("⚠️ Module sqlite_database non trouvé")
     ArsenalDatabase = None
 
-class HuntRoyalIntegration(commands.Cog):
+class HuntRoyalIntegrationSystem(commands.Cog):
     """Gestionnaire des commandes Hunt Royal Integration"""
     
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.db = ArsenalDatabase() if ArsenalDatabase else None
     
@@ -289,10 +289,10 @@ class HuntRoyalIntegration(commands.Cog):
                 ephemeral=True
             )
 
-async def setup(bot):
+async def setup(bot: commands.Bot):
     """Fonction de setup pour le cog"""
-    await bot.add_cog(HuntRoyalIntegration(bot))
+    await bot.add_cog(HuntRoyalIntegrationSystem(bot))
 
 # Export pour utilisation directe
-__all__ = ['HuntRoyalIntegration', 'setup']
+__all__ = ['HuntRoyalIntegrationSystem', 'setup']
 
