@@ -389,9 +389,9 @@ class SanctionSlashGroup(app_commands.Group):
     
     @app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un utilisateur")
     @app_commands.describe(user="Utilisateur dont voir le casier")
-    async def casier_slash(self, interaction: discord.Interaction, user: discord.Member):
+    async def casier_slash(self, interaction: discord.Interaction, user: discord.User):
         """Afficher le casier via slash command"""
-        if not interaction.user.guild_permissions.moderate_members:
+        if not hasattr(interaction.user, 'guild_permissions') or not interaction.user.guild_permissions.moderate_members:
             embed = discord.Embed(
                 title="❌ Erreur",
                 description="Vous n'avez pas les permissions nécessaires.",
