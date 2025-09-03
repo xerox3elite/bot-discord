@@ -349,10 +349,10 @@ class ModuleReloader:
                 print(f"✅ Nouveau Cog {cog_class_name} chargé")
             except app_commands_errors.CommandAlreadyRegistered as e:
                 print(f"❌ Erreur rechargement {module_name}: {e}")
-                return f"❌ Conflit de commandes: {e}"
+                return False, f"❌ Conflit de commandes: {e}"
             except Exception as e:
                 print(f"❌ Erreur générale rechargement {module_name}: {e}")
-                return f"❌ Erreur: {e}"
+                return False, f"❌ Erreur: {e}"
             
             # Étape 5: Ré-ajouter les commandes slash
             for cmd_name in commands_to_remove:
