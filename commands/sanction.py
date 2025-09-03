@@ -1,124 +1,124 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
-Arsenal V4.5.2 Ultimate - Système de Sanctions
-==============================================
-Auteur: Arsenal Studio
-Description: Module de sanctions basique pour compatibilité
+Système de sanctions Arsenal V4.5.2
+Module principal pour la gestion des sanctions
 """
 
 import discord
 from discord.ext import commands
-import asyncio
+from discord import app_commands
 import sqlite3
-import json
+import asyncio
 import logging
 from datetime import datetime, timedelta
-from typing import Optional, Dict, List, Any
+from typing import Optional, List, Dict, Any
+import json
+from pathlib import Path
 
-logger = logging.getLogger('Arsenal.Sanctions')
+logger = logging.getLogger(__name__)
 
 class SanctionDatabase:
     """Gestionnaire de base de données pour les sanctions"""
     
-    def __init__(self, db_path: str = "data/sanctions.db"):
+    def __init__(self, db_path: str = "arsenal_sanctions.db"):
         self.db_path = db_path
         self.init_database()
     
     def init_database(self):
-        """Initialise la base de données des sanctions"""
+        """Initialise la base de données"""
         try:
-            with sqlite3.connect(self.db_path) as conn:
-                cursor = conn.cursor()
-                
-                # Table des sanctions
-                cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS sanctions (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        guild_id INTEGER NOT NULL,
-                        user_id INTEGER NOT NULL,
-                        moderator_id INTEGER NOT NULL,
-                        sanction_type TEXT NOT NULL,
-                        reason TEXT,
-                        duration INTEGER,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        expires_at TIMESTAMP,
-                        is_active BOOLEAN DEFAULT TRUE,
-                        evidence TEXT
-                    )
-                ''')
-                
-                # Table des infractions
-                cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS infractions (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        guild_id INTEGER NOT NULL,
-                        user_id INTEGER NOT NULL,
-                        infraction_type TEXT NOT NULL,
-                        severity INTEGER DEFAULT 1,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        resolved BOOLEAN DEFAULT FALSE
-                    )
-                ''')
-                
-                conn.commit()
-                logger.info("Base de données sanctions initialisée")
-                
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS sanctions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    guild_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,
+                    moderator_id INTEGER NOT NULL,
+                    type TEXT NOT NULL,
+                    reason TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    expires_at TIMESTAMP,
+                    active INTEGER DEFAULT 1,
+                    data TEXT
+                )
+            """)
+            
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS sanction_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    sanction_id INTEGER NOT NULL,
+                    action TEXT NOT NULL,
+                    moderator_id INTEGER NOT NULL,
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    reason TEXT,
+                    FOREIGN KEY (sanction_id) REFERENCES sanctions (id)
+                )
+            """)
+            
+            conn.commit()
+            conn.close()
+            
         except Exception as e:
-            logger.error(f"Erreur initialisation DB sanctions: {e}")
+            logger.error(f"Erreur lors de l'initialisation de la base de données: {e}")
     
     def add_sanction(self, guild_id: int, user_id: int, moderator_id: int, 
-                    sanction_type: str, reason: str = None, duration: int = None) -> int:
-        """Ajoute une sanction"""
+                    sanction_type: str, reason: str = None, expires_at: datetime = None,
+                    data: Dict[str, Any] = None) -> int:
+        """Ajoute une nouvelle sanction"""
         try:
-            with sqlite3.connect(self.db_path) as conn:
-                cursor = conn.cursor()
-                
-                expires_at = None
-                if duration:
-                    expires_at = datetime.now() + timedelta(seconds=duration)
-                
-                cursor.execute('''
-                    INSERT INTO sanctions (guild_id, user_id, moderator_id, sanction_type, reason, duration, expires_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                ''', (guild_id, user_id, moderator_id, sanction_type, reason, duration, expires_at))
-                
-                sanction_id = cursor.lastrowid
-                conn.commit()
-                
-                logger.info(f"Sanction ajoutée: ID {sanction_id} pour utilisateur {user_id}")
-                return sanction_id
-                
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT INTO sanctions (guild_id, user_id, moderator_id, type, reason, expires_at, data)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (guild_id, user_id, moderator_id, sanction_type, reason, expires_at, 
+                 json.dumps(data) if data else None))
+            
+            sanction_id = cursor.lastrowid
+            
+            # Ajouter à l'historique
+            cursor.execute("""
+                INSERT INTO sanction_history (sanction_id, action, moderator_id, reason)
+                VALUES (?, ?, ?, ?)
+            """, (sanction_id, f"Sanction créée: {sanction_type}", moderator_id, reason))
+            
+            conn.commit()
+            conn.close()
+            
+            return sanction_id
+            
         except Exception as e:
-            logger.error(f"Erreur ajout sanction: {e}")
-            return 0
+            logger.error(f"Erreur lors de l'ajout de la sanction: {e}")
+            return -1
     
-    def get_user_sanctions(self, guild_id: int, user_id: int) -> List[Dict]:
+    def get_user_sanctions(self, guild_id: int, user_id: int) -> List[Dict[str, Any]]:
         """Récupère les sanctions d'un utilisateur"""
         try:
-            with sqlite3.connect(self.db_path) as conn:
-                cursor = conn.cursor()
-                
-                cursor.execute('''
-                    SELECT * FROM sanctions 
-                    WHERE guild_id = ? AND user_id = ? 
-                    ORDER BY created_at DESC
-                ''', (guild_id, user_id))
-                
-                columns = [description[0] for description in cursor.description]
-                sanctions = [dict(zip(columns, row)) for row in cursor.fetchall()]
-                
-                return sanctions
-                
+            conn = sqlite3.connect(self.db_path)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                SELECT * FROM sanctions 
+                WHERE guild_id = ? AND user_id = ? 
+                ORDER BY created_at DESC
+            """, (guild_id, user_id))
+            
+            sanctions = [dict(row) for row in cursor.fetchall()]
+            conn.close()
+            
+            return sanctions
+            
         except Exception as e:
-            logger.error(f"Erreur récupération sanctions: {e}")
+            logger.error(f"Erreur lors de la récupération des sanctions: {e}")
             return []
 
 class SanctionManager:
-    """Gestionnaire des sanctions"""
+    """Gestionnaire principal des sanctions"""
     
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot = None):
         self.bot = bot
         self.db = SanctionDatabase()
     
@@ -127,215 +127,277 @@ class SanctionManager:
         """Avertir un utilisateur"""
         try:
             sanction_id = self.db.add_sanction(
-                guild.id, user.id, moderator.id, "warn", reason
+                guild_id=guild.id,
+                user_id=user.id,
+                moderator_id=moderator.id,
+                sanction_type="warn",
+                reason=reason or "Aucune raison spécifiée"
             )
             
             # Envoyer un message privé à l'utilisateur
             try:
                 embed = discord.Embed(
-                    title="⚠️ Avertissement",
+                    title="⚠️ Avertissement reçu",
                     description=f"Vous avez reçu un avertissement sur **{guild.name}**",
-                    color=0xffaa00
+                    color=0xFF9900
                 )
-                embed.add_field(name="Raison", value=reason or "Non spécifiée", inline=False)
-                embed.add_field(name="Modérateur", value=moderator.mention, inline=True)
+                embed.add_field(name="Raison", value=reason or "Aucune raison spécifiée", inline=False)
+                embed.add_field(name="Modérateur", value=moderator.display_name, inline=True)
                 
                 await user.send(embed=embed)
-            except discord.Forbidden:
-                logger.warning(f"Impossible d'envoyer un MP à {user.id}")
+            except:
+                pass  # Si on ne peut pas envoyer de MP
             
-            logger.info(f"Utilisateur {user.id} averti par {moderator.id}")
             return sanction_id
             
         except Exception as e:
-            logger.error(f"Erreur avertissement: {e}")
-            return 0
+            logger.error(f"Erreur lors de l'avertissement: {e}")
+            raise
     
     async def timeout_user(self, guild: discord.Guild, user: discord.Member,
-                          moderator: discord.Member, duration: int, reason: str = None) -> int:
-        """Mettre en timeout un utilisateur"""
+                          moderator: discord.Member, duration_seconds: int,
+                          reason: str = None) -> int:
+        """Mettre un utilisateur en timeout"""
         try:
-            # Appliquer le timeout Discord
-            timeout_until = datetime.now() + timedelta(seconds=duration)
-            await user.timeout(timeout_until, reason=reason)
+            expires_at = datetime.now() + timedelta(seconds=duration_seconds)
             
-            # Enregistrer en base
+            # Appliquer le timeout
+            await user.timeout(timedelta(seconds=duration_seconds), reason=reason)
+            
             sanction_id = self.db.add_sanction(
-                guild.id, user.id, moderator.id, "timeout", reason, duration
+                guild_id=guild.id,
+                user_id=user.id,
+                moderator_id=moderator.id,
+                sanction_type="timeout",
+                reason=reason or "Aucune raison spécifiée",
+                expires_at=expires_at,
+                data={"duration": duration_seconds}
             )
             
-            logger.info(f"Utilisateur {user.id} timeout par {moderator.id} pour {duration}s")
+            # Envoyer un message privé à l'utilisateur
+            try:
+                embed = discord.Embed(
+                    title="⏰ Timeout appliqué",
+                    description=f"Vous avez été mis en timeout sur **{guild.name}**",
+                    color=0xFF0000
+                )
+                embed.add_field(name="Durée", value=f"{duration_seconds // 60} minutes", inline=True)
+                embed.add_field(name="Raison", value=reason or "Aucune raison spécifiée", inline=False)
+                embed.add_field(name="Modérateur", value=moderator.display_name, inline=True)
+                
+                await user.send(embed=embed)
+            except:
+                pass  # Si on ne peut pas envoyer de MP
+            
             return sanction_id
             
         except Exception as e:
-            logger.error(f"Erreur timeout: {e}")
-            return 0
+            logger.error(f"Erreur lors du timeout: {e}")
+            raise
+
+# Instance globale du gestionnaire
+_sanction_manager = None
+
+def get_sanctions_manager() -> Optional[SanctionManager]:
+    """Récupère l'instance globale du gestionnaire de sanctions"""
+    return _sanction_manager
+
+def set_sanctions_manager(manager: SanctionManager):
+    """Définit l'instance globale du gestionnaire de sanctions"""
+    global _sanction_manager
+    _sanction_manager = manager
+
+class SanctionCog(commands.Cog):
+    """Cog principal pour les sanctions"""
     
-    async def kick_user(self, guild: discord.Guild, user: discord.Member,
-                       moderator: discord.Member, reason: str = None) -> int:
-        """Expulser un utilisateur"""
-        try:
-            # Enregistrer avant d'expulser
-            sanction_id = self.db.add_sanction(
-                guild.id, user.id, moderator.id, "kick", reason
-            )
-            
-            # Expulser
-            await user.kick(reason=reason)
-            
-            logger.info(f"Utilisateur {user.id} expulsé par {moderator.id}")
-            return sanction_id
-            
-        except Exception as e:
-            logger.error(f"Erreur expulsion: {e}")
-            return 0
-    
-    async def ban_user(self, guild: discord.Guild, user: discord.Member,
-                      moderator: discord.Member, duration: int = None, reason: str = None) -> int:
-        """Bannir un utilisateur"""
-        try:
-            # Enregistrer avant de bannir
-            sanction_id = self.db.add_sanction(
-                guild.id, user.id, moderator.id, "ban", reason, duration
-            )
-            
-            # Bannir
-            await user.ban(reason=reason, delete_message_days=1)
-            
-            logger.info(f"Utilisateur {user.id} banni par {moderator.id}")
-            return sanction_id
-            
-        except Exception as e:
-            logger.error(f"Erreur bannissement: {e}")
-            return 0
-
-# Instance globale pour compatibilité
-sanctions_manager = None
-
-def init_sanctions(bot):
-    """Initialise le gestionnaire de sanctions"""
-    global sanctions_manager
-    sanctions_manager = SanctionManager(bot)
-    return sanctions_manager
-
-def get_sanctions_manager():
-    """Retourne l'instance du gestionnaire de sanctions"""
-    return sanctions_manager
-
-# Classes et fonctions pour compatibilité
-class Sanction:
-    """Classe de compatibilité pour les sanctions"""
-    
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.manager = SanctionManager(bot)
+        set_sanctions_manager(self.manager)
     
-    async def warn(self, guild, user, moderator, reason=None):
+    @commands.hybrid_command(name="warn")
+    @commands.has_permissions(moderate_members=True)
+    async def warn_command(self, ctx: commands.Context, user: discord.Member, *, reason: str = None):
         """Avertir un utilisateur"""
-        return await self.manager.warn_user(guild, user, moderator, reason)
+        try:
+            sanction_id = await self.manager.warn_user(ctx.guild, user, ctx.author, reason)
+            
+            embed = discord.Embed(
+                title="⚠️ Avertissement donné",
+                description=f"{user.mention} a reçu un avertissement.",
+                color=0xFF9900
+            )
+            embed.add_field(name="Raison", value=reason or "Aucune raison spécifiée", inline=False)
+            embed.add_field(name="ID Sanction", value=f"`{sanction_id}`", inline=True)
+            embed.add_field(name="Modérateur", value=ctx.author.mention, inline=True)
+            
+            await ctx.send(embed=embed)
+            
+        except Exception as e:
+            await ctx.send(f"❌ Erreur lors de l'avertissement: {e}")
     
-    async def timeout(self, guild, user, moderator, duration, reason=None):
-        """Timeout un utilisateur"""
-        return await self.manager.timeout_user(guild, user, moderator, duration, reason)
+    @commands.hybrid_command(name="timeout")
+    @commands.has_permissions(moderate_members=True)
+    async def timeout_command(self, ctx: commands.Context, user: discord.Member, 
+                             duration: int, *, reason: str = None):
+        """Mettre un utilisateur en timeout (durée en minutes)"""
+        try:
+            duration_seconds = duration * 60
+            sanction_id = await self.manager.timeout_user(ctx.guild, user, ctx.author, duration_seconds, reason)
+            
+            embed = discord.Embed(
+                title="⏰ Timeout appliqué",
+                description=f"{user.mention} a été mis en timeout.",
+                color=0xFF0000
+            )
+            embed.add_field(name="Durée", value=f"{duration} minutes", inline=True)
+            embed.add_field(name="Raison", value=reason or "Aucune raison spécifiée", inline=False)
+            embed.add_field(name="ID Sanction", value=f"`{sanction_id}`", inline=True)
+            embed.add_field(name="Modérateur", value=ctx.author.mention, inline=True)
+            
+            await ctx.send(embed=embed)
+            
+        except Exception as e:
+            await ctx.send(f"❌ Erreur lors du timeout: {e}")
     
-    async def kick(self, guild, user, moderator, reason=None):
-        """Expulser un utilisateur"""
-        return await self.manager.kick_user(guild, user, moderator, reason)
-    
-    async def ban(self, guild, user, moderator, duration=None, reason=None):
-        """Bannir un utilisateur"""
-        return await self.manager.ban_user(guild, user, moderator, duration, reason)
-    
-    def get_user_sanctions(self, guild_id, user_id):
-        """Récupérer les sanctions d'un utilisateur"""
-        return SanctionDatabase().get_user_sanctions(guild_id, user_id)
+    @commands.hybrid_command(name="casier", aliases=["sanctions"])
+    @commands.has_permissions(moderate_members=True)
+    async def casier_command(self, ctx: commands.Context, user: discord.Member):
+        """Afficher le casier judiciaire d'un utilisateur"""
+        try:
+            db = SanctionDatabase()
+            sanctions = db.get_user_sanctions(ctx.guild.id, user.id)
+            
+            embed = discord.Embed(
+                title=f"📋 Casier de {user.display_name}",
+                color=0x3498DB
+            )
+            
+            if not sanctions:
+                embed.description = "Aucune sanction trouvée pour cet utilisateur."
+            else:
+                embed.description = f"**{len(sanctions)} sanctions trouvées**"
+                
+                for i, sanction in enumerate(sanctions[:5]):  # Limiter à 5 dernières
+                    sanction_type = sanction['type'].upper()
+                    created_at = sanction['created_at']
+                    reason = sanction['reason'] or "Aucune raison"
+                    
+                    embed.add_field(
+                        name=f"{i+1}. {sanction_type} - ID #{sanction['id']}",
+                        value=f"**Date:** {created_at}\n**Raison:** {reason}",
+                        inline=False
+                    )
+                
+                if len(sanctions) > 5:
+                    embed.add_field(
+                        name="📋 Total",
+                        value=f"... et {len(sanctions) - 5} autres sanctions",
+                        inline=False
+                    )
+            
+            await ctx.send(embed=embed)
+            
+        except Exception as e:
+            await ctx.send(f"❌ Erreur lors de la récupération du casier: {e}")
 
-# Export pour compatibilité
-__all__ = [
-    'Sanction',
-    'SanctionManager', 
-    'SanctionDatabase',
-    'init_sanctions',
-    'get_sanctions_manager',
-    'sanction_group'
-]
-
-# Création du groupe de commandes slash pour compatibilité
-@discord.app_commands.Group(name="sanction", description="⚖️ Système de sanctions Arsenal")
-class SanctionGroup(discord.app_commands.Group):
-    """Groupe de commandes de sanctions"""
+# Groupe de commandes slash pour compatibilité
+class SanctionSlashGroup(app_commands.Group):
+    """Groupe de commandes slash pour les sanctions"""
     
-    @discord.app_commands.command(name="warn", description="⚠️ Avertir un utilisateur")
-    @discord.app_commands.describe(
+    def __init__(self):
+        super().__init__(name="sanction", description="⚖️ Système de sanctions Arsenal")
+    
+    @app_commands.command(name="warn", description="⚠️ Avertir un utilisateur")
+    @app_commands.describe(
         user="Utilisateur à avertir",
         reason="Raison de l'avertissement"
     )
-    async def warn_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
-        """Avertir un utilisateur"""
+    async def warn_slash(self, interaction: discord.Interaction, user: discord.Member, reason: str = "Aucune raison spécifiée"):
+        """Avertir un utilisateur via slash command"""
         if not interaction.user.guild_permissions.moderate_members:
-            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            embed = discord.Embed(
+                title="❌ Erreur",
+                description="Vous n'avez pas les permissions nécessaires.",
+                color=0xFF0000
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
             return
         
         try:
             manager = get_sanctions_manager()
             if not manager:
-                manager = SanctionManager(interaction.client)
+                manager = SanctionManager()
             
             sanction_id = await manager.warn_user(interaction.guild, user, interaction.user, reason)
             
             embed = discord.Embed(
-                title="⚠️ Avertissement envoyé",
-                description=f"{user.mention} a été averti",
-                color=0xffaa00
+                title="⚠️ Avertissement donné",
+                description=f"{user.mention} a reçu un avertissement.",
+                color=0xFF9900
             )
-            embed.add_field(name="Raison", value=reason or "Non spécifiée", inline=False)
-            embed.add_field(name="ID Sanction", value=f"#{sanction_id}", inline=True)
+            embed.add_field(name="Raison", value=reason, inline=False)
+            embed.add_field(name="ID Sanction", value=f"`{sanction_id}`", inline=True)
+            embed.add_field(name="Modérateur", value=interaction.user.mention, inline=True)
             
             await interaction.response.send_message(embed=embed)
             
         except Exception as e:
-            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+            logger.error(f"Erreur slash warn: {e}")
+            await interaction.response.send_message("❌ Erreur lors de l'avertissement.", ephemeral=True)
     
-    @discord.app_commands.command(name="timeout", description="🔇 Mettre en timeout un utilisateur")
-    @discord.app_commands.describe(
+    @app_commands.command(name="timeout", description="⏰ Mettre un utilisateur en timeout")
+    @app_commands.describe(
         user="Utilisateur à timeout",
         duration="Durée en minutes",
         reason="Raison du timeout"
     )
-    async def timeout_user(self, interaction: discord.Interaction, user: discord.Member, duration: int, reason: str = None):
-        """Timeout un utilisateur"""
+    async def timeout_slash(self, interaction: discord.Interaction, user: discord.Member, duration: int, reason: str = "Aucune raison spécifiée"):
+        """Timeout un utilisateur via slash command"""
         if not interaction.user.guild_permissions.moderate_members:
-            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            embed = discord.Embed(
+                title="❌ Erreur",
+                description="Vous n'avez pas les permissions nécessaires.",
+                color=0xFF0000
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
             return
         
         try:
             manager = get_sanctions_manager()
             if not manager:
-                manager = SanctionManager(interaction.client)
+                manager = SanctionManager()
             
-            duration_seconds = duration * 60  # Convertir en secondes
+            duration_seconds = duration * 60
             sanction_id = await manager.timeout_user(interaction.guild, user, interaction.user, duration_seconds, reason)
             
             embed = discord.Embed(
-                title="🔇 Timeout appliqué",
-                description=f"{user.mention} a été mis en timeout",
-                color=0xff6600
+                title="⏰ Timeout appliqué",
+                description=f"{user.mention} a été mis en timeout.",
+                color=0xFF0000
             )
             embed.add_field(name="Durée", value=f"{duration} minutes", inline=True)
-            embed.add_field(name="Raison", value=reason or "Non spécifiée", inline=False)
-            embed.add_field(name="ID Sanction", value=f"#{sanction_id}", inline=True)
+            embed.add_field(name="Raison", value=reason, inline=False)
+            embed.add_field(name="ID Sanction", value=f"`{sanction_id}`", inline=True)
+            embed.add_field(name="Modérateur", value=interaction.user.mention, inline=True)
             
             await interaction.response.send_message(embed=embed)
             
         except Exception as e:
-            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+            logger.error(f"Erreur slash timeout: {e}")
+            await interaction.response.send_message("❌ Erreur lors du timeout.", ephemeral=True)
     
-    @discord.app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un utilisateur")
-    @discord.app_commands.describe(user="Utilisateur dont voir le casier")
-    async def casier_user(self, interaction: discord.Interaction, user: discord.Member):
-        """Voir le casier d'un utilisateur"""
+    @app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un utilisateur")
+    @app_commands.describe(user="Utilisateur dont voir le casier")
+    async def casier_slash(self, interaction: discord.Interaction, user: discord.Member):
+        """Afficher le casier via slash command"""
         if not interaction.user.guild_permissions.moderate_members:
-            await interaction.response.send_message("❌ Vous n'avez pas les permissions nécessaires.", ephemeral=True)
+            embed = discord.Embed(
+                title="❌ Erreur",
+                description="Vous n'avez pas les permissions nécessaires.",
+                color=0xFF0000
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
             return
         
         try:
@@ -343,38 +405,42 @@ class SanctionGroup(discord.app_commands.Group):
             sanctions = db.get_user_sanctions(interaction.guild.id, user.id)
             
             embed = discord.Embed(
-                title=f"📋 Casier judiciaire de {user.display_name}",
-                color=0x3366ff
+                title=f"📋 Casier de {user.display_name}",
+                color=0x3498DB
             )
             
             if not sanctions:
-                embed.description = "✅ Aucune sanction enregistrée"
+                embed.description = "Aucune sanction trouvée."
             else:
                 embed.description = f"**{len(sanctions)} sanctions trouvées**"
                 
-                for i, sanction in enumerate(sanctions[:5]):  # Limiter à 5 dernières
-                    sanction_type = sanction.get('sanction_type', 'unknown').upper()
-                    reason = sanction.get('reason', 'Non spécifiée')
-                    created_at = sanction.get('created_at', 'Inconnue')
+                for i, sanction in enumerate(sanctions[:5]):
+                    sanction_type = sanction['type'].upper()
+                    created_at = sanction['created_at']
+                    reason = sanction['reason'] or "Aucune raison"
                     
                     embed.add_field(
-                        name=f"{i+1}. {sanction_type}",
-                        value=f"**Raison:** {reason}\n**Date:** {created_at}",
-                        inline=False
-                    )
-                
-                if len(sanctions) > 5:
-                    embed.add_field(
-                        name="ℹ️ Note",
-                        value=f"... et {len(sanctions) - 5} autres sanctions",
+                        name=f"{i+1}. {sanction_type} - ID #{sanction['id']}",
+                        value=f"**Date:** {created_at}\n**Raison:** {reason}",
                         inline=False
                     )
             
-            embed.set_thumbnail(url=user.display_avatar.url)
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed)
             
         except Exception as e:
-            await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
+            logger.error(f"Erreur slash casier: {e}")
+            await interaction.response.send_message("❌ Erreur lors de la récupération du casier.", ephemeral=True)
 
-# Instance du groupe pour export
-sanction_group = SanctionGroup()
+# Instance du groupe slash
+sanction_group = SanctionSlashGroup()
+
+async def setup(bot: commands.Bot):
+    """Fonction de setup pour le module"""
+    await bot.add_cog(SanctionCog(bot))
+    bot.tree.add_command(sanction_group)
+    logger.info("✅ Module sanctions chargé avec succès")
+
+async def teardown(bot: commands.Bot):
+    """Fonction de nettoyage"""
+    bot.tree.remove_command(sanction_group.name)
+    logger.info("🔄 Module sanctions déchargé")
