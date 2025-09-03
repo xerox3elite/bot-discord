@@ -619,6 +619,33 @@ async def unlink_hunt_royal(interaction: discord.Interaction):
         )
         await interaction.followup.send(embed=embed, ephemeral=True)
 
+class HuntRoyalProfilesSystem(commands.Cog):
+    """Système de profils Hunt Royal"""
+    
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+        self.profile_db = HuntRoyalProfileDatabase()
+    
+    @app_commands.command(name="link-hunt", description="🔗 Lier votre compte Hunt Royal")
+    @app_commands.describe(username="Nom d'utilisateur Hunt Royal")
+    async def link_hunt_cmd(self, interaction: discord.Interaction, username: str):
+        """Commande pour lier un profil Hunt Royal"""
+        await link_hunt_royal(interaction, username)
+    
+    @app_commands.command(name="profile-hunt", description="📊 Voir votre profil Hunt Royal")
+    async def profile_hunt_cmd(self, interaction: discord.Interaction):
+        """Commande pour voir son profil Hunt Royal"""
+        await profile_hunt_royal(interaction)
+    
+    @app_commands.command(name="unlink-hunt", description="🔗 Délier votre compte Hunt Royal")
+    async def unlink_hunt_cmd(self, interaction: discord.Interaction):
+        """Commande pour délier son profil Hunt Royal"""
+        await unlink_hunt_royal(interaction)
+
+async def setup(bot: commands.Bot):
+    """Setup function pour le cog"""
+    await bot.add_cog(HuntRoyalProfilesSystem(bot))
+
 # Export des commandes
 __all__ = ['link_hunt_royal', 'profile_hunt_royal', 'unlink_hunt_royal', 'profile_db', 'profile_scraper', 'HuntRoyalProfilesSystem']
 
