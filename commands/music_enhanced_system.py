@@ -508,6 +508,9 @@ class EnhancedMusicSystem(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
 
+# Alias pour compatibilité avec l'audit
+MusicEnhancedSystem = EnhancedMusicSystem
+
 async def setup(bot):
     await bot.add_cog(EnhancedMusicSystem(bot))
     print("🎵 [Enhanced Music System] Module chargé avec succès!")

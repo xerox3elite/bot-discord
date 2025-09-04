@@ -1,0 +1,12 @@
+[2025-09-04 11:52:21,651] ERROR - commands.arsenal_protection_middleware: Erreur vérification registration: no such table: arsenal_users
+[2025-09-04 11:52:21,664] INFO - commands.arsenal_registration_system: 🔥 Base de données Arsenal Users initialisée
+[2025-09-04 11:52:21,677] INFO - ArsenalConfigRevolution: 🚀 Arsenal Config Revolution V2.0 initialisé
+[2025-09-04 11:54:58,255] INFO - commands.arsenal_registration_system: 🔥 Base de données Arsenal Users initialisée
+[2025-09-04 11:54:58,259] INFO - ArsenalConfigRevolution: 🚀 Arsenal Config Revolution V2.0 initialisé
+[2025-09-04 11:59:06,553] INFO - commands.arsenal_registration_system: 🔥 Base de données Arsenal Users initialisée
+[2025-09-04 11:59:06,565] INFO - ArsenalConfigRevolution: 🚀 Arsenal Config Revolution V2.0 initialisé
+[2025-09-04 11:59:50,050] INFO - commands.arsenal_registration_system: 🔥 Base de données Arsenal Users initialisée
+[2025-09-04 11:59:50,052] ERROR - commands.arsenal_registration_system: Erreur création utilisateur: UNIQUE constraint failed: arsenal_users.discord_id
+[2025-09-04 11:59:50,059] INFO - ArsenalConfigRevolution: 🚀 Arsenal Config Revolution V2.0 initialisé
+[2025-09-04 12:05:41,593] INFO - commands.arsenal_registration_system: 🔥 Base de données Arsenal Users initialisée
+[2025-09-04 12:05:41,601] INFO - ArsenalConfigRevolution: 🚀 Arsenal Config Revolution V2.0 initialisé

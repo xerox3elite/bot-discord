@@ -1,4 +1,13 @@
-import discord
+import discordcreator_group = app_commands.Group(name="creator", description="Commandes réservées au créateur d'Arsenal.")
+CREATOR_ID = 431359112039890945  # Ton ID Discord icirom discord import app_commands
+import os, sys, asyncio, json
+from manager.config_manager import config_data, save_config
+from core.logger import log
+
+# 🔒 Arsenal Protection Middleware
+from commands.arsenal_protection_middleware import require_registration
+
+creator_group = app_commands.Group(name="creator", description="Commandes réservées au créateur d'Arsenal.")discord
 from discord import app_commands
 import os, sys, asyncio, json
 from manager.config_manager import config_data, save_config

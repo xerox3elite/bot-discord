@@ -21,6 +21,9 @@ import os
 from typing import Optional, Dict, List
 import random
 
+# 🔒 Arsenal Protection Middleware
+from commands.arsenal_protection_middleware import require_registration
+
 class GamingAPISystem(commands.Cog):
     """Système Gaming & API pour Arsenal V4"""
     
@@ -111,6 +114,7 @@ class GamingAPISystem(commands.Cog):
                 json.dump(default_mods, f, indent=2, ensure_ascii=False)
 
     @app_commands.command(name="gaming", description="🎮 Menu principal Gaming Arsenal")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def gaming_menu(self, interaction: discord.Interaction):
         """Menu principal du système gaming"""
         embed = discord.Embed(
@@ -152,6 +156,7 @@ class GamingAPISystem(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="hunter_info", description="🏹 Informations détaillées sur un chasseur")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     @app_commands.describe(name="Nom du chasseur")
     async def hunter_info(self, interaction: discord.Interaction, name: str):
         """Affiche les informations d'un chasseur Hunt Royal"""
@@ -236,6 +241,7 @@ class GamingAPISystem(commands.Cog):
             await interaction.response.send_message(f"❌ Erreur lors de la récupération des données: {e}", ephemeral=True)
 
     @app_commands.command(name="hunters_list", description="🏹 Liste de tous les chasseurs disponibles")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def hunters_list(self, interaction: discord.Interaction):
         """Affiche la liste complète des chasseurs avec menu dropdown"""
         
@@ -269,6 +275,7 @@ class GamingAPISystem(commands.Cog):
             await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
 
     @app_commands.command(name="minecraft_mods", description="🟦 Explorer les mods Minecraft par catégorie")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     @app_commands.describe(category="Catégorie de mods")
     async def minecraft_mods(self, interaction: discord.Interaction, 
                            category: Optional[str] = None):
@@ -335,6 +342,7 @@ class GamingAPISystem(commands.Cog):
             await interaction.response.send_message(f"❌ Erreur: {e}", ephemeral=True)
 
     @app_commands.command(name="fortnite_stats", description="🚀 Statistiques Fortnite d'un joueur")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     @app_commands.describe(username="Nom d'utilisateur Fortnite")
     async def fortnite_stats(self, interaction: discord.Interaction, username: str):
         """Affiche les stats Fortnite (simulation si pas d'API)"""

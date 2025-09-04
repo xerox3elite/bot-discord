@@ -17,6 +17,9 @@ from typing import List, Dict, Optional
 import datetime
 import logging
 
+# 🔒 Arsenal Protection Middleware
+from commands.arsenal_protection_middleware import require_registration
+
 class ArsenalCommandGroupsFinalFixed(commands.Cog):
     """Arsenal AutoMod V5.0.1 CORRIGÉ - Exactement 489 mots"""
     
@@ -317,6 +320,7 @@ class ArsenalCommandGroupsFinalFixed(commands.Cog):
     # === COMMANDES SLASH ===
     
     @app_commands.command(name="automod", description="🛡️ Configurer Arsenal AutoMod V5.0.1 (489 mots EXACT)")
+    @require_registration("admin")  # Réservé aux administrateurs Arsenal
     @app_commands.describe(
         action="Action à effectuer",
         channel="Channel pour les logs",

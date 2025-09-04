@@ -1488,3 +1488,4 @@ async def setup(bot):
     print("🎯 Commandes: /hr register, /hr calculator, /hr profile, /hr builds, /hr hunters")
     
     if profile:
+        print("✅ Profil Hunt Royal configuré")

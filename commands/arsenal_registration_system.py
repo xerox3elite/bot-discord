@@ -262,6 +262,51 @@ class ArsenalUserDatabase:
             return "membre"
         return user.top_role.name if user.top_role.name != "@everyone" else "membre"
 
+    async def create_user(self, user_id: int, guild_id: int = None) -> Dict:
+        """Créer un utilisateur simple pour les tests"""
+        arsenal_id = self.generate_arsenal_id()
+        now = datetime.now().isoformat()
+        
+        async with aiosqlite.connect(self.db_path) as db:
+            try:
+                # Vérifier si l'utilisateur existe déjà
+                cursor = await db.execute("SELECT arsenal_id FROM arsenal_users WHERE discord_id = ?", (user_id,))
+                existing = await cursor.fetchone()
+                
+                if existing:
+                    return {
+                        "arsenal_id": existing[0],
+                        "discord_id": user_id,
+                        "status": "exists"
+                    }
+                
+                await db.execute("""
+                    INSERT INTO arsenal_users 
+                    (arsenal_id, discord_id, discord_username, discord_display_name, 
+                     arsenal_role, registration_date, last_activity, profile_data)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    arsenal_id, user_id, f"TestUser{user_id}", f"TestUser{user_id}",
+                    "membre", now, now, "{}"
+                ))
+                
+                if guild_id:
+                    await db.execute("""
+                        INSERT INTO user_server_data 
+                        (arsenal_id, discord_id, guild_id, join_date, last_seen)
+                        VALUES (?, ?, ?, ?, ?)
+                    """, (arsenal_id, user_id, guild_id, now, now))
+                
+                await db.commit()
+                return {
+                    "arsenal_id": arsenal_id,
+                    "discord_id": user_id,
+                    "status": "success"
+                }
+            except Exception as e:
+                log.error(f"Erreur création utilisateur: {e}")
+                return {"status": "error", "error": str(e)}
+
 class RegistrationModal(discord.ui.Modal, title="🔥 Enregistrement Arsenal"):
     """Modal pour l'enregistrement utilisateur"""
     
@@ -357,7 +402,7 @@ class RegistrationView(discord.ui.View):
     
     @discord.ui.button(
         label="📊 Mon Profil",
-        style=discord.ButtonStyle.blue,
+        style=discord.ButtonStyle.primary,
         emoji="👤"
     )
     async def profile_button(self, interaction: discord.Interaction, button: discord.ui.Button):

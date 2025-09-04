@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands, tasks
+from discord import app_commands
 import asyncio, os, sys, json, datetime, threading, traceback
 from dotenv import load_dotenv
 
@@ -114,14 +115,14 @@ def update_bot_status():
         except:
             pass  # Si même ça échoue, on abandonne silencieusement
 
-# Système de rechargement de modules (TEMPORAIREMENT DÉSACTIVÉ pour éviter rate limit)
-# try:
-#     from core.module_reloader import ReloaderCommands, reload_group
-#     RELOADER_AVAILABLE = True
-#     print("[OK] Système de rechargement de modules chargé")
-# except Exception as e:
-RELOADER_AVAILABLE = False
-print("[INFO] Système de rechargement temporairement désactivé pour stabilité")
+# Système de rechargement de modules (RÉACTIVÉ pour complétude)
+try:
+    from core.module_reloader import ReloaderCommands, reload_group
+    RELOADER_AVAILABLE = True
+    print("[OK] Système de rechargement de modules chargé")
+except Exception as e:
+    RELOADER_AVAILABLE = False
+    print(f"[WARNING] Système de rechargement non disponible: {e}")
 
 # Modules Hunt Royal et Suggestions (NOUVEAU)
 try:
@@ -446,24 +447,21 @@ class ArsenalBot(commands.Bot):
         except Exception as e:
             log.error(f"[CRITIQUE] Erreur Protection System: {e}")
         
-        # DÉSACTIVÉ - Système de statut Arsenal (remplacé par Profile Ultimate 2000%)
-        # self.status_system = initialize_status_system(self)
-        # print("🔄 [STATUS] Système de statut Arsenal initialisé")
-        self.loop.create_task(restore_voice_channels(self))
-        self.loop.create_task(start_terminal(self))
-        # DÉSACTIVÉ - Démarrage systèmes de statut Arsenal (conflit avec Profile 2000%)
-        # await self.status_system.start_status_rotation()
-        # await self.status_system.start_keepalive()
-        print("🔄 [STATUS] Systèmes de statut gérés par Arsenal Profile Ultimate 2000%")
-        setup_audio(self)
+        # Arsenal Utilities Basic - Commandes utilitaires essentielles (NOUVEAU)
+        try:
+            from commands.arsenal_utilities_basic import ArsenalUtilitiesBasic
+            await self.add_cog(ArsenalUtilitiesBasic(self))
+            log.info("🔧 [NOUVEAU] Arsenal Utilities Basic - Commandes essentielles (ping, uptime, serverinfo)!")
+        except Exception as e:
+            log.error(f"[ERROR] Erreur Arsenal Utilities Basic: {e}")
         
-        # Charger le système de rechargement de modules (DÉSACTIVÉ)
-        # if RELOADER_AVAILABLE:
-        #     try:
-        #         await self.add_cog(ReloaderCommands(self))
-        #         log.info("[OK] Système de rechargement de modules chargé")
-        #     except Exception as e:
-        #         log.error(f"[ERROR] Erreur chargement reloader: {e}")
+        # Charger le système de rechargement de modules (RÉACTIVÉ)
+        if RELOADER_AVAILABLE:
+            try:
+                await self.add_cog(ReloaderCommands(self))
+                log.info("⚡ [RÉACTIVÉ] Système de rechargement de modules chargé!")
+            except Exception as e:
+                log.error(f"[ERROR] Erreur chargement reloader: {e}")
         
         # Charger Hunt Royal et Suggestions
         if HUNT_ROYAL_AVAILABLE:
@@ -1073,9 +1071,10 @@ if HUNT_AUTH_AVAILABLE:
 #     client.tree.add_command(hunt_profiles.profile_hunt_royal)
 #     client.tree.add_command(hunt_profiles.unlink_hunt_royal)
 
-# Reload System Commands (DÉSACTIVÉ)
-# if RELOADER_AVAILABLE:
-#     client.tree.add_command(reload_group)
+# Reload System Commands (RÉACTIVÉ)
+if RELOADER_AVAILABLE:
+    client.tree.add_command(reload_group)
+    print("⚡ [RÉACTIVÉ] Commandes reload ajoutées à l'arbre!")
 
 # Arsenal Economy System UNIFIÉ (NOUVEAU V4.6)
 try:

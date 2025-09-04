@@ -14,6 +14,9 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional
 import logging
 
+# Import du système de protection Arsenal
+from .arsenal_protection_middleware import require_registration
+
 # Configuration du logger
 log = logging.getLogger(__name__)
 
@@ -453,6 +456,7 @@ class HelpSystemV2(commands.Cog):
         log.info("📚 [OK] Help System V2 ULTIMATE initialisé")
     
     @app_commands.command(name="helpv2", description="📚 Système d'aide complet Arsenal - Commandes + Support + Infos")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def help_command(self, interaction: discord.Interaction):
         """Commande d'aide principale complète"""
         log.info(f"[HELP] {interaction.user} utilise /help")

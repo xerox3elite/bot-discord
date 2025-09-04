@@ -13,6 +13,9 @@ import aiosqlite
 import json
 import logging
 
+# Import du système de protection Arsenal
+from .arsenal_protection_middleware import require_registration, require_admin
+
 log = logging.getLogger(__name__)
 
 class ConfigEconomyView(discord.ui.View):
@@ -291,6 +294,7 @@ class ArsenalConfigModular(commands.Cog):
         log.info("🔧 [OK] Arsenal Config System V2.0 initialisé")
     
     @app_commands.command(name="config", description="🔧 Configuration générale Arsenal")
+    @require_admin()  # Administrateurs Arsenal uniquement
     async def config_main(self, interaction: discord.Interaction):
         """Commande principale de configuration"""
         if not interaction.user.guild_permissions.manage_guild:
@@ -343,6 +347,7 @@ Utilisez les commandes ci-dessous pour configurer chaque module :
         await interaction.response.send_message(embed=embed, ephemeral=True)
     
     @app_commands.command(name="config-economie", description="💰 Configuration du système d'économie")
+    @require_admin()  # Administrateurs Arsenal uniquement
     async def config_economy(self, interaction: discord.Interaction):
         """Configuration de l'économie"""
         if not interaction.user.guild_permissions.manage_guild:
@@ -365,6 +370,7 @@ Utilisez les commandes ci-dessous pour configurer chaque module :
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
     
     @app_commands.command(name="config-level", description="📈 Configuration du système de niveaux")
+    @require_admin()  # Administrateurs Arsenal uniquement
     async def config_levels(self, interaction: discord.Interaction):
         """Configuration des niveaux"""
         if not interaction.user.guild_permissions.manage_guild:

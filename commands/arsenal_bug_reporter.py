@@ -16,6 +16,9 @@ import json
 from typing import Optional
 import traceback
 
+# 🔒 Arsenal Protection Middleware
+from commands.arsenal_protection_middleware import require_registration
+
 class ArsenalBugReporter(commands.Cog):
     """Système de signalement de bugs Arsenal"""
     
@@ -66,6 +69,7 @@ class ArsenalBugReporter(commands.Cog):
             await db.commit()
 
     @app_commands.command(name="bug", description="🐛 Signaler un bug dans Arsenal Bot")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     @app_commands.describe(
         title="Titre du bug (court et précis)",
         description="Description détaillée du problème",
@@ -128,6 +132,7 @@ class ArsenalBugReporter(commands.Cog):
             await self.notify_developer(bug_id, title, description, interaction.user)
 
     @app_commands.command(name="bugstatus", description="📊 Voir le statut de tes rapports de bugs")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def bug_status(self, interaction: discord.Interaction):
         """Voir ses rapports de bugs"""
         
@@ -171,6 +176,7 @@ class ArsenalBugReporter(commands.Cog):
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @app_commands.command(name="bugstats", description="📈 Statistiques globales des bugs")
+    @require_registration("beta")  # Réservé aux beta testeurs et plus
     async def bug_stats(self, interaction: discord.Interaction):
         """Statistiques des bugs"""
         
@@ -216,6 +222,7 @@ class ArsenalBugReporter(commands.Cog):
 
     # Commandes admin pour les développeurs
     @app_commands.command(name="bugadmin", description="🔧 Gestion des bugs (Admin)")
+    @require_registration("dev")  # Réservé aux développeurs
     @app_commands.describe(
         action="Action à effectuer",
         bug_id="ID du bug",

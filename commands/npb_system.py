@@ -13,6 +13,9 @@ import aiosqlite
 from datetime import datetime
 import logging
 
+# Import du système de protection Arsenal
+from .arsenal_protection_middleware import require_registration
+
 log = logging.getLogger(__name__)
 
 class NPBMainView(discord.ui.View):
@@ -394,6 +397,7 @@ class NPBSystem(commands.Cog):
         log.info("🎮 [OK] Arsenal NPB System initialisé")
     
     @app_commands.command(name="npb", description="🎮 Navigation Par Bouton - Interface graphique complète Arsenal")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def npb_command(self, interaction: discord.Interaction):
         """Commande principale NPB"""
         embed = discord.Embed(
@@ -448,6 +452,7 @@ class NPBSystem(commands.Cog):
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
     
     @app_commands.command(name="npb-help", description="📚 Guide du système NPB")
+    @require_registration("basic")  # Accessible à tous les membres enregistrés
     async def npb_help(self, interaction: discord.Interaction):
         """Guide d'utilisation NPB"""
         embed = discord.Embed(

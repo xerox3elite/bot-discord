@@ -21,6 +21,9 @@ from typing import Optional, Dict, Any
 import base64
 from bs4 import BeautifulSoup
 
+# 🔒 Arsenal Protection Middleware
+from commands.arsenal_protection_middleware import require_registration
+
 class HuntRoyalProfileDatabase:
     """Gestionnaire de base de données pour les profils Hunt Royal"""
     
@@ -281,6 +284,7 @@ profile_db = HuntRoyalProfileDatabase()
 profile_scraper = HuntRoyalProfileScraper()
 
 @app_commands.command(name="link-hunt", description="Lier votre compte Hunt Royal à Discord")
+@require_registration("basic")  # Accessible à tous les membres enregistrés
 @app_commands.describe(
     username="Votre nom d'utilisateur Hunt Royal",
     region="Région du serveur (global, eu, na, asia)"
@@ -393,6 +397,7 @@ async def link_hunt_royal(interaction: discord.Interaction, username: str, regio
         await interaction.edit_original_response(embed=embed)
 
 @app_commands.command(name="profile-hunt", description="Afficher votre profil Hunt Royal ou celui d'un autre joueur")
+@require_registration("basic")  # Accessible à tous les membres enregistrés
 @app_commands.describe(
     user="Utilisateur Discord dont vous voulez voir le profil (optionnel)",
     username="Nom d'utilisateur Hunt Royal à rechercher (optionnel)"
@@ -569,6 +574,7 @@ async def profile_hunt_royal(
         await interaction.followup.send(embed=embed)
 
 @app_commands.command(name="unlink-hunt", description="Délier votre compte Hunt Royal de Discord")
+@require_registration("basic")  # Accessible à tous les membres enregistrés
 async def unlink_hunt_royal(interaction: discord.Interaction):
     """Commande pour délier un compte Hunt Royal"""
     
