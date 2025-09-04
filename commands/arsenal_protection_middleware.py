@@ -23,8 +23,11 @@ class ArsenalProtectionMiddleware:
             "membre": ["basic"],
             "beta": ["basic", "beta"],
             "premium": ["basic", "beta", "premium"],
-            "dev": ["basic", "beta", "premium", "dev", "admin"],
-            "creator": ["basic", "beta", "premium", "dev", "admin", "creator"]
+            "moderator": ["basic", "beta", "premium", "moderator"],
+            "admin": ["basic", "beta", "premium", "moderator", "admin"],
+            "fondateur": ["basic", "beta", "premium", "moderator", "admin", "fondateur"],
+            "dev": ["basic", "beta", "premium", "moderator", "admin", "fondateur", "dev"],
+            "creator": ["basic", "beta", "premium", "moderator", "admin", "fondateur", "dev", "creator", "supreme"]
         }
     
     async def is_user_registered(self, discord_id: int) -> bool:
@@ -165,6 +168,18 @@ def require_premium():
 def require_beta():
     """Décorateur pour les commandes beta"""
     return require_registration("beta")
+
+def require_moderator():
+    """Décorateur pour les commandes de modération"""
+    return require_registration("moderator")
+
+def require_admin():
+    """Décorateur pour les commandes d'administration"""
+    return require_registration("admin")
+
+def require_fondateur():
+    """Décorateur pour les commandes de fondateur"""
+    return require_registration("fondateur")
 
 def require_dev():
     """Décorateur pour les commandes dev"""

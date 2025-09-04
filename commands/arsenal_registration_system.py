@@ -242,10 +242,34 @@ class ArsenalUserDatabase:
     
     async def _determine_arsenal_role(self, user: discord.Member) -> str:
         """Déterminer le rôle Arsenal basé sur les permissions Discord"""
-        if user.guild_permissions.administrator:
+        
+        # Vérifier les rôles Discord spécifiques d'abord
+        user_roles = [role.name.lower() for role in user.roles]
+        
+        # Rôles spéciaux
+        if any(role in user_roles for role in ["owner", "fondateur", "founder", "créateur"]):
+            return "fondateur"
+        
+        if any(role in user_roles for role in ["developer", "dev", "développeur"]):
             return "dev"
-        elif user.guild_permissions.manage_guild:
+            
+        if any(role in user_roles for role in ["admin", "administrator", "administrateur"]):
+            return "admin"
+            
+        if any(role in user_roles for role in ["mod", "moderator", "modérateur", "staff"]):
+            return "moderator"
+            
+        if any(role in user_roles for role in ["premium", "vip", "donateur", "supporter"]):
             return "premium"
+            
+        if any(role in user_roles for role in ["beta", "tester", "testeur"]):
+            return "beta"
+        
+        # Basé sur les permissions Discord si pas de rôle spécifique
+        if user.guild_permissions.administrator:
+            return "admin"
+        elif user.guild_permissions.manage_guild or user.guild_permissions.manage_channels:
+            return "moderator"
         elif user.guild_permissions.manage_messages:
             return "beta"
         else:

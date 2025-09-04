@@ -16,7 +16,7 @@ from typing import Optional, List, Dict, Any
 import asyncio
 
 # Import du système de protection Arsenal
-from .arsenal_protection_middleware import require_registration, require_premium, require_dev
+from .arsenal_protection_middleware import require_registration, require_moderator, require_admin, require_fondateur
 
 class SanctionsModal(discord.ui.Modal):
     """Modal pour appliquer une sanction"""
@@ -322,7 +322,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="timeout", description="⏰ Timeout un membre")
     @app_commands.describe(user="Membre à timeout", reason="Raison du timeout", duration="Durée (ex: 1h, 30m)")
-    @require_premium()  # Commande premium - nécessite enregistrement + rôle premium
+    @require_registration("moderator")  # Modérateurs+ uniquement
     async def timeout_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None, duration: str = "1h"):
         """Timeout un utilisateur"""
         
@@ -335,7 +335,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="warn", description="⚠️ Warn un membre")
     @app_commands.describe(user="Membre à warn", reason="Raison du warn")
-    @require_registration("basic")  # Commande de base - nécessite seulement l'enregistrement
+    @require_registration("moderator")  # Modérateurs+ uniquement
     async def warn_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
         """Warn un utilisateur"""
         
@@ -348,7 +348,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="kick", description="👢 Kick un membre")
     @app_commands.describe(user="Membre à kick", reason="Raison du kick")
-    @require_dev()  # Commande développeur - accès restreint
+    @require_registration("admin")  # Administrateurs uniquement
     async def kick_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
         """Kick un utilisateur"""
         
@@ -361,6 +361,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="ban", description="🔨 Ban un membre")
     @app_commands.describe(user="Membre à ban", reason="Raison du ban", duration="Durée (optionnel)")
+    @require_registration("fondateur")  # Fondateurs uniquement - sanction lourde
     async def ban_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None, duration: str = None):
         """Ban un utilisateur"""
         
@@ -373,6 +374,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="mute", description="🔇 Mute un membre")
     @app_commands.describe(user="Membre à mute", reason="Raison du mute", duration="Durée (optionnel)")
+    @require_registration("moderator")  # Modérateurs+ uniquement
     async def mute_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None, duration: str = None):
         """Mute un utilisateur"""
         
@@ -414,6 +416,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="unban", description="✅ Unban un utilisateur")
     @app_commands.describe(user_id="ID de l'utilisateur à unban", reason="Raison")
+    @require_admin()  # Administrateurs uniquement - peut défaire un ban
     async def unban_user(self, interaction: discord.Interaction, user_id: str, reason: str = "Unban"):
         """Unban un utilisateur"""
         
@@ -524,7 +527,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un membre")
     @app_commands.describe(user="Membre dont voir le casier")
-    @require_registration("basic")  # Commande accessible à tous les membres enregistrés
+    @require_registration("basic")  # Tous les membres enregistrés peuvent voir les casiers
     async def view_casier(self, interaction: discord.Interaction, user: discord.Member = None):
         """Afficher le casier judiciaire complet"""
         
