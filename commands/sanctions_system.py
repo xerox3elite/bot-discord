@@ -1,26 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""        if success:
-            embed = discord.Embed(
-                title=f"✅ {self.sanction_type.title()} appliqué",
-                description=message,
-                color=0x00ff00,
-                timestamp=datetime.now(timezone.utc)
-            )
-        else:
-            embed = discord.Embed(
-                title="❌ Erreur",
-                description=message,
-                color=0xff0000,
-                timestamp=datetime.now(timezone.utc)
-            )
-        
-        # Utiliser response.send_message pour les modals, pas edit_original_response
-        try:
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-        except discord.errors.InteractionResponded:
-            # Si l'interaction a déjà été répondue, utiliser followup
-            await interaction.followup.send(embed=embed, ephemeral=True)CTIONS SYSTEM - SYSTÈME DE SANCTIONS COMPLET
+"""
+🚀 ARSENAL SANCTIONS SYSTEM - SYSTÈME DE SANCTIONS COMPLET
 Casier judiciaire permanent avec sanctions/contre-sanctions & AutoMod intégré
 Par xerox3elite - Arsenal V4.5.2 ULTIMATE
 """
@@ -33,6 +14,9 @@ import json
 from datetime import datetime, timezone, timedelta
 from typing import Optional, List, Dict, Any
 import asyncio
+
+# Import du système de protection Arsenal
+from .arsenal_protection_middleware import require_registration, require_premium, require_dev
 
 class SanctionsModal(discord.ui.Modal):
     """Modal pour appliquer une sanction"""
@@ -338,6 +322,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="timeout", description="⏰ Timeout un membre")
     @app_commands.describe(user="Membre à timeout", reason="Raison du timeout", duration="Durée (ex: 1h, 30m)")
+    @require_premium()  # Commande premium - nécessite enregistrement + rôle premium
     async def timeout_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None, duration: str = "1h"):
         """Timeout un utilisateur"""
         
@@ -350,6 +335,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="warn", description="⚠️ Warn un membre")
     @app_commands.describe(user="Membre à warn", reason="Raison du warn")
+    @require_registration("basic")  # Commande de base - nécessite seulement l'enregistrement
     async def warn_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
         """Warn un utilisateur"""
         
@@ -362,6 +348,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="kick", description="👢 Kick un membre")
     @app_commands.describe(user="Membre à kick", reason="Raison du kick")
+    @require_dev()  # Commande développeur - accès restreint
     async def kick_user(self, interaction: discord.Interaction, user: discord.Member, reason: str = None):
         """Kick un utilisateur"""
         
@@ -537,6 +524,7 @@ class SanctionsSystem(commands.Cog):
     
     @app_commands.command(name="casier", description="📋 Voir le casier judiciaire d'un membre")
     @app_commands.describe(user="Membre dont voir le casier")
+    @require_registration("basic")  # Commande accessible à tous les membres enregistrés
     async def view_casier(self, interaction: discord.Interaction, user: discord.Member = None):
         """Afficher le casier judiciaire complet"""
         

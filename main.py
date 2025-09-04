@@ -427,6 +427,25 @@ class ArsenalBot(commands.Bot):
         self.status_system = None
         
     async def setup_hook(self):
+        # 🔥 SYSTÈMES PRIORITAIRES - Enregistrement et Protection
+        print("🔥 Chargement des systèmes prioritaires Arsenal...")
+        
+        # Arsenal Registration System - OBLIGATOIRE EN PREMIER
+        try:
+            from commands.arsenal_registration_system import ArsenalRegistrationSystem
+            await self.add_cog(ArsenalRegistrationSystem(self))
+            log.info("🔥 [PRIORITÉ] Arsenal Registration System chargé - Système central!")
+        except Exception as e:
+            log.error(f"[CRITIQUE] Erreur Registration System: {e}")
+        
+        # Arsenal Protection Middleware - DEUXIÈME PRIORITÉ
+        try:
+            from commands.arsenal_protection_middleware import ArsenalProtectionSystem
+            await self.add_cog(ArsenalProtectionSystem(self))
+            log.info("🛡️ [PRIORITÉ] Arsenal Protection System chargé - Middleware actif!")
+        except Exception as e:
+            log.error(f"[CRITIQUE] Erreur Protection System: {e}")
+        
         # DÉSACTIVÉ - Système de statut Arsenal (remplacé par Profile Ultimate 2000%)
         # self.status_system = initialize_status_system(self)
         # print("🔄 [STATUS] Système de statut Arsenal initialisé")
