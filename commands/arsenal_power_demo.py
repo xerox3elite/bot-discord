@@ -102,11 +102,13 @@ class ArsenalPowerDemo(commands.Cog):
         
         # Recommandations personnalisées
         if role == "membre":
-            recommendation = "💡 **Conseil:** Soyez actif pour débloquer le statut Beta !"
+            recommendation = "💡 **Conseil:** Utilisez `/request-premium` pour devenir Premium automatiquement !"
         elif role == "beta":
-            recommendation = "🚀 **Conseil:** Excellent ! Visez le Premium pour plus de fonctionnalités !"
+            recommendation = "🧪 **Statut:** Beta testeur ! Testez les nouvelles fonctions."
         elif role == "premium":
-            recommendation = "⭐ **Conseil:** Statut Premium ! Vous avez accès à tout !"
+            recommendation = "⭐ **Statut:** Premium Arsenal ! Profitez de vos avantages !"
+        elif role in ["moderator", "admin", "fondateur"]:
+            recommendation = "👑 **Statut:** Staff Arsenal ! Vous gérez la communauté."
         else:
             recommendation = "🔥 **Status:** Vous êtes une légende Arsenal !"
         

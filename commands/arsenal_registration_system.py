@@ -12,6 +12,7 @@ import asyncio
 from datetime import datetime
 import uuid
 import json
+import os
 from typing import Optional, Dict, List
 import logging
 
@@ -241,39 +242,19 @@ class ArsenalUserDatabase:
             await db.commit()
     
     async def _determine_arsenal_role(self, user: discord.Member) -> str:
-        """Déterminer le rôle Arsenal basé sur les permissions Discord"""
+        """Déterminer le rôle Arsenal - PAR DÉFAUT MEMBRE sauf exceptions"""
         
-        # Vérifier les rôles Discord spécifiques d'abord
-        user_roles = [role.name.lower() for role in user.roles]
+        # RÈGLE ARSENAL : Tout le monde commence MEMBRE
+        # Seul le créateur peut promouvoir via /promote-user
         
-        # Rôles spéciaux
-        if any(role in user_roles for role in ["owner", "fondateur", "founder", "créateur"]):
-            return "fondateur"
+        # Exception spéciale : Si c'est le CREATOR_ID du bot
+        creator_id = int(os.getenv("CREATOR_ID", "0"))
+        if user.id == creator_id:
+            return "creator"
         
-        if any(role in user_roles for role in ["developer", "dev", "développeur"]):
-            return "dev"
-            
-        if any(role in user_roles for role in ["admin", "administrator", "administrateur"]):
-            return "admin"
-            
-        if any(role in user_roles for role in ["mod", "moderator", "modérateur", "staff"]):
-            return "moderator"
-            
-        if any(role in user_roles for role in ["premium", "vip", "donateur", "supporter"]):
-            return "premium"
-            
-        if any(role in user_roles for role in ["beta", "tester", "testeur"]):
-            return "beta"
-        
-        # Basé sur les permissions Discord si pas de rôle spécifique
-        if user.guild_permissions.administrator:
-            return "admin"
-        elif user.guild_permissions.manage_guild or user.guild_permissions.manage_channels:
-            return "moderator"
-        elif user.guild_permissions.manage_messages:
-            return "beta"
-        else:
-            return "membre"
+        # Tous les autres = MEMBRE par défaut
+        # Les promotions se font uniquement via /promote-user par le créateur
+        return "membre"
     
     async def _get_highest_role(self, user: discord.Member) -> str:
         """Obtenir le rôle le plus élevé"""
